@@ -1,0 +1,56 @@
+[
+  {
+    "file": "public/art/behind-house.png",
+    "sha256": "bd0c8e67444eb8d606300e5c6f3ef29cafa50e4776848122fdd403ee6ed5aa8c",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/cellar.png",
+    "sha256": "8cab4dae8a6c5e5ce994c23276b9f5f80535da0de1af69e348f0cf47eb86ecc4",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/kitchen.png",
+    "sha256": "b5a6cd11701aead01c2a0d90691f8a9c64993dcfde191a2c30d58aabe2419fad",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/living-room.png",
+    "sha256": "8b460532d5bedf52cf71ee7e347f484bb57b827d086abd68bd32f5e5fca9c1e6",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/north-house.png",
+    "sha256": "f6c22085cbfd3de944a3ddbba5574225686da1f5152b85229cc9abd9feb537db",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/west-house.png",
+    "sha256": "2d715a890693e271995cf2ddd3d079b677a9acbe032f866a9abcecbe21580deb",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "initial static environment plate"
+  }
+]

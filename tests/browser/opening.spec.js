@@ -1,0 +1,36 @@
+import { test, expect } from '@playwright/test';
+test('opening path, graphical actions, save/load and darkness',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('/');await expect(page.locator('#location')).toHaveText('West of House');
+  await expect(page.locator('#painting')).toBeVisible();
+  await expect(page.locator('#objects')).not.toContainText('leaflet');
+  await page.getByRole('button',{name:'Inspect small mailbox',exact:true}).click();
+  await page.getByRole('button',{name:'Open',exact:true}).click();
+  await expect(page.locator('#objects')).toContainText('leaflet');
+  await page.locator('#objects').getByRole('button',{name:'leaflet',exact:true}).click();
+  await page.getByRole('button',{name:'Take',exact:true}).click();
+  await expect(page.locator('#inventory')).toContainText('leaflet');
+  const command=async text=>{await page.locator('#command').fill(text);await page.locator('#command').press('Enter');};
+  for(const text of ['north','east','open window','west','west','take lamp'])await command(text);
+  await expect(page.locator('#location')).toHaveText('Living Room');
+  await expect(page.locator('#objects')).not.toContainText('trap door');
+  await page.getByRole('button',{name:'Save',exact:true}).click();
+  for(const text of ['turn on lamp','move rug','open trap door','down'])await command(text);
+  await expect(page.locator('#location')).toHaveText('Cellar');
+  await command('turn off lamp');await expect(page.locator('#location')).toHaveText('Darkness');
+  await expect(page.locator('#painting')).toBeHidden();
+  await page.getByRole('button',{name:'Load',exact:true}).click();
+  await expect(page.locator('#location')).toHaveText('Living Room');
+  await expect(page.locator('#objects')).not.toContainText('trap door');
+  await command('move rug');await expect(page.locator('#objects')).toContainText('trap door');
+  await page.reload();await page.getByRole('button',{name:'Load',exact:true}).click();
+  await expect(page.locator('#location')).toHaveText('Living Room');
+  expect(errors).toEqual([]);
+});
+test('mobile controls fit without horizontal overflow',async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.goto('/');
+  await expect(page.locator('#location')).toHaveText('West of House');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.getByRole('button',{name:'Go north',exact:true}).click();
+  await expect(page.locator('#location')).toHaveText('North of House');
+});

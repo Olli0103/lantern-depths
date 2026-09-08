@@ -1,0 +1,25 @@
+{
+  "name": "lantern-depths",
+  "version": "0.1.0",
+  "description": "An illustrated interface to the MIT-released Zork I source",
+  "scripts": {
+    "prepare": "node scripts/prepare.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "build": "npm run prepare && vite build",
+    "test": "node --test tests/*.test.js",
+    "preview": "vite preview --host 127.0.0.1",
+    "test:browser": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "ifvms": "^1.1.6",
+    "vite": "^8.2.2"
+  },
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

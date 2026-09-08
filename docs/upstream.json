@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/historicalsource/zork1",
+  "commit": "97b7b3d68c075dd9af7da499c3e9690ada3471fd",
+  "license": "MIT",
+  "story": "COMPILED/zork1.z3",
+  "storySha256": "37084966477dff679282de42974b2077156b1bd68fad92a65d4ea94d8eb64d79",
+  "release": 119,
+  "serial": "880429",
+  "buildStatus": "Archived upstream executable. Not yet rebuilt from the source snapshot.",
+  "interpreter": "ifvms@1.1.6"
+}

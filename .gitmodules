@@ -1,0 +1,3 @@
+[submodule "vendor/zork1"]
+	path = vendor/zork1
+	url = https://github.com/historicalsource/zork1.git

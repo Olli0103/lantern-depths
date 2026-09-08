@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17221f"><title>Lantern Depths — An illustrated adventure</title><link rel="stylesheet" href="/src/style.css"></head>
+<body>
+  <header class="masthead"><a class="brand" href="./"><span class="brand-mark">✦</span> LANTERN DEPTHS <small>AN ILLUSTRATED ADVENTURE</small></a><nav aria-label="Game controls"><button id="save">Save</button><button id="load">Load</button><button id="new">New game</button></nav></header>
+  <main>
+    <div class="chapter"><span>CHAPTER I <b> / </b> THE WHITE HOUSE</span><span id="stats">Preparing your adventure…</span></div>
+    <div class="layout">
+      <section class="world" aria-label="Current location">
+        <div id="scene"><img id="painting" alt=""/><div class="vignette"></div><div class="location"><span class="eyebrow">YOU ARE HERE</span><h1 id="location">The adventure begins</h1><p id="caption"></p></div><div id="hotspots"></div><p id="unpainted" hidden>The illustration ends here.<br>The adventure continues in your journal.</p><span id="scene-state"></span></div>
+        <div class="scene-footer"><span id="instruction">Explore the scene, or write what you want to do.</span><button id="look">Look around ↻</button></div>
+        <section class="journal" aria-label="Adventure journal"><div class="section-head"><h2>THE JOURNAL</h2><span>Every adventure begins with a little curiosity.</span></div><div id="transcript" role="log" aria-live="polite"></div></section>
+        <form id="command-form"><label for="command">YOUR NEXT MOVE</label><div class="command-row"><span aria-hidden="true">›</span><input id="command" name="command" placeholder="Try a command, e.g. examine house" autocomplete="off" maxlength="78"><button type="submit">Explore →</button></div></form>
+      </section>
+      <aside>
+        <section class="panel"><h2>EXPLORE</h2><p class="muted">Follow a path. See where it leads.</p><div class="compass" aria-label="Directions"></div><div id="vertical"></div></section>
+        <section class="panel"><h2>WITHIN REACH</h2><div id="objects"></div><div id="selection" hidden><h3 id="selected-name"></h3><div id="verbs"></div></div></section>
+        <section class="panel inventory-panel"><h2>YOUR SATCHEL <span id="count">0</span></h2><div id="inventory"></div></section>
+        <section class="note"><span class="eyebrow">A WORD TO THE CURIOUS</span><p>Look closely. Try unlikely things.<br>Keep a light within reach.</p></section>
+      </aside>
+    </div>
+    <p id="notice" role="status"></p>
+  </main>
+  <footer><span>Independent, open-source adaptation · Early playable prototype</span><a href="https://github.com/Olli0103/lantern-depths">Source & credits ↗</a></footer>
+  <script src="/zvm.js"></script><script type="module" src="/src/main.js"></script>
+</body></html>
