@@ -1,0 +1,56 @@
+import { test, expect } from '@playwright/test';
+const command = async(page,text) => {await page.locator('#command').fill(text);await page.locator('#command').press('Enter');};
+
+test('mailbox painting, inventory targeting and failed attempts retain real game state',async({page})=>{
+  await page.goto('/');await expect(page.locator('#location')).toHaveText('West of House');
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/west-house.png');
+  await page.getByRole('button',{name:'Inspect small mailbox',exact:true}).click();
+  await page.getByRole('button',{name:'Open',exact:true}).click();
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/west-house-open.png');
+  await page.getByRole('button',{name:'Inspect leaflet',exact:true}).click();
+  await page.getByRole('button',{name:'Take',exact:true}).click();
+  await expect(page.locator('[data-object-id="76"]')).toHaveCount(0);
+  const moves=await page.locator('#stats').textContent();
+  await page.locator('#inventory').getByRole('button',{name:'leaflet',exact:true}).click();
+  await page.getByRole('button',{name:'Put in…',exact:true}).click();
+  await expect(page.locator('#stats')).toHaveText(moves);
+  await page.getByRole('button',{name:'Inspect small mailbox',exact:true}).click();
+  await expect(page.locator('#inventory')).not.toContainText('leaflet');
+  await expect(page.locator('[data-object-id="76"]')).toBeVisible();
+  await command(page,'close mailbox');
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/west-house.png');
+  await expect(page.locator('[data-object-id="76"]')).toHaveCount(0);
+});
+
+test('window variants, movable rug, trapdoor, lamp and sound settings',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('/');await expect(page.locator('#location')).toHaveText('West of House');
+  await expect(page.locator('#sound')).toHaveAttribute('aria-pressed','false');
+  await page.locator('#sound').click();await expect(page.locator('#sound')).toHaveAttribute('aria-pressed','true');
+  await page.locator('#preferences summary').click();
+  await page.locator('#reduce-motion').check();await page.locator('#text-size').selectOption('18');
+  await page.locator('#preferences summary').click();
+  for(const c of ['north','east','open window'])await command(page,c);
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/behind-house-open.png');
+  await command(page,'west');await command(page,'close window');
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/kitchen-closed.png');
+  await command(page,'open window');await command(page,'west');
+  await expect(page.locator('[data-object-id="240"]')).toHaveCount(0);
+  await expect(page.locator('[data-object-id="146"]')).toBeVisible();
+  await page.getByRole('button',{name:'Inspect brass lantern',exact:true}).click();
+  await page.getByRole('button',{name:'Take',exact:true}).click();
+  await expect(page.locator('[data-object-id="146"]')).toHaveCount(0);
+  await page.getByRole('button',{name:'Turn on',exact:true}).click();
+  await page.getByRole('button',{name:'Inspect carpet',exact:true}).click();
+  await page.getByRole('button',{name:'Move',exact:true}).click();
+  await expect(page.locator('[data-object-id="55"]')).toHaveAttribute('data-moved','true');
+  await page.getByRole('button',{name:'Inspect trap door',exact:true}).click();
+  await page.getByRole('button',{name:'Open',exact:true}).click();
+  await expect(page.locator('[data-object-id="240"]')).toHaveAttribute('data-sprite','7');
+  await page.getByRole('button',{name:'down',exact:true}).click();
+  await expect(page.locator('#scene')).toHaveAttribute('data-lantern','true');
+  await command(page,'turn off lamp');await expect(page.locator('#scene')).toHaveAttribute('data-dark','true');
+  await expect(page.locator('#object-layers')).toBeEmpty();
+  await page.locator('#sound').click();await expect(page.locator('#sound')).toHaveAttribute('aria-pressed','false');
+  expect(errors).toEqual([]);
+});

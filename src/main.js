@@ -1,11 +1,14 @@
 import { Engine } from './engine.js';
 import { scenes, nouns, sceneObjects } from './scenes.js';
+import { actionsFor, relations, noun, visualState, changedSounds } from './interactions.js';
+import { spriteIndex, spriteStyle, renderLayers } from './layers.js';
+import { Soundscape } from './audio.js';
 
 const $ = id => document.getElementById(id);
 const key = 'lantern-depths.save.v1';
-let engine, story, selected = null, history = [];
+let engine, story, selected = null, history = [], targeting = null;
+const sound = new Soundscape();
 const art = new Set(['west-house','north-house','behind-house','kitchen','living-room','cellar']);
-const verbs = ['Examine','Open','Close','Take','Read','Move','Drop','Turn on','Turn off'];
 
 function button(label, action, parent, className) {
   const el = document.createElement('button');
@@ -27,11 +30,34 @@ function renderLog() {
   log.scrollTop=log.scrollHeight;
 }
 function select(id) {
+  if(targeting) {
+    const attempt=targeting;
+    if(attempt.id===id){cancelTarget();return;}
+    run(relations[attempt.relation].command(noun(engine,attempt.id),noun(engine,id)));
+    return;
+  }
   selected=id;
+  renderSelection();
+}
+function cancelTarget() {
+  targeting=null;document.body.classList.remove('targeting');
+  $('instruction').textContent='Explore the scene, or write what you want to do.';
+}
+function renderSelection() {
+  const id=selected;
+  if(!id){$('selection').hidden=true;return;}
   $('selection').hidden=false;
   $('selected-name').textContent=engine.name(id);
   $('verbs').replaceChildren();
-  for(const verb of verbs) button(verb,()=>run(verb.toLowerCase()+' '+(nouns[id]??engine.name(id))),$('verbs'));
+  $('relations').replaceChildren();
+  for(const verb of actionsFor(engine,id)) button(verb,()=>run(verb.toLowerCase()+' '+noun(engine,id)),$('verbs'));
+  if(engine.parent(id)===44) {
+    for(const [relation, spec] of Object.entries(relations)) button(spec.label,()=>{
+      targeting={id,relation};document.body.classList.add('targeting');
+      $('instruction').textContent=`${engine.name(id)} → ${spec.label.toLowerCase()} Choose a target · Esc to cancel`;
+      notice('Select a visible object or another item in your satchel.');
+    },$('relations'));
+  }
 }
 function render() {
   const state=engine.state(), scene=scenes[state.room], lit=engine.lit();
@@ -40,7 +66,16 @@ function render() {
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
   const hasArt=lit&&art.has(scene?.art);
   $('painting').hidden=!hasArt;
-  if(hasArt){$('painting').src=`./art/${scene.art}.png`;$('painting').alt=`Painted view of ${state.name}`;}
+  let painting=scene?.art;
+  if(state.room===64&&engine.flag(230,11))painting='west-house-open';
+  if(state.room===85&&engine.flag(243,11))painting='behind-house-open';
+  if(state.room===27&&!engine.flag(243,11))painting='kitchen-closed';
+  if(hasArt){$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${state.name}`;}
+  $('scene').dataset.dark=String(!lit);
+  $('scene').dataset.lantern=String(lit&&!engine.flag(state.room,19));
+  $('scene').dataset.room=state.room;
+  if(hasArt)renderLayers(engine,$('object-layers'),select,button);else $('object-layers').replaceChildren();
+  sound.setScene(!lit?'dark':[64,137,85].includes(state.room)?'outdoors':state.room===33?'cellar':'house');
   $('unpainted').hidden=hasArt||!lit;
   $('hotspots').replaceChildren();
   const visible=sceneObjects(engine);
@@ -59,15 +94,20 @@ function render() {
   if(!visible.length){const p=document.createElement('p');p.textContent=lit?'Look around. There may be more than meets the eye.':'You cannot see your surroundings.';$('objects').append(p);}
   $('inventory').replaceChildren();
   const items=engine.inventory();$('count').textContent=items.length;
-  for(const item of items)button(item.name+(item.id===146&&engine.flag(146,19)?' · lit':''),()=>select(item.id),$('inventory'));
+  for(const item of items){
+    const el=button(item.name+(item.id===146&&engine.flag(146,19)?' · lit':''),()=>select(item.id),$('inventory'));
+    if(spriteIndex[item.id]!==undefined){const icon=document.createElement('span');icon.className='inventory-icon';icon.setAttribute('aria-hidden','true');spriteStyle(icon,spriteIndex[item.id]);el.prepend(icon);}
+  }
   if(!items.length){const p=document.createElement('p');p.textContent='A little room for whatever you find.';$('inventory').append(p);}
   if(selected&&!visible.includes(selected)&&!items.some(i=>i.id===selected)){selected=null;$('selection').hidden=true;}
+  renderSelection();
   document.querySelectorAll('.compass button, #vertical button, #command-form button').forEach(el=>el.disabled=!!engine.vm.quit);
   renderLog();
 }
 function run(command) {
   command=command.trim();if(!command)return;
-  try {addEntry(command,engine.command(command));notice('');render();}
+  cancelTarget();
+  try {const before=visualState(engine);addEntry(command,engine.command(command));for(const effect of changedSounds(before,visualState(engine)))sound.effect(effect);notice('');render();}
   catch(e){notice(e.message);}
 }
 async function start() {
@@ -94,11 +134,21 @@ $('load').addEventListener('click',()=>{
     const save=JSON.parse(raw);
     if(!Array.isArray(save.history)||save.history.length>150||!save.history.every(e=>typeof e.text==='string'&&typeof e.command==='string'))throw new Error('Invalid journal data.');
     const candidate=new Engine(window.ZVM,story);candidate.restore(save.engine);
-    engine=candidate;history=save.history;selected=null;$('selection').hidden=true;render();notice('Welcome back. Your adventure has been restored.');
+    engine=candidate;history=save.history;selected=null;cancelTarget();$('selection').hidden=true;render();notice('Welcome back. Your adventure has been restored.');
   }catch(e){notice('Load failed: '+e.message);}
 });
 $('new').addEventListener('click',()=>{
   if(!story||!window.confirm('Start a new adventure? Your saved game will remain available.'))return;
-  engine=new Engine(window.ZVM,story);history=[];selected=null;$('selection').hidden=true;addEntry('',engine.output);render();notice('A new adventure begins.');
+  engine=new Engine(window.ZVM,story);history=[];selected=null;cancelTarget();$('selection').hidden=true;addEntry('',engine.output);render();notice('A new adventure begins.');
 });
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){cancelTarget();notice('');}});
+$('sound').addEventListener('click',async()=>{
+  $('sound').disabled=true;
+  try{const enabled=await sound.toggle();$('sound').textContent=enabled?'Sound on':'Sound off';$('sound').setAttribute('aria-pressed',String(enabled));}
+  catch(e){notice(e.message);}finally{$('sound').disabled=false;}
+});
+$('volume').addEventListener('input',e=>sound.setVolume(Number(e.target.value)/100));
+$('text-size').addEventListener('change',e=>document.documentElement.style.setProperty('--journal-size',e.target.value+'px'));
+$('reduce-motion').checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+$('reduce-motion').addEventListener('change',e=>document.documentElement.classList.toggle('reduce-motion',e.target.checked));
 start();

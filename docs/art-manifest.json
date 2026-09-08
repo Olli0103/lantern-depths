@@ -1,5 +1,14 @@
 [
   {
+    "file": "public/art/behind-house-open.png",
+    "sha256": "d19192a9c170bf4475d6b83a66fab8cb0dfe5dbe0e42f527f0c47d367eab2ccb",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "environment state variant"
+  },
+  {
     "file": "public/art/behind-house.png",
     "sha256": "bd0c8e67444eb8d606300e5c6f3ef29cafa50e4776848122fdd403ee6ed5aa8c",
     "width": 1536,
@@ -16,6 +25,15 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-08",
     "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/kitchen-closed.png",
+    "sha256": "847f07ddf3edc8d159af2d43782a1d5116a5574adc28452308259e5ef7c61059",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "environment state variant"
   },
   {
     "file": "public/art/kitchen.png",
@@ -43,6 +61,24 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-08",
     "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/objects-atlas.png",
+    "sha256": "e9757e0208bf346e451bd494bb848dbbf03b6ed5469ff51aacc0b3e5ff4cd2dc",
+    "width": 1774,
+    "height": 887,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "transparent 4x2 sprite atlas"
+  },
+  {
+    "file": "public/art/west-house-open.png",
+    "sha256": "21310aecbaf28339dab768ab6b4a1be80ce7115ec244482eebe11909a579b48b",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-08",
+    "status": "environment state variant"
   },
   {
     "file": "public/art/west-house.png",

@@ -16,8 +16,8 @@ The input is the archived executable bundled with the MIT source repository. A f
 - Darkness hides the environment and room objects. A lantern elsewhere does not illuminate the current room.
 - A closed opaque container must not expose its contents.
 - UI selection does not advance game turns. Sending a command delegates turn behaviour to the game.
-- Use named controls for movable objects until actual state-correct artwork exists. Do not bake a sword or lantern permanently into an environment plate.
-- Backgrounds are currently static plates; open/closed environmental variants are explicitly incomplete.
+- Keep movable objects separate from environment plates. The generated sprite atlas supplies the opening objects, including separate trapdoor states. Known dropped objects return to the floor, not their original furniture placement.
+- Mailbox and window flags select generated scene variants. Rug discovery controls both its movement and trapdoor visibility. Unrepresented states (including sack opening and bottle contents) remain explicit visual limitations.
 - Keep original writing and humour. Do not ask a model to improvise puzzle truth at runtime.
 
 ## Validation milestone
@@ -25,3 +25,11 @@ The input is the archived executable bundled with the MIT source repository. A f
 Test route (spoilers): open mailbox; take leaflet; north; east; open window; west; west; take lamp; turn on lamp; move rug; open trap door; down. Expected room Cellar, score 35. Save/load must preserve pending parser state and inventory along this route.
 
 The whole original world remains accessible by parser. That is not evidence that every puzzle or VM opcode is fully supported by the current presentation adapter. Keep an honest full-game validation backlog.
+
+## Living-house milestone (v0.2)
+
+`interactions.js` derives ordinary verbs from object flags and translates item-to-target choices into existing parser syntax. It does not suggest special solutions. Selection and cancellation are UI-only. Sounds are triggered by confirmed before/after VM changes, not by the command string, so a refused attempt does not play a success effect.
+
+`layers.js` renders cells from one unchanged generated transparent sprite atlas. CSS positioning/perspective integrates the objects with the paintings; hidden objects are not present in the DOM. Reduced-motion preferences disable movement and dust effects. Darkness removes object layers entirely.
+
+`audio.js` uses Web Audio noise buffers and oscillators for a deliberately restrained prototype soundscape. It is off until explicitly enabled, suspends in hidden tabs, and never controls game timing. No external audio files, AI endpoints or paid services are involved.

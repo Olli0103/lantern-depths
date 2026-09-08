@@ -5,6 +5,8 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { Engine } from '../src/engine.js';
 import { sceneObjects } from '../src/scenes.js';
+import { layersFor } from '../src/layers.js';
+import { actionsFor, visualState, changedSounds } from '../src/interactions.js';
 const require=createRequire(import.meta.url);
 const bytes=readFileSync('vendor/zork1/COMPILED/zork1.z3');
 const make=()=>new Engine(require('ifvms/src/zvm.js'),bytes);
@@ -51,4 +53,31 @@ test('mismatched story saves are rejected',()=>{
 test('source executable is bound to its documented SHA-256',()=>{
   const provenance=JSON.parse(readFileSync('docs/upstream.json','utf8'));
   assert.equal(createHash('sha256').update(bytes).digest('hex'),provenance.storySha256);
+});
+
+test('illustrated props follow discovery, possession and save restoration',()=>{
+  const e=make();walk(e,enter);
+  const ids=()=>layersFor(e).map(layer=>layer.id);
+  assert.ok(ids().includes(146));assert.ok(!ids().includes(240));
+  const save=e.snapshot();
+  walk(e,['take lamp','move rug','open trap door']);
+  assert.ok(!ids().includes(146));
+  assert.equal(layersFor(e).find(layer=>layer.id===240).index,7);
+  assert.equal(layersFor(e).find(layer=>layer.id===55).moved,true);
+  e.restore(save);assert.ok(ids().includes(146));assert.ok(!ids().includes(240));
+  walk(e,['take lamp','drop lamp']);
+  assert.equal(layersFor(e).find(layer=>layer.id===146).y,90);
+});
+test('opening a closed mailbox changes actions and only successful changes produce effects',()=>{
+  const e=make();const before=visualState(e);
+  assert.ok(actionsFor(e,230).includes('Open'));assert.ok(!actionsFor(e,230).includes('Take'));
+  e.command('open mailbox');const open=visualState(e);
+  assert.deepEqual(changedSounds(before,open),['wood']);
+  assert.ok(actionsFor(e,230).includes('Close'));assert.ok(!actionsFor(e,230).includes('Open'));
+  e.command('open mailbox');assert.deepEqual(changedSounds(open,visualState(e)),[]);
+});
+test('returning a leaflet to the mailbox and closing it hides the artwork',()=>{
+  const e=make();walk(e,['open mailbox','take leaflet','put leaflet in mailbox']);
+  assert.ok(layersFor(e).some(layer=>layer.id===76));
+  e.command('close mailbox');assert.ok(!layersFor(e).some(layer=>layer.id===76));
 });
