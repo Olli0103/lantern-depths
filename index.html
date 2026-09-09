@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b1512">
   <title>Lantern Depths — An illustrated adventure</title>
   <link rel="stylesheet" href="/src/style.css">
@@ -18,10 +18,11 @@
       <button id="sound" aria-pressed="false">Sound off</button>
       <button id="journal-toggle" aria-expanded="true" aria-controls="journal-body">Journal</button>
       <details id="preferences">
-        <summary><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-settings"></use></svg><span>Settings</span></summary>
+        <summary><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-settings"></use></svg><span>Menu</span></summary>
         <div class="settings-panel">
+          <div id="mobile-utilities" aria-label="Game utilities"></div>
 
-          <button id="save-manager" type="button">Saved adventures</button><button id="new" type="button">New game</button><button id="music" aria-pressed="false">Play opening music</button><label for="volume">Audio level</label>
+          <button id="menu-help" type="button">How to play</button><button id="save-manager" type="button">Saved adventures</button><button id="new" type="button">New game</button><button id="music" aria-pressed="false">Play opening music</button><label for="volume">Audio level</label>
           <input id="volume" type="range" min="0" max="100" value="30">
           <label for="text-size">Journal text</label>
           <select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select>
@@ -99,7 +100,7 @@
           <section id="journal-body" class="journal" aria-label="Adventure journal">
             <div class="section-head">
               <h2><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-journal"></use></svg><span>THE JOURNAL</span></h2>
-              <span id="journal-location">West of House</span>
+              <span id="journal-location">West of House</span><button id="journal-close" type="button" aria-label="Close journal">×</button>
             </div>
             <div id="transcript" role="log" aria-live="polite" tabindex="0" aria-label="Journal history"></div>
           </section>
@@ -126,7 +127,7 @@
   </dialog>
   <dialog id="map-dialog" aria-labelledby="map-title"><button id="map-close">Close map ×</button><h2 id="map-title">Your discovered routes</h2><div id="map-content"></div></dialog>
   <dialog id="detail" aria-labelledby="detail-title"><button id="detail-close" aria-label="Close detail">Close ×</button><h2 id="detail-title"></h2><div id="detail-art" aria-hidden="true"></div><p id="detail-text"></p></dialog>
-  <dialog id="help-dialog" aria-labelledby="help-title"><button id="help-close">Close help ×</button><h2 id="help-title">A word to the curious</h2><p>Select a marker or a nearby object to see its actions. Select an item in your satchel to use it with another object.</p><p>The command line understands the original game’s commands. Try <em>look</em>, <em>inventory</em>, or <em>examine mailbox</em>. Unusual ideas are welcome.</p><p>Use Tab to move between controls and Enter to activate them. Escape cancels an item-to-object action or closes a dialog. The Journal button folds the text without hiding the command line. Up/Down in the command line recalls recent commands. Undo restores your previous command, journal and discovered routes together; the last 20 commands are kept during this session. Use Settings → Saved adventures for additional slots and file export/import.</p></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title"><button id="help-close">Close help ×</button><h2 id="help-title">A word to the curious</h2><p>Select a marker or a nearby object to see its actions. Select an item in your satchel to use it with another object.</p><p>The command line understands the original game’s commands. Try <em>look</em>, <em>inventory</em>, or <em>examine mailbox</em>. Unusual ideas are welcome.</p><p>Use Tab to move between controls and Enter to activate them. Escape cancels an item-to-object action or closes a dialog. The Journal button folds the text without hiding the command line. Up/Down in the command line recalls recent commands. Undo restores your previous command, journal and discovered routes together; the last 20 commands are kept during this session. Use Menu → Saved adventures for additional slots and file export/import.</p></dialog>
   <footer><span>Lantern Depths · Illustrated edition</span><span class="footer-mark" aria-hidden="true">✦</span><a href="https://github.com/Olli0103/lantern-depths">Source &amp; credits ↗</a></footer>
   <script src="/zvm.js"></script><script type="module" src="/src/main.js"></script>
 </body>

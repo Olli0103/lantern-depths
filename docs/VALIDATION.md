@@ -69,3 +69,12 @@ anchor on either side. All 47 node tests, the 25-test production suite, and the
 additional 108-room browser audit passed locally (73 distinct tests overall).
 The changed grate path and three reported regressions were rechecked on the
 final production build; build and browser runs were serialized.
+
+### Responsive UI redesign
+
+See [responsive UI evidence](RESPONSIVE-UI.md). The full Chromium suite now has
+27 tests and the focused WebKit suite has 9. Existing 47 engine tests remain
+unchanged. Desktop keyboard selection, mobile menu/journal access, sheet bounds,
+44px action targets, old saves, darkness, slow image transitions and the complete
+350-point route remain checked. A physical-iPhone software-keyboard test is not
+claimed; WebKit emulation cannot establish that result.

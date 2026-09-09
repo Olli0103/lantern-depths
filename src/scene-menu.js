@@ -6,9 +6,11 @@ export class SceneMenu {
     document.addEventListener('pointerdown',e=>{if(this.anchorId!==null&&!panel.contains(e.target))this.close();});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&this.anchorId!==null){this.close(true);}});
     window.addEventListener('resize',()=>this.position());
+    window.visualViewport?.addEventListener('resize',()=>this.position());
+    window.visualViewport?.addEventListener('scroll',()=>this.position());
     window.addEventListener('scroll',()=>this.position(),{passive:true,capture:true});
   }
-  anchor(){return this.scene.querySelector(`[data-object-id="${this.anchorId}"], [data-select-id="${this.anchorId}"]`);}
+  anchor(){return this.scene.querySelector(`[data-object-id="${this.anchorId}"], [data-select-id="${this.anchorId}"]`)??document.querySelector(`[data-select-id="${this.anchorId}"]`);}
   open(id){
     // Accessible sidebar is a complete fallback on browsers without Popover.
     if(!this.panel.showPopover)return false;
@@ -21,14 +23,14 @@ export class SceneMenu {
     if(this.anchorId===null)return;
     const anchor=this.anchor();if(!anchor)return;
     const r=anchor.getBoundingClientRect(),small=innerWidth<=760;
-    const limit=small?Math.min(innerHeight-12,this.parser.getBoundingClientRect().top-10):innerHeight-12;
-    this.panel.style.maxHeight=Math.max(100,limit-12)+'px';
-    this.panel.style.width=(small?Math.min(330,innerWidth-24):280)+'px';
+    const limit=Math.min(innerHeight-12,this.parser.getBoundingClientRect().top-10);
+    this.panel.style.maxHeight=Math.max(100,small?Math.min(innerHeight*.42,limit-12):limit-12)+'px';
+    this.panel.style.width=(small?Math.min(480,innerWidth-24):300)+'px';
     const {width,height}=this.panel.getBoundingClientRect();
     let x=r.right+12;if(x+width>innerWidth-12)x=r.left-width-12;
     if(small)x=(innerWidth-width)/2;
     this.panel.style.left=Math.max(12,Math.min(x,innerWidth-width-12))+'px';
-    this.panel.style.top=Math.max(12,Math.min(r.top,limit-height))+'px';
+    this.panel.style.top=Math.max(12,(small?limit-height:Math.min(r.top,limit-height)))+'px';
   }
   close(focus=false){
     if(this.anchorId===null)return;

@@ -43,7 +43,7 @@ No runtime AI invents story outcomes. No backend is required to play.
 3. **Use what you carry.** Select a satchel item, choose a relationship such as **Put in…** or **Light with…**, then select a target. These are attempts, not guaranteed solutions.
 4. **Try things.** Undo restores the previous command, journal and discovered routes. **↑ / ↓** recalls command history while preserving an unfinished draft.
 
-**Saving:** Quick save/load stays close at hand. **Settings → Saved adventures** manages named slots and portable save files. Storage belongs to this browser and device; export a save before switching devices or clearing browser data.
+**Saving:** Quick save/load stays close at hand. **Menu → Saved adventures** manages named slots and portable save files. Storage belongs to this browser and device; export a save before switching devices or clearing browser data.
 
 **Sound:** Music starts when browser policy allows, otherwise on the first interaction. Music and ambience can be disabled independently in Settings.
 

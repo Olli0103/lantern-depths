@@ -21,7 +21,7 @@ We welcome bug reports, playtesting, documentation, accessibility improvements, 
 - **Evidence:** a screenshot or short recording; for flicker, mention whether it happens on a cold load or slow connection.
 - **Persistence:** whether reload, Undo or Save → Load changes the result.
 
-Save export is under **Settings → Saved adventures**. A save or journal can contain your typed commands and play history; inspect it before posting publicly. Never attach credentials or unrelated personal files. Mark puzzle solutions and late-game screenshots as spoilers.
+Save export is under **Menu → Saved adventures**. A save or journal can contain your typed commands and play history; inspect it before posting publicly. Never attach credentials or unrelated personal files. Mark puzzle solutions and late-game screenshots as spoilers.
 
 ## Set up a development copy
 

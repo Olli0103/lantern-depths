@@ -19,6 +19,8 @@ jobs:
       - run: npm run verify:source
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: npx playwright install --with-deps webkit
+      - run: npm run test:webkit
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

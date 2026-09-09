@@ -45,6 +45,7 @@ function addEntry(command, text) {
 }
 function renderLog() {
   const log=$('transcript'); log.replaceChildren();
+  $('journal-toggle').toggleAttribute('data-unread',$('journal-body').hidden);
   for(const entry of history) {
     if(entry.command) { const p=document.createElement('p'); p.className='command'; p.textContent='› '+entry.command; log.append(p); }
     const p=document.createElement('p');p.textContent=entry.text;log.append(p);
@@ -64,7 +65,7 @@ function select(id,anchor=null) {
   selected=id;
   if(!anchor)sceneMenu.close();
   renderSelection();
-  if(anchor&&sceneMenu.open(id))return;
+  if((anchor||window.matchMedia('(max-width:760px)').matches)&&sceneMenu.open(id))return;
   if(window.matchMedia('(max-width:760px)').matches) $('selection').scrollIntoView({block:'nearest',behavior:'instant'});
 }
 function cancelTarget() {
@@ -300,12 +301,40 @@ $('volume').addEventListener('input',e=>{
 $('text-size').addEventListener('change',e=>document.documentElement.style.setProperty('--journal-size',e.target.value+'px'));
 $('reduce-motion').checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('reduce-motion').addEventListener('change',e=>document.documentElement.classList.toggle('reduce-motion',e.target.checked));
-$('journal-toggle').addEventListener('click',()=>{
-  const expanded=$('journal-toggle').getAttribute('aria-expanded')!=='true';
+// Rehome utility buttons, never duplicate their IDs or event listeners.
+const mobileLayout=matchMedia('(max-width:760px)');
+const utilityIds=['sound','map','save','load'];
+const utilityHomes=utilityIds.map(id=>{const node=$(id),marker=document.createComment(id);node.before(marker);return {node,marker};});
+let journalPreference=null;
+function setJournal(expanded){
   $('journal-toggle').setAttribute('aria-expanded',String(expanded));
   $('journal-body').hidden=!expanded;
-});
+  for(const el of document.querySelectorAll('.world,.sidebar,footer'))el.inert=expanded&&mobileLayout.matches;
+  if(expanded)$('journal-toggle').removeAttribute('data-unread');
+  if(expanded){requestAnimationFrame(()=>{const log=$('transcript'),latest=log.lastElementChild;log.scrollTop=latest?latest.offsetTop-parseFloat(getComputedStyle(log).paddingTop):0;});}
+}
+function responsiveLayout(){
+  for(const {node,marker} of utilityHomes){if(mobileLayout.matches)$('mobile-utilities').append(node);else marker.after(node);}
+  setJournal(journalPreference??!mobileLayout.matches);
+  $('preferences').open=false;
+}
+$('journal-toggle').addEventListener('click',()=>{journalPreference=$('journal-body').hidden;setJournal(journalPreference);});
+$('journal-close').addEventListener('click',()=>{journalPreference=false;setJournal(false);$('journal-toggle').focus();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileLayout.matches&&!$('journal-body').hidden){journalPreference=false;setJournal(false);$('journal-toggle').focus();}if(e.key==='Escape')$('preferences').open=false;});
+mobileLayout.addEventListener('change',responsiveLayout);responsiveLayout();
+// iOS visualViewport shrinks/pans with the keyboard; keep the dock in that
+// visible viewport, without changing story state or forcing input focus.
+function syncViewport(){
+ const v=window.visualViewport;
+ const keyboard=mobileLayout.matches&&document.activeElement===$('command');
+ const offset=keyboard&&v?Math.max(0,innerHeight-v.height-v.offsetTop):0;
+ document.documentElement.style.setProperty('--keyboard-offset',offset+'px');
+}
+window.visualViewport?.addEventListener('resize',syncViewport);
+window.visualViewport?.addEventListener('scroll',syncViewport);
+$('command').addEventListener('focus',syncViewport);$('command').addEventListener('blur',syncViewport);
 $('parser-inventory').addEventListener('click',()=>engine&&run('inventory'));
 $('parser-help').addEventListener('click',()=>$('help-dialog').showModal());
+$('menu-help').addEventListener('click',()=>{$('preferences').open=false;$('help-dialog').showModal();});
 $('help-close').addEventListener('click',()=>$('help-dialog').close());
 start();

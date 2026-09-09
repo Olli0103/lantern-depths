@@ -10,7 +10,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "playwright test",
     "build:source": "node scripts/build-source.mjs",
-    "verify:source": "node scripts/story-adapter.mjs --check && node scripts/verify-source.mjs"
+    "verify:source": "node scripts/story-adapter.mjs --check && node scripts/verify-source.mjs",
+    "test:webkit": "playwright test --config playwright.webkit.config.js"
   },
   "keywords": [],
   "author": "",
