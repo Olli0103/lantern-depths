@@ -1,5 +1,8 @@
 # Lantern Depths
 
+<img width="1500" height="914" alt="image" src="https://github.com/user-attachments/assets/4e1b0774-884c-43b1-b0c1-2713c671234d" />
+
+
 An independent illustrated edition of **Zork I**, built from the historical MIT-licensed source. A first-person point-and-click interface with the original parser, puzzles, danger and dry humour. Not an official remaster.
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
