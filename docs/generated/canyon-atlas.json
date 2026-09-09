@@ -1,0 +1,27 @@
+{
+  "key": "canyon-atlas",
+  "rooms": [
+    [
+      22
+    ],
+    [
+      21
+    ],
+    [
+      74
+    ],
+    [
+      162
+    ]
+  ],
+  "cells": [
+    "Canyon viewpoint from the very top of an immense rocky canyon, river far below, forest at back, daylight, descending footpath along side",
+    "Rocky ledge halfway down a vast canyon, paths continue both upward and downward, daylight",
+    "At bottom of a vast canyon beside cold flowing river, steep rock walls rise high overhead, narrow climbable path up side, daylight",
+    "Deep underground canyon viewed from a rocky path, natural stairway descends away, no bridge or dam control visible, warm lantern foreground and cold shadows"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Canyon viewpoint from the very top of an immense rocky canyon, river far below, forest at back, daylight, descending footpath along side. TOP RIGHT: Rocky ledge halfway down a vast canyon, paths continue both upward and downward, daylight. BOTTOM LEFT: At bottom of a vast canyon beside cold flowing river, steep rock walls rise high overhead, narrow climbable path up side, daylight. BOTTOM RIGHT: Deep underground canyon viewed from a rocky path, natural stairway descends away, no bridge or dam control visible, warm lantern foreground and cold shadows. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/canyon-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

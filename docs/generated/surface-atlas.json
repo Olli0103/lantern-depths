@@ -1,0 +1,27 @@
+{
+  "key": "surface-atlas",
+  "rooms": [
+    [
+      209
+    ],
+    [
+      187
+    ],
+    [
+      238
+    ],
+    [
+      5
+    ]
+  ],
+  "cells": [
+    "South face of a modest white clapboard house with boarded windows, no door, grassy foreground and trees; overcast daylight",
+    "Dusty attic inside the white house, low wooden beams, only a dark stairwell descending, no rope or knife or loose props",
+    "Forest path through tall deciduous trees with one climbable large tree beside the path, no nest visible from ground level",
+    "View from a fork high in a large tree over forest foliage, broad branch in foreground; no nest or egg baked into the plate"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: South face of a modest white clapboard house with boarded windows, no door, grassy foreground and trees; overcast daylight. TOP RIGHT: Dusty attic inside the white house, low wooden beams, only a dark stairwell descending, no rope or knife or loose props. BOTTOM LEFT: Forest path through tall deciduous trees with one climbable large tree beside the path, no nest visible from ground level. BOTTOM RIGHT: View from a fork high in a large tree over forest foliage, broad branch in foreground; no nest or egg baked into the plate. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/surface-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

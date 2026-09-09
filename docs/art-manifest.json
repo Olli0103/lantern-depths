@@ -133,5 +133,251 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-09",
     "status": "transparent sprite atlas with authored CSS source rectangles"
+  },
+  {
+    "file": "public/art/gallery.png",
+    "sha256": "ff7b6e4c929db6bdf6f6a557d3c65987ffc298b071b0aa4df3b3da9aa2c4b893",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "environment plate"
+  },
+  {
+    "file": "public/art/studio.png",
+    "sha256": "4bea60f255103c64b6de3605d4d0d1fbfef183737cf380a9b37cb51462731dd6",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "environment plate"
+  },
+  {
+    "file": "public/art/gallery-props.png",
+    "sha256": "b3585d0a37e5f8ae1ecb05d0e070e33785ebac82a5922646b977d55da9cfc242",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "stateful prop atlas"
+  },
+  {
+    "file": "public/art/passage-atlas.png",
+    "sha256": "809065b9241508a6c734fd467e5e32c1cdad51bf945d7eb92c5657ff5c2715ff",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "four-cell environment atlas"
+  },
+  {
+    "file": "public/art/surface-atlas.png",
+    "sha256": "aa01be62e8caeb5f248395deee9908736fafc48192176b27bc794495241254c2",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/surface-atlas.json"
+  },
+  {
+    "file": "public/art/forest-atlas.png",
+    "sha256": "e492920372a8a270153076a3805367e34ef208628b1f4bbb1463019f3aa2cf41",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/forest-atlas.json"
+  },
+  {
+    "file": "public/art/canyon-atlas.png",
+    "sha256": "9299fb2c89f5fdee4f308d2254629f74e1e233ade242f77b87ee6c5b45879415",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/canyon-atlas.json"
+  },
+  {
+    "file": "public/art/temple-atlas.png",
+    "sha256": "e9b3c2249436adbede411d56ffaa68c2b43d0d5754947cd4a3320055d3c933a1",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/temple-atlas.json"
+  },
+  {
+    "file": "public/art/dome-atlas.png",
+    "sha256": "0cf1575c64392bf8b6e6e9c416e78a8fbea5eb2eb85436ccde013607e8431116",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/dome-atlas.json"
+  },
+  {
+    "file": "public/art/passages-two-atlas.png",
+    "sha256": "b8fd2e60ac1d91f89f2300f47fbea80b3b25ba82dc528c754e06366423d10836",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/passages-two-atlas.json"
+  },
+  {
+    "file": "public/art/caves-atlas.png",
+    "sha256": "f6b50fde09ee8631c2bdff486264a9703848e4592b6c7bb1addcc10f010519ae",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/caves-atlas.json"
+  },
+  {
+    "file": "public/art/river-atlas.png",
+    "sha256": "7e509ffdf6c5cdc8d369bdec3ede67faa14e8538c1a6d8a404be45f886209249",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/river-atlas.json"
+  },
+  {
+    "file": "public/art/waterways-atlas.png",
+    "sha256": "8a4faf4805c3191eb7c346db1442b2dc4c17eda705ea2f9f2e84f5c93985bdb8",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/waterways-atlas.json"
+  },
+  {
+    "file": "public/art/reservoir-atlas.png",
+    "sha256": "68522642e2722882f22e3eaa1f215c0e411b1c1ed9dd7114a322015b2958c1c3",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/reservoir-atlas.json"
+  },
+  {
+    "file": "public/art/dam-atlas.png",
+    "sha256": "a950880da7dfa5e9756ce32d0d3283d6a1d8cd1a0c34b656c2751ea42485829b",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/dam-atlas.json"
+  },
+  {
+    "file": "public/art/mines-atlas.png",
+    "sha256": "0e79a7bb87d91db99d5c856b92682dd74720f1b92b8d27d61af5a7f5b07f64c7",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/mines-atlas.json"
+  },
+  {
+    "file": "public/art/mine-chambers-atlas.png",
+    "sha256": "3708df096528ef3b441dfcdf61fc7fbfe30ac30b173ff1a017cca0741cb16344",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/mine-chambers-atlas.json"
+  },
+  {
+    "file": "public/art/mine-oddities-atlas.png",
+    "sha256": "d9382d2b9bb423c54fd0bb8dd1769881bbccdcaff57080aaee4d21710aee2c5a",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/mine-oddities-atlas.json"
+  },
+  {
+    "file": "public/art/late-atlas.png",
+    "sha256": "a85eff0acdb73c87a99cc5ecda43337ca7b3d28a848c5d1f4ef714b186f72d13",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/late-atlas.json"
+  },
+  {
+    "file": "public/art/rainbow-atlas.png",
+    "sha256": "8aba0ea127b4ae9562efb6e42bb46ad4fdb640acd9c926acb8129ceeaf8f65d7",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/rainbow-atlas.json"
+  },
+  {
+    "file": "public/art/mirror-atlas.png",
+    "sha256": "13725ae279e8945aa3500d88eb46fd72ffff384d3692003ac316c6356dd098f1",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "regional environment atlas; stateful props separate",
+    "prompt": "docs/generated/mirror-atlas.json"
+  },
+  {
+    "file": "public/art/treasures-atlas.png",
+    "sha256": "2a3a16062eb99115749802be147c1c3d42b4702eee4bc679ec3495f1a9d4aebe",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "transparent 4x4 stateful sprite atlas",
+    "prompt": "docs/prop-plan.json"
+  },
+  {
+    "file": "public/art/equipment-atlas.png",
+    "sha256": "d975a29048659f611c19f6b167846a505f08745ea98adb02826ccd404455af2d",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "transparent 4x4 stateful sprite atlas",
+    "prompt": "docs/prop-plan.json"
+  },
+  {
+    "file": "public/art/world-objects-atlas.png",
+    "sha256": "21f0237f86d6c03173c24e4054ba24bb66e38aa8b8716f1648d5963276fa3fc5",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "transparent 4x4 stateful sprite atlas",
+    "prompt": "docs/prop-plan.json"
+  },
+  {
+    "file": "public/art/encounters-atlas.png",
+    "sha256": "e0b45e3d773ecfe0b9f61c8e31f310b38adda44865a3f8b1065148c19ff66750",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "transparent 4x4 stateful sprite atlas",
+    "prompt": "docs/prop-plan.json"
   }
 ]

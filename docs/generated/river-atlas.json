@@ -1,0 +1,32 @@
+{
+  "key": "river-atlas",
+  "rooms": [
+    [
+      37,
+      45,
+      53,
+      174,
+      182
+    ],
+    [
+      166,
+      184
+    ],
+    [
+      30
+    ],
+    [
+      155
+    ]
+  ],
+  "cells": [
+    "First-person view just above fast cold river water between tall white rocky cliffs, no boat edge or buoy painted into scene, rushing water no waterfall immediately ahead",
+    "Long narrow beach beneath towering white cliffs beside cold river, no boat or loose props",
+    "Broad sandy river beach at foot of cliffs, path leads inland northeast, no shovel or boat or buoy",
+    "Small sandy cave near river, deep unmarked sand floor reserved for excavation state, no scarab visible"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: First-person view just above fast cold river water between tall white rocky cliffs, no boat edge or buoy painted into scene, rushing water no waterfall immediately ahead. TOP RIGHT: Long narrow beach beneath towering white cliffs beside cold river, no boat or loose props. BOTTOM LEFT: Broad sandy river beach at foot of cliffs, path leads inland northeast, no shovel or boat or buoy. BOTTOM RIGHT: Small sandy cave near river, deep unmarked sand floor reserved for excavation state, no scarab visible. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/river-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

@@ -1,0 +1,49 @@
+{
+  "key": "forest-atlas",
+  "rooms": [
+    [
+      32,
+      87,
+      167,
+      221
+    ],
+    [
+      128,
+      160
+    ],
+    [
+      141,
+      143,
+      147,
+      153,
+      156
+    ],
+    [
+      19,
+      34,
+      42,
+      50,
+      51,
+      54,
+      81,
+      104,
+      134,
+      152,
+      158,
+      161,
+      170,
+      193,
+      218
+    ]
+  ],
+  "cells": [
+    "Dense deciduous forest with confusing similar trees and undergrowth, daylight, no unique route markers",
+    "Small grassy forest clearing enclosed by trees, neutral ground with no grating, leaves pile, or secret entrance visible",
+    "Featureless cramped stone dead end in a twisty underground maze, warm lamp light and identical grey rock, no props",
+    "Twisty little underground passages all alike, branching grey stone tunnels, no unique signs, treasure or markers; intentionally generic to preserve the maze puzzle"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Dense deciduous forest with confusing similar trees and undergrowth, daylight, no unique route markers. TOP RIGHT: Small grassy forest clearing enclosed by trees, neutral ground with no grating, leaves pile, or secret entrance visible. BOTTOM LEFT: Featureless cramped stone dead end in a twisty underground maze, warm lamp light and identical grey rock, no props. BOTTOM RIGHT: Twisty little underground passages all alike, branching grey stone tunnels, no unique signs, treasure or markers; intentionally generic to preserve the maze puzzle. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/forest-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

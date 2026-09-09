@@ -109,3 +109,26 @@ test('a defeated troll is absent, its dropped axe remains, and the passage opens
   e.command('take axe');assert.ok(!layersFor(e).some(x=>x.id===36));
   e.command('east');assert.equal(e.state().room,130);assert.equal(scenes[130].art,'east-west-passage-v2');
 });
+
+import { Discovery, observation } from '../src/discovery.js';
+test('gallery painting damage, taking and dropping use original state',()=>{
+  const e=make();walk(e,[...descend,'south','east']);
+  assert.equal(e.state().room,122);assert.ok(layersFor(e).some(x=>x.id===92&&x.y===39));
+  e.command('take painting');assert.ok(!layersFor(e).some(x=>x.id===92));
+  e.command('drop painting');assert.ok(layersFor(e).some(x=>x.id===92&&x.y===86));
+  assert.match(e.command('destroy painting with sword'),/destroyed/);assert.equal(e.vm.get_prop(92,12),0);
+});
+test('studio manual is discoverable and chimney retains its inventory restriction',()=>{
+  const e=make();walk(e,[...descend,'south','east','take painting','north']);
+  assert.ok(sceneObjects(e).includes(41));assert.ok(sceneObjects(e).includes(43));
+  assert.match(e.command('read manual'),/self-contained and self-maintaining universe/);
+  assert.match(e.command('up'),/carrying/);assert.equal(e.state().room,220);
+  walk(e,['drop painting','drop sword','up']);assert.equal(e.state().room,27);
+});
+test('discovery notes never infer reverse paths, unseen rooms or maze identity',()=>{
+  const d=new Discovery(),a={id:64,name:'West of House'},b={id:137,name:'North of House'};
+  d.record(null,a);d.record(a,b,'north');assert.deepEqual(d.routes,[{from:64,to:137,direction:'north'}]);
+  d.record(b,{id:19,name:'Maze'},'west');d.record(null,null,'north');assert.equal(d.rooms.length,2);
+  const restored=new Discovery();restored.restore(JSON.parse(JSON.stringify(d.snapshot())));assert.deepEqual(restored.snapshot(),d.snapshot());
+  assert.throws(()=>restored.restore({version:1,rooms:[a],routes:[{from:64,to:137,direction:'north'}]}),/route/);
+});

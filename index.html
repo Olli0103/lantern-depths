@@ -19,14 +19,14 @@
       <details id="preferences">
         <summary><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-settings"></use></svg><span>Settings</span></summary>
         <div class="settings-panel">
-          <label for="volume">Sound level</label>
+          <button id="music" aria-pressed="false">Play opening music</button><label for="volume">Audio level</label>
           <input id="volume" type="range" min="0" max="100" value="30">
           <label for="text-size">Journal text</label>
           <select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select>
           <label class="check"><input id="reduce-motion" type="checkbox"> Reduce motion</label>
         </div>
       </details>
-      <button id="save"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-save"></use></svg><span>Save</span></button>
+      <button id="map">Map</button><button id="save"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-save"></use></svg><span>Save</span></button>
       <button id="load"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-load"></use></svg><span>Load</span></button>
       <button id="new"><span>New game</span></button>
     </nav>
@@ -112,6 +112,8 @@
     <p id="notice" role="status"></p>
   </main>
 
+  <dialog id="map-dialog" aria-labelledby="map-title"><button id="map-close">Close map ×</button><h2 id="map-title">Your discovered routes</h2><div id="map-content"></div></dialog>
+  <dialog id="detail" aria-labelledby="detail-title"><button id="detail-close" aria-label="Close detail">Close ×</button><h2 id="detail-title"></h2><div id="detail-art" aria-hidden="true"></div><p id="detail-text"></p></dialog>
   <footer><span>Independent, open-source adaptation · Early playable prototype</span><span class="footer-mark" aria-hidden="true">✦</span><a href="https://github.com/Olli0103/lantern-depths">Source &amp; credits ↗</a></footer>
   <script src="/zvm.js"></script><script type="module" src="/src/main.js"></script>
 </body>

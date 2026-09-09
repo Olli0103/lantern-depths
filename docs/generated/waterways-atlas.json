@@ -1,0 +1,27 @@
+{
+  "key": "waterways-atlas",
+  "rooms": [
+    [
+      40
+    ],
+    [
+      67
+    ],
+    [
+      86
+    ],
+    [
+      111
+    ]
+  ],
+  "cells": [
+    "Rocky shore at edge of cold river, land path away from water, no boats or treasures",
+    "Footpath beside gently flowing small stream from west to east, rock and moss, no treasure",
+    "View along narrow gently flowing stream between close banks, no boat or props",
+    "At the base of an enormous concrete dam beside river, massive dam wall towers above, no inflated raft or pile of plastic"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Rocky shore at edge of cold river, land path away from water, no boats or treasures. TOP RIGHT: Footpath beside gently flowing small stream from west to east, rock and moss, no treasure. BOTTOM LEFT: View along narrow gently flowing stream between close banks, no boat or props. BOTTOM RIGHT: At the base of an enormous concrete dam beside river, massive dam wall towers above, no inflated raft or pile of plastic. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/waterways-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

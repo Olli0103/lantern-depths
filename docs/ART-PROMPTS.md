@@ -46,6 +46,26 @@ Edit this exact adventure background, change ONLY the small kitchen window at ce
 
 Edit this exact production adventure background. Change ONLY the small kitchen window on the right wall: close its wooden-framed glass sash across the opening, retaining warm daylight passing through the glass. The closed frame must visibly block entry, and remain the same size and location. Keep the table completely empty. Preserve all other scene geometry, camera, lighting, colours, wall, staircase, fireplace, doorway and furniture exactly. Same dimensions. No new objects, people, letters or UI. This is the closed-window state variant viewed from inside the kitchen.
 
+## v0.4 Gallery, studio and passage network — 2026-09-09
+
+Built-in image-generation tool; final PNGs copied unchanged into public/art. Sprite cells use authored CSS rectangles; environmental atlas cells are 2×2.
+
+### gallery.png
+
+Use case: illustration-story. Production background for Lantern Depths, a first-person illustrated classic fantasy adventure, 3:2 landscape. An underground art gallery in the same richly textured painterly style as warm stone cellars and cold teal recesses. Most paintings have been stolen: walls show pale rectangular patches and vacant mounting hooks. North exit at rear, west exit at left. Empty far-wall space at center right reserved for a separately composited painting. Warm neutral diffuse illumination; this gallery is inherently lit in the game, so do not depict a lantern or lamp-dependent blackness. Restrained dust and worn stone floor, dry humour in the sheer emptiness, no text. No loose props, no existing pictures or frames, no treasure, people or creatures. One full scene, no UI, no collage.
+
+### studio.png
+
+Use case: illustration-story. A single 3:2 landscape production environment painting for Lantern Depths. First person in an abandoned underground artist's studio: old stone walls and floor splattered with a riot of dried paint colours, the south exit at left is an open door also covered with paint, and on right a soot-black fireplace with a narrow vertical chimney disappearing into darkness. Warm unseen lantern illumination across foreground, cool shadow, richly textured painterly storybook style matching the underground gallery. Leave a clear patch of wall near center for a separately composited small paper. No paper painted into background, no canvas, easel, palette, brush, treasure, chairs or other collectible props. No text, no figures, no UI. Intimate and eccentric rather than grand, no windows or sunlight.
+
+### gallery-props.png
+
+Use case: stylized-concept. One transparent 2x2 game prop sprite atlas, square image, exactly four equally sized square cells, each subject centered with generous 18 percent clear padding, no overlap. Top left: a beautiful small horizontal oil landscape painting in a modest antique gold frame, dreamlike mountains and a river, no text. Top right: exactly the same painting and frame badly slashed across the canvas, worthless torn cloth, no intact masterpiece behind tear. Bottom left: a single slightly aged rectangular sheet of paper with faint unreadable ink lines, no legible words, no frame. Bottom right: a small closed worn brown leather book with no title. Rich painterly realistic material texture matching a classic fantasy storybook, soft warm light, front-facing inventory props, genuine alpha-transparent background, no checkerboard or cast background, no UI. This is a production asset sheet, not a composition of a room.
+
+### passage-atlas.png
+
+Use case: illustration-story. A production environment atlas for a first-person fantasy adventure. EXACT 2x2 grid of four complete landscape paintings, equal cells, edge-to-edge, NO borders gutters or labels; entire image 3:2 landscape, each cell also 3:2. Richly textured painterly stone, warm unseen lantern from foreground, subdued teal-black recesses; same art direction throughout. TOP LEFT: circular underground stone room with passages radiating around the walls, several blocked with fallen rock, no objects. TOP RIGHT: a high narrow north-south stone passage with a northeast fork opening at right rear, no stairs. BOTTOM LEFT: path along the south side of a bottomless chasm running southwest-northeast, narrow crack passage in foreground south wall, no bridge, railing or visible bottom. BOTTOM RIGHT: low empty cave with northwest passage behind viewer and east passage right, subtle ancient worn engravings on one wall with NO legible text. No characters, treasures, loose props, visible lanterns or UI. Distinct composition in each cell; no elements cross grid boundaries.
+
 ## v0.3 underground — 2026-09-09
 
 Built-in image-generation tool; not Google Imagen. Raster outputs copied unchanged into `public/art`; no image-processing fallback. Files and hashes are in `art-manifest.json`.
@@ -69,3 +89,18 @@ Edit target: this underground corridor painting. Change ONLY the left stairway: 
 ### troll-atlas.png
 
 Use case: stylized-concept. Production sprite atlas on genuinely TRANSPARENT alpha background. Exactly 2 columns by 2 rows, four equal square cells, no gutters, no labels. Same squat nasty-looking fantasy troll with leathery moss-grey skin, ragged brown tunic, large crooked nose and small cunning eyes, grounded richly textured painterly storybook style. Top left: complete full body armed standing troll brandishing a worn iron axe, facing viewer. Top right: identical troll disarmed, cowering with empty hands. Bottom left: identical troll unconscious, lying horizontally on its side, eyes shut, without weapon; no blood or gore. Bottom right: the single iron axe alone diagonally. Each subject centered entirely in its own cell with 10 percent transparent padding, no overlap, no floor or background, no drop shadow extending into other cells. Warm light from lower left, subdued cold shadows. A game sprite sheet, NOT a scene or mockup. Actual transparent background, no checkerboard.
+
+## Whole-world atlases — 2026-09-09
+
+Exact regional prompts and cell assignments are in `docs/generated/*.json`; the complete room plan is in `docs/region-plan.json`. Four 4×4 transparent prop sheets use `docs/prop-plan.json` in left-to-right, top-to-bottom order. Shared wrapper: “Production sprite atlas for Lantern Depths. TRUE TRANSPARENT alpha background, not checkerboard. EXACT 4 columns by 4 rows, square image, sixteen isolated painterly fantasy-adventure object cutouts. Equal square cells, one centered object per cell, generous transparent padding, nothing crosses cell boundaries. No labels, letters, grid lines, scenery or drop shadow blocks. Warm neutral light, tactile materials, realistic proportions, crisp silhouettes matching a mature painted 1990s adventure.” Each cell's description follows in numbered order. Final instruction: “Each entire object must fit within its own equal cell. No substitutions, duplicates or extra objects. Keep all cells transparent around objects.”
+
+Review corrections used the existing atlas as reference, preserving its exact 2×2 layout and unspecified details:
+
+- Canyon: remove the bottom-right lantern and reconstruct bare stone, keeping unseen carried-lamp illumination.
+- Passages two: remove top-left wall lantern and any visible lamps.
+- Caves: replace exterior skies/mountains through openings with receding underground passages; retain the small crack and damp floor.
+- Mines: remove bottom-left lantern and daylight skies; replace with dark mine ceilings/passages.
+- Mirror: remove sconces/flames and their reflections from both mirror states; retain unseen carried-lamp illumination.
+- Late: replace bottom-left exterior vista with an interior passage toward an old house.
+
+All edits were generated, not painted or cut with a processing script. Source PNGs remain intact; browser CSS crops atlas cells.

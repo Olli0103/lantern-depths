@@ -1,0 +1,22 @@
+{
+  "key": "mirror-atlas",
+  "rooms": [
+    [
+      52,
+      110
+    ],
+    [],
+    [],
+    []
+  ],
+  "cells": [
+    "Large square underground stone room with tall ceiling and enormous intact mirror filling south wall, exits on other three sides, mirror reflects only empty stone room, no adventurer",
+    "Exact same square stone room but enormous mirror is broken into shards, no intact reflective sheet, no adventurer",
+    "An enormous bright cavern inside the final stone barrow, wide stream through its center, small wooden footbridge to dark tunnel beyond, no sign or text",
+    "Same open forest clearing as neutral generic clearing but a small dark opening in earth in foreground, no grating or leaves"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Large square underground stone room with tall ceiling and enormous intact mirror filling south wall, exits on other three sides, mirror reflects only empty stone room, no adventurer. TOP RIGHT: Exact same square stone room but enormous mirror is broken into shards, no intact reflective sheet, no adventurer. BOTTOM LEFT: An enormous bright cavern inside the final stone barrow, wide stream through its center, small wooden footbridge to dark tunnel beyond, no sign or text. BOTTOM RIGHT: Same open forest clearing as neutral generic clearing but a small dark opening in earth in foreground, no grating or leaves. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/mirror-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

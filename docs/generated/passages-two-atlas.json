@@ -1,0 +1,27 @@
+{
+  "key": "passages-two-atlas",
+  "rooms": [
+    [
+      228
+    ],
+    [
+      139
+    ],
+    [
+      145
+    ],
+    [
+      102
+    ]
+  ],
+  "cells": [
+    "Long narrow north-south corridor briefly narrowing even further, bare grey stone, lamp foreground",
+    "Cold stone passage with frost-damp walls, low ceiling, subtle breathlike haze with no visible person",
+    "Winding stone passage around a blind bend, no fixtures, no objects",
+    "Twisting rocky passage dropping slightly around an irregular curve, no fixtures or objects"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Long narrow north-south corridor briefly narrowing even further, bare grey stone, lamp foreground. TOP RIGHT: Cold stone passage with frost-damp walls, low ceiling, subtle breathlike haze with no visible person. BOTTOM LEFT: Winding stone passage around a blind bend, no fixtures, no objects. BOTTOM RIGHT: Twisting rocky passage dropping slightly around an irregular curve, no fixtures or objects. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/passages-two-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

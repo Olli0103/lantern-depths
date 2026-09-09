@@ -6,3 +6,6 @@ playwright-report/
 public/story.z3
 public/zvm.js
 public/licenses/
+
+.tools/
+build/

@@ -1,0 +1,25 @@
+{
+  "key": "reservoir-atlas",
+  "rooms": [
+    [
+      123
+    ],
+    [
+      191
+    ],
+    [
+      95
+    ],
+    []
+  ],
+  "cells": [
+    "Southern shore of large underground reservoir filled with dark water, opposite bank distant, broad rocky margin, no treasure",
+    "Northern shore of same filled underground reservoir, sloping rocky bank and exits behind viewer, no pump",
+    "First-person surface-level view on dark reservoir water between cavern banks, no boat or treasure",
+    "Drained underground reservoir, exposed cracked mud and shallow puddles, both banks connected by muddy basin, no jewel trunk visible"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Southern shore of large underground reservoir filled with dark water, opposite bank distant, broad rocky margin, no treasure. TOP RIGHT: Northern shore of same filled underground reservoir, sloping rocky bank and exits behind viewer, no pump. BOTTOM LEFT: First-person surface-level view on dark reservoir water between cavern banks, no boat or treasure. BOTTOM RIGHT: Drained underground reservoir, exposed cracked mud and shallow puddles, both banks connected by muddy basin, no jewel trunk visible. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/reservoir-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

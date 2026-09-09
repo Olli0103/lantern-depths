@@ -1,0 +1,27 @@
+{
+  "key": "mine-oddities-atlas",
+  "rooms": [
+    [
+      46
+    ],
+    [
+      171
+    ],
+    [
+      235
+    ],
+    [
+      31
+    ]
+  ],
+  "cells": [
+    "Small coal-mine gas chamber, grey rocky walls and dark floor, no visible gas cloud or bracelet or flame",
+    "Small squeaky mine chamber with irregular walls, no visible creatures or props",
+    "Low-ceilinged rocky bat chamber, empty ledge for separate figurine; no bat painted in background",
+    "Stone room with top of a steep smooth metal slide descending into blackness, no movable objects"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Small coal-mine gas chamber, grey rocky walls and dark floor, no visible gas cloud or bracelet or flame. TOP RIGHT: Small squeaky mine chamber with irregular walls, no visible creatures or props. BOTTOM LEFT: Low-ceilinged rocky bat chamber, empty ledge for separate figurine; no bat painted in background. BOTTOM RIGHT: Stone room with top of a steep smooth metal slide descending into blackness, no movable objects. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/mine-oddities-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

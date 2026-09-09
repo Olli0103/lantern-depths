@@ -1,4 +1,5 @@
 import { trollState } from './encounters.js';
+import { props,propStyle,propLayers } from './props.js';
 // The single generated 4x2 PNG atlas remains intact; CSS selects its cells.
 export const spriteIndex = { 146: 0, 76: 1, 227: 2, 99: 3, 138: 4, 55: 5, 240: 6 };
 export function spriteStyle(element, index) {
@@ -6,15 +7,32 @@ export function spriteStyle(element, index) {
   element.style.backgroundPosition = `${(index % 4) * 100 / 3}% ${index < 4 ? 0 : 100}%`;
 }
 
+export const galleryItems=new Set([92,41]);
+export function hasItemArt(id){return spriteIndex[id]!==undefined||galleryItems.has(id)||!!props[id];}
+export function itemArt(engine,id,el){
+  if(props[id])propStyle(engine,id,el);
+  else if(galleryItems.has(id)){
+    el.classList.add('gallery-sprite');
+    const index=id===41?2:engine.vm.get_prop(92,12)===0?1:0;
+    const [x,y,w,h]=index===2?[55,570,540,680]:index===1?[627,0,627,550]:[0,0,620,550];
+    el.style.aspectRatio=`${w}/${h}`;el.style.backgroundSize=`${1254/w*100}% ${1254/h*100}%`;
+    el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
+    el.dataset.artState=id===92?(index===1?'damaged':'intact'):'paper';
+  }else spriteStyle(el,spriteIndex[id]);
+}
+
 export function layersFor(engine) {
   if (!engine.lit()) return [];
   const room = engine.state().room;
   const visible = id => engine.visible(id) && engine.parent(id) !== 44;
-  const layers = [];
+  const layers = propLayers(engine);
   const encounter=trollState(engine);
   if(encounter) layers.push({id:150,x:57,y:66,width:encounter==='unconscious'?46:35,encounter});
   if(visible(36)&&engine.parent(36)===room)layers.push({id:36,x:70,y:87,width:15,encounter:'axe'});
   const add = (id, x, y, width, extra = {}) => { if (visible(id)) layers.push({id, x, y, width, index: spriteIndex[id], ...extra}); };
+  if(room===122&&visible(92)&&!engine.flag(92,3))layers.push({id:92,x:69,y:39,width:23,gallery:true});
+  if(room===220&&visible(41)&&!engine.flag(41,3))layers.push({id:41,x:51,y:40,width:10,gallery:true});
+  for(const id of galleryItems)if(visible(id)&&engine.parent(id)===room&&!layers.some(x=>x.id===id))layers.push({id,x:id===92?42:61,y:86,width:id===92?22:10,gallery:true});
   if (room === 75) {
     // The rug is rendered over the same location as the hidden door until discovery.
     const moved = !engine.flag(240, 7);
@@ -42,10 +60,10 @@ export function renderLayers(engine, parent, select, makeButton) {
   for (const layer of wanted) {
     let el = parent.querySelector(`[data-object-id="${layer.id}"]`);
     if (!el) {
-      el = makeButton('', () => select(layer.id), parent, 'scene-object');
+      if(layer.decorative){el=document.createElement('span');el.className='scene-object decorative';el.setAttribute('aria-hidden','true');parent.append(el);}
+      else el = makeButton('', () => select(layer.id), parent, 'scene-object');
       el.dataset.objectId = layer.id;
-      el.setAttribute('aria-label', `Inspect ${engine.name(layer.id)}`);
-      el.title = engine.name(layer.id);
+      if(!layer.decorative){el.setAttribute('aria-label', `Inspect ${engine.name(layer.id)}`);el.title = engine.name(layer.id);}
     }
     if(layer.encounter){
       el.classList.add('encounter-sprite');
@@ -55,7 +73,9 @@ export function renderLayers(engine, parent, select, makeButton) {
       el.style.aspectRatio=`${w}/${h}`;
       el.style.backgroundSize=`${1254/w*100}% ${1254/h*100}%`;
       el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
-    }else spriteStyle(el, layer.index);
+    }else if(layer.prop)propStyle(engine,layer.id,el);
+    else if(layer.gallery)itemArt(engine,layer.id,el);
+    else spriteStyle(el, layer.index);
     el.style.left = layer.x + '%'; el.style.top = layer.y + '%'; el.style.width = layer.width + '%';
     el.dataset.moved = layer.moved ? 'true' : 'false';
     el.classList.toggle('lamp-lit', layer.id === 146 && engine.flag(146, 19));

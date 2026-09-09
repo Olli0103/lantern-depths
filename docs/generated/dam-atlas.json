@@ -1,0 +1,27 @@
+{
+  "key": "dam-atlas",
+  "rooms": [
+    [
+      178
+    ],
+    [
+      120
+    ],
+    [
+      224
+    ],
+    [
+      205
+    ]
+  ],
+  "cells": [
+    "Top walkway of enormous grey concrete dam, parapets, blank foreground area reserved for control panel, no bolt or controls baked in, reservoir visible only as a distant dark band",
+    "Dusty institutional dam lobby with concrete walls and exits north and south, no guidebook or matchbook",
+    "Cramped dam maintenance room of grimy concrete and metal pipes, empty wall area reserved for separate buttons and leak, no wrench screwdriver controls or water flooding baked in",
+    "Large reverberant underground chamber, high walls and upward stair, damp rock, no platinum bar, no readable text or visible soundwaves"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Top walkway of enormous grey concrete dam, parapets, blank foreground area reserved for control panel, no bolt or controls baked in, reservoir visible only as a distant dark band. TOP RIGHT: Dusty institutional dam lobby with concrete walls and exits north and south, no guidebook or matchbook. BOTTOM LEFT: Cramped dam maintenance room of grimy concrete and metal pipes, empty wall area reserved for separate buttons and leak, no wrench screwdriver controls or water flooding baked in. BOTTOM RIGHT: Large reverberant underground chamber, high walls and upward stair, damp rock, no platinum bar, no readable text or visible soundwaves. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/dam-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}
