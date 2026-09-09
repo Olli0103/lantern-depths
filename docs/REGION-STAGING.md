@@ -1,4 +1,4 @@
-# Connected-region staging — v0.5.1
+# Connected-region staging — v0.5.2
 
 This increment improves the house/cellar/troll/chasm/gallery/studio route; it is not the completed regional art milestone.
 
@@ -13,4 +13,4 @@ Keep the established painterly lighting, earthy wood/stone, restrained brass and
 
 ## Known remaining work
 
-Sack and bottle open/empty sprites are **not** complete. Two generated atlas attempts contained a painted transparency grid rather than actual alpha; both were rejected and are not shipped. Existing sprites remain, with original text and visible-content controls providing the state. Packed case shelves and more than six dropped objects need further art/layout review. This is authored positioning, not a collision/physics system. Rooms outside the eleven-room opening region retain prior placement. A visual coordinate editor, additional source-built adapter and the later regions remain separate roadmap tasks.
+Sack opening and all four bottle open/closed × full/empty states now use verified transparent artwork across scene, inventory and detail. Full/closed bottle and closed sack retain the original art. Open sack artwork intentionally has an obscured interior, never guessed contents; visible contents remain separate controls/layers. Previous painted-grid attempts remain rejected. Filling/emptying the sack is not assigned an invented fullness flag or shape. Packed case shelves and more than six dropped objects need further art/layout review. This is authored positioning, not a collision/physics system. Rooms outside the eleven-room opening region retain prior placement. A visual coordinate editor, additional source-built adapter and the later regions remain separate roadmap tasks.

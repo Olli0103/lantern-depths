@@ -118,3 +118,13 @@ The original open variant remains authoritative when window object 243 has OPENB
 2026-09-09, built-in image generation; edit reference `public/art/living-room.png`. Output copied unchanged; original retained. Edit brief: open only the upper glazed double doors of the trophy cabinet; preserve the empty shelves, cabinet geometry, all other room furniture, camera, lighting and painterly texture. Do not add treasures, labels or UI. Original OPENBIT selects the variant. Reviewed decoded in the browser with the lamp, sword and rug layers.
 
 Two container-atlas generations were rejected for missing real alpha and are not shipped. No checkerboard-background extraction or manual raster cleanup was used.
+
+## container-states-v1.png
+
+Built-in image generation, 2026-09-09. Reference: `public/art/objects-atlas.png` for sack/bottle identity and lighting. Generated RGBA copied unchanged; 1254×1254, 2×2 cells. Alpha inspection found 1,049,301 fully transparent pixels out of 1,572,516; no painted checkerboard. Lossless-alpha WebP is derived by the existing build pipeline.
+
+Final prompt:
+
+> Use case: stylized-concept. Create a production game sprite sheet for Lantern Depths. Reference image provides ONLY style and identity for its brown sack and clear glass bottle. New square sheet, exact 2 columns x 2 rows of equal square cells. Top left: that brown cloth sack with drawstring untied, mouth visibly open, dark interior, no visible contents. Top right: same clear glass bottle with water half full and NO cork, visibly open neck. Bottom left: same bottle completely empty with cork firmly in neck. Bottom right: same bottle completely empty, NO cork. Each isolated object centered in its cell with 12 percent transparent padding, same warm painterly light from upper left, matching existing rustic adventure art. Actual transparent RGBA background everywhere outside silhouettes, not a painted grid, no checkerboard, no solid backdrop, no text, no labels, no scenery, no loose cork props. Bottle silhouette remains legible against dark green game backgrounds. Preserve consistent scale of all three bottles.
+
+Closed sack and full/closed bottle retain the original atlas. Open sack does not display guessed contents; the existing visible-content controls remain authoritative. Empty/full uses WATER's parent, open/closed uses OPENBIT. Reused detail/scene nodes reset only art-owned CSS when changing assets.

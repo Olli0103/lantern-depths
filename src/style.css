@@ -48,3 +48,6 @@
 .world-prop:hover{background-color:transparent}
 #detail-art.world-prop{width:min(100%,320px);height:auto;aspect-ratio:1;margin:1rem auto}
 .scene-object.decorative{pointer-events:none;border:0;box-shadow:none}
+
+/* State artwork shares the same source of truth in room, satchel and detail. */
+.container-sprite{background-repeat:no-repeat}

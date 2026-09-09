@@ -1,6 +1,7 @@
 import { stageRegion, authoredRooms } from './staging.js';
 import { trollState } from './encounters.js';
 import { props,propStyle,propLayers } from './props.js';
+import { propImage } from './art.js';
 // The single generated 4x2 PNG atlas remains intact; CSS selects its cells.
 export const spriteIndex = { 146: 0, 76: 1, 227: 2, 99: 3, 138: 4, 55: 5, 240: 6 };
 export function spriteStyle(element, index) {
@@ -9,9 +10,28 @@ export function spriteStyle(element, index) {
 }
 
 export const galleryItems=new Set([92,41]);
+// Read-only release-119 state: WATER's actual parent, never parsed narration.
+export function containerArtState(engine,id){
+  if(id===99)return engine.flag(id,11)?'sack-open':'sack-closed';
+  if(id===138)return `bottle-${engine.parent(186)===138?'full':'empty'}-${engine.flag(id,11)?'open':'closed'}`;
+  return null;
+}
 export function hasItemArt(id){return spriteIndex[id]!==undefined||galleryItems.has(id)||!!props[id];}
 export function itemArt(engine,id,el){
-  if(props[id])propStyle(engine,id,el);
+  // Detail and scene nodes are reused across object/state changes. Remove only
+  // art-owned styles so an open container cannot retain its atlas after closing.
+  el.classList.remove('sprite','gallery-sprite','world-prop','container-sprite');
+  for(const key of ['backgroundImage','backgroundSize','backgroundPosition','aspectRatio'])el.style[key]='';
+  delete el.dataset.artState;
+  const state=containerArtState(engine,id);
+  const cell={'sack-open':0,'bottle-full-open':1,'bottle-empty-closed':2,'bottle-empty-open':3}[state];
+  if(cell!==undefined){
+    el.classList.add('container-sprite');
+    el.style.backgroundImage=propImage('container-states-v1');
+    el.style.backgroundSize='200% 200%';
+    el.style.backgroundPosition=`${cell%2*100}% ${Math.floor(cell/2)*100}%`;
+    el.style.aspectRatio='1';
+  }else if(props[id])propStyle(engine,id,el);
   else if(galleryItems.has(id)){
     el.classList.add('gallery-sprite');
     const index=id===41?2:engine.vm.get_prop(92,12)===0?1:0;
@@ -20,6 +40,7 @@ export function itemArt(engine,id,el){
     el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
     el.dataset.artState=id===92?(index===1?'damaged':'intact'):'paper';
   }else spriteStyle(el,spriteIndex[id]);
+  if(state)el.dataset.artState=state;
 }
 
 export function layersFor(engine) {

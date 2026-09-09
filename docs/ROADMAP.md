@@ -40,3 +40,5 @@ Do not start a universal Z-machine platform, PWA/service-worker caching, AI runt
 - v0.5 implementation: bounded Undo, command history, three save slots plus legacy quick slot, import/export and WebP derivatives. Source-build migration remains a separate gated task. Next production focus: connected-region staging, not more bulk illustrations.
 
 - v0.5.1: direct scene actions, local container contents, eleven-room placement rules and open trophy-case artwork. The region is not declared complete: unsupported container sprites and crowded placement states are recorded in `REGION-STAGING.md`.
+
+- v0.5.2: real-alpha container atlas; open sack and all bottle water/open states follow VM state in room, inventory and detail. Closing a reused node clears stale atlas styling. Packed shelves and crowded floor staging remain open regional work.

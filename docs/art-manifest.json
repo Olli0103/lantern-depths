@@ -398,5 +398,15 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-09",
     "status": "open trophy-case environment variant; reviewed in browser"
+  },
+  {
+    "file": "public/art/container-states-v1.png",
+    "sha256": "ffbb3af474430c95a73a465df6bbee969444c97fc487be14a94497b4ac945974",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "2x2 transparent container-state atlas; original RGBA preserved",
+    "prompt": "docs/ART-PROMPTS.md#container-states-v1png"
   }
 ]
