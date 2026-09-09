@@ -30,6 +30,10 @@ test('all 108 parser-reachable room checkpoints render without duplicate layers 
   const ids=await page.locator('#object-layers [data-object-id]').evaluateAll(es=>es.map(e=>e.dataset.objectId));expect(new Set(ids).size,`duplicate room ${state.room}`).toBe(ids.length);
   expect(await page.locator('#transcript').evaluate(e=>e.scrollWidth<=e.clientWidth),`journal room ${state.room}`).toBe(true);
   if(state.room===216){await expect(page.locator('[data-object-id="29"]')).toHaveCount(1);expect(await page.locator('[data-object-id="29"]').evaluate(e=>parseFloat(e.style.top))).toBeLessThan(30);}
-  await page.locator('#scene').screenshot({path:`test-results/room-audit-${state.room}.png`});
+  await page.locator('#object-layers').evaluate(async root=>{
+   const urls=[...new Set([...root.children].map(el=>getComputedStyle(el).backgroundImage).filter(s=>s.startsWith('url(')).map(s=>s.slice(5,-2)))];
+   await Promise.all(urls.map(async url=>{const image=new Image();image.src=url;await image.decode();}));
+  });
+  await page.locator('#scene').screenshot({animations:'disabled',path:`test-results/room-audit-${state.room}.png`});
  }
 });

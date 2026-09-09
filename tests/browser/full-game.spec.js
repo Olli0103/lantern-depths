@@ -44,7 +44,7 @@ test('complete 350-point adventure through browser with mid-game save/reload',as
         await target.click();await expect(page.locator('#selection')).toBeVisible();await expect(page.locator('#verbs button').first()).toBeVisible();
       }
       await page.locator('#scene').scrollIntoViewIfNeeded();
-      await page.screenshot({path:`test-results/world-${room.replaceAll(' ','-')}.png`,fullPage:true});
+      await page.screenshot({animations:'disabled',path:`test-results/world-${room.replaceAll(' ','-')}.png`,fullPage:true});
     }
     if(i===200){await page.locator('#save').click();await page.reload();await page.locator('#load').click();await expect(page.locator('#notice')).toContainText('restored');}
   }
