@@ -46,6 +46,17 @@ html{scroll-padding-bottom:105px}#selection{scroll-margin-bottom:110px}
 }
 @media(min-width:761px) and (max-width:1100px){#command-form{width:calc(100vw - 2 * var(--gutter) - 266px)}}
 
+/* Grid items must be allowed to shrink below their prose's min-content width. */
+.journal-card,.journal,#transcript{min-width:0;max-width:100%}
+#transcript{position:relative;overflow-x:hidden;overflow-y:auto;height:clamp(190px,26vh,300px);overscroll-behavior:contain}
+#transcript p{overflow-wrap:anywhere;white-space:pre-wrap}
+.section-head>span{min-width:0;overflow-wrap:anywhere;text-align:right}
+#scene[data-painting='loading'] #object-layers,#scene[data-painting='loading'] #hotspots,
+#scene[data-painting='error'] #object-layers,#scene[data-painting='error'] #hotspots{visibility:hidden}
+/* No coordinates should animate across unrelated rooms or container changes. */
+.scene-object{transition:filter .2s}
+.scene-object[data-object-id='157']{z-index:2}
+
 /* Comfort controls stay subordinate to the room. */
 #saves-dialog{width:min(650px,calc(100vw - 32px));max-height:85dvh;overflow:auto}
 .save-slot{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin:18px 0;padding:14px 0;border-bottom:1px solid var(--line, #304038)}

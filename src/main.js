@@ -1,7 +1,8 @@
 import storyAdapters from './story-adapters.json' with {type:'json'};
 import { expeditionChapter, expeditionStates } from './expedition.js';
 import { SceneMenu } from './scene-menu.js';
-import { setPaintingSource,hasPainting } from './art.js';
+import { updatePainting } from './painting.js';
+import { hasPainting } from './art.js';
 import { damRooms,damState } from './dam-region.js';
 import { UndoHistory, CommandHistory } from './checkpoints.js';
 import { QUICK_SAVE_KEY, MAX_SAVE_BYTES, SLOT_COUNT, capture, decodeSave, saveSlot, readSlot, slotMetadata } from './saves.js';
@@ -23,7 +24,7 @@ const checkpoint=()=>capture(engine,history,discovery,storyHash);
 let engine, story, selected = null, history = [], targeting = null;
 const sound = new Soundscape();
 let discovery=new Discovery();
-let previousRoom=null;
+
 const sceneMenu=new SceneMenu($('scene'),$('selection'),$('selection-home'),$('scene-actions'),$('command-form'));
 $('scene-actions-close').addEventListener('click',()=>sceneMenu.close(true));
 
@@ -48,7 +49,10 @@ function renderLog() {
     if(entry.command) { const p=document.createElement('p'); p.className='command'; p.textContent='› '+entry.command; log.append(p); }
     const p=document.createElement('p');p.textContent=entry.text;log.append(p);
   }
-  log.scrollTop=log.scrollHeight;
+  // Keep the beginning of the newest response readable, even when it is
+  // taller than the viewport. Earlier history remains scrollable.
+  const latest=log.lastElementChild;
+  log.scrollTop=latest?latest.offsetTop-parseFloat(getComputedStyle(log).paddingTop):0;
 }
 function select(id,anchor=null) {
   if(targeting) {
@@ -102,25 +106,17 @@ function render() {
   $('stats').textContent=`SCORE ${state.score} / 350 · MOVES ${state.turns}`;
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
   const hasArt=lit&&hasPainting(scene?.art);
-  $('painting').hidden=!hasArt;
-  if(!hasArt){$('painting-source').removeAttribute('srcset');$('painting').removeAttribute('src');$('painting').alt='';}
   $('chapter-label').textContent=!lit?'LANTERN DEPTHS':undergroundRooms.has(state.room)?'BENEATH THE WHITE HOUSE':'LANTERN DEPTHS';
   if(lit&&expeditionChapter(state.room))$('chapter-label').textContent=expeditionChapter(state.room);
   if(lit&&damRooms.has(state.room))$('chapter-label').textContent='FLOOD CONTROL DAM #3';
   $('scene').dataset.underground=String(undergroundRooms.has(state.room));
-  if(previousRoom!==state.room){
-    if(lit&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.documentElement.classList.contains('reduce-motion'))
-      $('painting').animate([{opacity:0},{opacity:1}],{duration:450});
-    previousRoom=state.room;
-  }
   let painting=scene?.art;
   if(state.room===64&&engine.flag(230,11))painting='west-house-open';
   if(state.room===85&&engine.flag(243,11))painting='behind-house-open';
   if(state.room===27&&!engine.flag(243,11))painting='kitchen-closed';
   if(state.room===75&&engine.flag(197,11))painting='living-room-case-open-v1';
   const tile=scene?.cell;
-  Object.assign($('painting').style,tile===undefined?{width:'100%',height:'100%',position:'',left:'',top:''}:{width:'200%',height:'200%',position:'absolute',left:`${-(tile%2)*100}%`,top:`${-Math.floor(tile/2)*100}%`});
-  if(hasArt){setPaintingSource($('painting-source'),painting,tile!==undefined);$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${locationName}`;}
+  updatePainting($('scene'),$('painting-source'),$('painting'),hasArt?painting:null,tile,locationName);
   $('scene').dataset.dark=String(!lit);
   $('scene').dataset.lantern=String(lit&&!engine.flag(state.room,19));
   $('scene').dataset.room=state.room;

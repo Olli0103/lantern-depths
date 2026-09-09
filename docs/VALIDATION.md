@@ -26,3 +26,46 @@ This is a completed illustrated-adventure baseline within the accepted parser-fi
 ### Local release evidence — 2026-09-09
 
 47 engine/integrity tests and 22 browser tests passed (69 total); production build succeeded. A fresh pair of ZILF builds produced the exact shipped source hash and the adapter registry passed regeneration checking. Stable desktop/mobile screenshots were reviewed for altar, open coffin, excavation, baskets and ending. Deployment and live evidence are recorded in the GitHub release after publication.
+
+### Post-release visual regression audit — 2026-09-09
+
+The user reported leaves remaining under the revealed grate, flashes of a previous
+room's atlas during image changes, and a clipped journal. These exposed gaps in
+v1.0's visual acceptance; the earlier completion label did not establish all
+rendered transitions as correct.
+
+Corrections:
+- Leaves use the VM's revealed-grate state to move beside, rather than beneath,
+  the grate. Taking, dropping elsewhere, returning, Undo and Save/Load are checked.
+  A duplicate grate layer has also been removed.
+- Room art and its crop are concealed until the requested image decodes. A request
+  identity rejects late completions after further movement/darkness. Object
+  overlays are withheld with their room; reused props no longer slide between
+  unrelated room positions. A delayed atlas-to-hero test runs with motion enabled.
+- The journal's grid item can shrink, prose wraps at narrow widths, and a long new
+  response starts at its beginning rather than being scrolled halfway through.
+  Widths 360, 390, 768, 880, 1100, 1440 and 1800 are exercised with extra-large text.
+
+The 409-command / 350-point browser route now checks every command for duplicate
+layers, carried objects still drawn in the room, entirely offscreen props and
+horizontal journal/page overflow. At newly encountered named rooms it clicks
+unobscured scene targets and every Nearby item, checking the action panel. Seventy
+distinct named views were captured and reviewed as a contact sheet; repeated
+maze/forest names are not counted as unique rooms. Existing tests separately
+exercise actual actions, containers, death/Undo, combat, darkness and old saves.
+This is a full winning-route and targeted regression audit, not an exhaustive
+claim about all combinations of Zork commands or every random outcome.
+
+Do not run `prepare`/build concurrently with browser tests against Vite dev: its
+file writes can trigger reload and reset a route. For an immutable build or live
+read-back, set `LANTERN_TEST_URL` (with a trailing project slash for GitHub Pages).
+The full-game and visual-regressions specs support that project-relative URL.
+
+The additional room audit explores only parser directions from real route
+checkpoints and restores all 108 reachable room states in the browser. It checks
+actual image decoding, darkness concealment, unique layers, journal width, and
+the ceiling-mounted grate from below. The grate is emitted once, at the correct
+anchor on either side. All 47 node tests, the 25-test production suite, and the
+additional 108-room browser audit passed locally (73 distinct tests overall).
+The changed grate path and three reported regressions were rechecked on the
+final production build; build and browser runs were serialized.

@@ -54,3 +54,8 @@ Do not start a universal Z-machine platform, PWA/service-worker caching, AI runt
 - Source build is now the new-game default with checksum-bound symbolic adapter. Old saves retain their matching archived engine without byte conversion.
 - Existing lightweight JSON authoring and browser review were sufficient; no custom coordinate editor or platform project was warranted.
 - Intentional boundaries: original parser for wordplay/unusual commands, journal for narrative exceptions; no runtime AI, auto-solve, hidden-exit map or physics simulation. These are the accepted design boundaries, not deferred roadmapped regions.
+
+- Post-v1.0 visual audit: user-reported leaf/grate placement, cross-room image
+  flashes and journal clipping corrected. Expanded real-click and per-command
+  visual checks are documented in `VALIDATION.md`; prior completion wording is
+  not a claim of exhaustive game-state verification.

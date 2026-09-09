@@ -39,6 +39,10 @@ export function stageRegion(engine,layers){
   const awaiting=[];
   for(const layer of result){
     const id=layer.id;
+    if(id===157&&room===160&&engine.parent(id)===room){
+      const moved=!engine.flag(29,7);
+      Object.assign(layer,{x:moved?20:51,y:moved?83:80,width:moved?24:36,moved,placement:moved?'beside-grating':'covering-grating'});continue;
+    }
     if(layer.decorative||fixed.has(id))continue;
     const parent=engine.parent(id);
     if(room===5&&id===135&&parent===5&&!engine.flag(id,3)){Object.assign(layer,{x:65,y:73,width:20,placement:"branch"});continue;}

@@ -29,7 +29,7 @@ export function propLayers(engine){
   if(!engine.lit())return[];
   const room=engine.state().room,layers=[];let floor=0;
   for(const raw of Object.keys(props)){
-    const id=Number(raw);if(!Number.isFinite(id)||!engine.visible(id)||engine.parent(id)===44||id===59)continue;
+    const id=Number(raw);if(!Number.isFinite(id)||!engine.visible(id)||engine.parent(id)===44||id===59||id===29)continue;
     let parent=engine.parent(id),held=false;const seen=new Set();
     while(parent&&parent!==room&&!seen.has(parent)){if(parent===44){held=true;break;}seen.add(parent);parent=engine.parent(parent);}
     if(held)continue;
