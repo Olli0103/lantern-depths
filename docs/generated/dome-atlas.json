@@ -1,0 +1,27 @@
+{
+  "key": "dome-atlas",
+  "rooms": [
+    [
+      11
+    ],
+    [
+      18
+    ],
+    [
+      38
+    ],
+    [
+      13
+    ]
+  ],
+  "cells": [
+    "At the upper periphery of a huge stone dome, continuous wooden railing overlooking a floor far below, no rope attached",
+    "At floor below the same huge dome, white marble pedestal standing empty at center, high wooden railing along dome perimeter, stairway descends through prominent doorway, no torch or rope",
+    "Outside massive gateway into an underworld, stone gate arch, dim inherent illumination, neutral open threshold with no visible spirits or magic barrier, no text",
+    "Desolate land of lost souls, dim inherent light, old skeletal remains stacked in a corner, northern passage out; no skull treasure distinct from background, no gore or visible ghosts"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: At the upper periphery of a huge stone dome, continuous wooden railing overlooking a floor far below, no rope attached. TOP RIGHT: At floor below the same huge dome, white marble pedestal standing empty at center, high wooden railing along dome perimeter, stairway descends through prominent doorway, no torch or rope. BOTTOM LEFT: Outside massive gateway into an underworld, stone gate arch, dim inherent illumination, neutral open threshold with no visible spirits or magic barrier, no text. BOTTOM RIGHT: Desolate land of lost souls, dim inherent light, old skeletal remains stacked in a corner, northern passage out; no skull treasure distinct from background, no gore or visible ghosts. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/dome-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

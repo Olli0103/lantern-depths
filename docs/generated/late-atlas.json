@@ -1,0 +1,27 @@
+{
+  "key": "late-atlas",
+  "rooms": [
+    [
+      78
+    ],
+    [
+      82
+    ],
+    [
+      117
+    ],
+    [
+      216
+    ]
+  ],
+  "cells": [
+    "Large rough stone chamber with low northern passage and stairs leading up, a solid east wall reserved for dynamic opening; no Cyclops, food or bottle",
+    "Large treasure hideout with solid granite east wall and stair leading down, empty floor without sacks or thief or valuables",
+    "Long straight narrow passage ending at a rough opening, sparse stone, no doors or treasures",
+    "Small subterranean chamber below forest floor, overhead opening reserved for separate iron grating; no grating or key or leaves baked in"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Large rough stone chamber with low northern passage and stairs leading up, a solid east wall reserved for dynamic opening; no Cyclops, food or bottle. TOP RIGHT: Large treasure hideout with solid granite east wall and stair leading down, empty floor without sacks or thief or valuables. BOTTOM LEFT: Long straight narrow passage ending at a rough opening, sparse stone, no doors or treasures. BOTTOM RIGHT: Small subterranean chamber below forest floor, overhead opening reserved for separate iron grating; no grating or key or leaves baked in. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/late-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

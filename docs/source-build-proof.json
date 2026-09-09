@@ -1,0 +1,12 @@
+{
+  "compiler": "ZILF 1.9",
+  "platform": "osx-arm64",
+  "archiveSha256": "a5bd632e80d03a5037d1ce04b4cdd55af938498010f37cf0ab4995b7d1125629",
+  "sourceCommit": "97b7b3d68c075dd9af7da499c3e9690ada3471fd",
+  "sourceModified": false,
+  "serial": "000000",
+  "release": 0,
+  "storySha256": "e21b4e04a078349e9bbcc8d6a324c5d01ffc3f16db1e8c9c0f32294c01794b58",
+  "reproducible": true,
+  "publicStoryChanged": false
+}

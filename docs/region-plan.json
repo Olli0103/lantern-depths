@@ -1,0 +1,417 @@
+[
+  {
+    "key": "surface-atlas",
+    "rooms": [
+      [
+        209
+      ],
+      [
+        187
+      ],
+      [
+        238
+      ],
+      [
+        5
+      ]
+    ],
+    "cells": [
+      "South face of a modest white clapboard house with boarded windows, no door, grassy foreground and trees; overcast daylight",
+      "Dusty attic inside the white house, low wooden beams, only a dark stairwell descending, no rope or knife or loose props",
+      "Forest path through tall deciduous trees with one climbable large tree beside the path, no nest visible from ground level",
+      "View from a fork high in a large tree over forest foliage, broad branch in foreground; no nest or egg baked into the plate"
+    ]
+  },
+  {
+    "key": "forest-atlas",
+    "rooms": [
+      [
+        32,
+        87,
+        167,
+        221
+      ],
+      [
+        128,
+        160
+      ],
+      [
+        141,
+        143,
+        147,
+        153,
+        156
+      ],
+      [
+        19,
+        34,
+        42,
+        50,
+        51,
+        54,
+        81,
+        104,
+        134,
+        152,
+        158,
+        161,
+        170,
+        193,
+        218
+      ]
+    ],
+    "cells": [
+      "Dense deciduous forest with confusing similar trees and undergrowth, daylight, no unique route markers",
+      "Small grassy forest clearing enclosed by trees, neutral ground with no grating, leaves pile, or secret entrance visible",
+      "Featureless cramped stone dead end in a twisty underground maze, warm lamp light and identical grey rock, no props",
+      "Twisty little underground passages all alike, branching grey stone tunnels, no unique signs, treasure or markers; intentionally generic to preserve the maze puzzle"
+    ]
+  },
+  {
+    "key": "canyon-atlas",
+    "rooms": [
+      [
+        22
+      ],
+      [
+        21
+      ],
+      [
+        74
+      ],
+      [
+        162
+      ]
+    ],
+    "cells": [
+      "Canyon viewpoint from the very top of an immense rocky canyon, river far below, forest at back, daylight, descending footpath along side",
+      "Rocky ledge halfway down a vast canyon, paths continue both upward and downward, daylight",
+      "At bottom of a vast canyon beside cold flowing river, steep rock walls rise high overhead, narrow climbable path up side, daylight",
+      "Deep underground canyon viewed from a rocky path, natural stairway descends away, no bridge or dam control visible, warm lantern foreground and cold shadows"
+    ]
+  },
+  {
+    "key": "temple-atlas",
+    "rooms": [
+      [
+        2
+      ],
+      [
+        129
+      ],
+      [
+        241
+      ],
+      [
+        4
+      ]
+    ],
+    "cells": [
+      "North end of an ancient large underground temple, huge marble pillars toward north, granite west wall, faded indistinct inscription on east wall above descending stair; no bell",
+      "South end of the same temple with bare altar, a small dark hole in floor; no candles or book",
+      "Underground Egyptian burial chamber, ascending staircase west, empty central floor for separate coffin, no loose treasure",
+      "Ancient chamber filled with faded Atlantean murals, sloping passage upward, damp stone, no trident or treasure"
+    ]
+  },
+  {
+    "key": "dome-atlas",
+    "rooms": [
+      [
+        11
+      ],
+      [
+        18
+      ],
+      [
+        38
+      ],
+      [
+        13
+      ]
+    ],
+    "cells": [
+      "At the upper periphery of a huge stone dome, continuous wooden railing overlooking a floor far below, no rope attached",
+      "At floor below the same huge dome, white marble pedestal standing empty at center, high wooden railing along dome perimeter, stairway descends through prominent doorway, no torch or rope",
+      "Outside massive gateway into an underworld, stone gate arch, dim inherent illumination, neutral open threshold with no visible spirits or magic barrier, no text",
+      "Desolate land of lost souls, dim inherent light, old skeletal remains stacked in a corner, northern passage out; no skull treasure distinct from background, no gore or visible ghosts"
+    ]
+  },
+  {
+    "key": "passages-two-atlas",
+    "rooms": [
+      [
+        228
+      ],
+      [
+        139
+      ],
+      [
+        145
+      ],
+      [
+        102
+      ]
+    ],
+    "cells": [
+      "Long narrow north-south corridor briefly narrowing even further, bare grey stone, lamp foreground",
+      "Cold stone passage with frost-damp walls, low ceiling, subtle breathlike haze with no visible person",
+      "Winding stone passage around a blind bend, no fixtures, no objects",
+      "Twisting rocky passage dropping slightly around an irregular curve, no fixtures or objects"
+    ]
+  },
+  {
+    "key": "caves-atlas",
+    "rooms": [
+      [
+        25
+      ],
+      [
+        62,
+        176
+      ],
+      [
+        69
+      ],
+      [
+        93
+      ]
+    ],
+    "cells": [
+      "Particularly damp cave with west and east openings and an impossibly tiny crack on southern wall, damp bare earth",
+      "Small underground cave with a narrow exit and a dark stair down, bare grey rock, no objects",
+      "Low stone cave with worn ancient engravings, no readable text, northwest and east passages, empty floor",
+      "Small foul-smelling underground chamber, stained damp stone, no gas haze suggesting poison, no objects"
+    ]
+  },
+  {
+    "key": "river-atlas",
+    "rooms": [
+      [
+        37,
+        45,
+        53,
+        174,
+        182
+      ],
+      [
+        166,
+        184
+      ],
+      [
+        30
+      ],
+      [
+        155
+      ]
+    ],
+    "cells": [
+      "First-person view just above fast cold river water between tall white rocky cliffs, no boat edge or buoy painted into scene, rushing water no waterfall immediately ahead",
+      "Long narrow beach beneath towering white cliffs beside cold river, no boat or loose props",
+      "Broad sandy river beach at foot of cliffs, path leads inland northeast, no shovel or boat or buoy",
+      "Small sandy cave near river, deep unmarked sand floor reserved for excavation state, no scarab visible"
+    ]
+  },
+  {
+    "key": "waterways-atlas",
+    "rooms": [
+      [
+        40
+      ],
+      [
+        67
+      ],
+      [
+        86
+      ],
+      [
+        111
+      ]
+    ],
+    "cells": [
+      "Rocky shore at edge of cold river, land path away from water, no boats or treasures",
+      "Footpath beside gently flowing small stream from west to east, rock and moss, no treasure",
+      "View along narrow gently flowing stream between close banks, no boat or props",
+      "At the base of an enormous concrete dam beside river, massive dam wall towers above, no inflated raft or pile of plastic"
+    ]
+  },
+  {
+    "key": "reservoir-atlas",
+    "rooms": [
+      [
+        123
+      ],
+      [
+        191
+      ],
+      [
+        95
+      ],
+      []
+    ],
+    "cells": [
+      "Southern shore of large underground reservoir filled with dark water, opposite bank distant, broad rocky margin, no treasure",
+      "Northern shore of same filled underground reservoir, sloping rocky bank and exits behind viewer, no pump",
+      "First-person surface-level view on dark reservoir water between cavern banks, no boat or treasure",
+      "Drained underground reservoir, exposed cracked mud and shallow puddles, both banks connected by muddy basin, no jewel trunk visible"
+    ]
+  },
+  {
+    "key": "dam-atlas",
+    "rooms": [
+      [
+        178
+      ],
+      [
+        120
+      ],
+      [
+        224
+      ],
+      [
+        205
+      ]
+    ],
+    "cells": [
+      "Top walkway of enormous grey concrete dam, parapets, blank foreground area reserved for control panel, no bolt or controls baked in, reservoir visible only as a distant dark band",
+      "Dusty institutional dam lobby with concrete walls and exits north and south, no guidebook or matchbook",
+      "Cramped dam maintenance room of grimy concrete and metal pipes, empty wall area reserved for separate buttons and leak, no wrench screwdriver controls or water flooding baked in",
+      "Large reverberant underground chamber, high walls and upward stair, damp rock, no platinum bar, no readable text or visible soundwaves"
+    ]
+  },
+  {
+    "key": "mines-atlas",
+    "rooms": [
+      [
+        188
+      ],
+      [
+        3,
+        90,
+        112,
+        173
+      ],
+      [
+        16
+      ],
+      [
+        72
+      ]
+    ],
+    "cells": [
+      "Rough entrance into an old underground coal mine, narrow tunnel goes inward, no equipment",
+      "One of several indistinguishable narrow coal-mine tunnels, dark seams in grey rock, no unique signposts or objects",
+      "Top of a long vertical wooden ladder descending through a rocky mine shaft, warm lamp foreground, bottom unseen",
+      "Bottom of same long ladder looking up into shaft, rough coal-dark rock and small side passage, no coal pile or tools"
+    ]
+  },
+  {
+    "key": "mine-chambers-atlas",
+    "rooms": [
+      [
+        8
+      ],
+      [
+        249
+      ],
+      [
+        245
+      ],
+      [
+        89
+      ]
+    ],
+    "cells": [
+      "Timber room deep in mine, tight rough walls and low narrow crack to west, no loose timber in plate",
+      "Small drafty underground chamber with a shaft overhead and passage south, empty space for separate basket",
+      "Upper shaft room with a deep shaft opening and beam overhead, no basket or torch or chain props",
+      "Small underground machine room with bare central stone floor reserved for separate machine, industrial grime on walls, no machine or switch in plate"
+    ]
+  },
+  {
+    "key": "mine-oddities-atlas",
+    "rooms": [
+      [
+        46
+      ],
+      [
+        171
+      ],
+      [
+        235
+      ],
+      [
+        31
+      ]
+    ],
+    "cells": [
+      "Small coal-mine gas chamber, grey rocky walls and dark floor, no visible gas cloud or bracelet or flame",
+      "Small squeaky mine chamber with irregular walls, no visible creatures or props",
+      "Low-ceilinged rocky bat chamber, empty ledge for separate figurine; no bat painted in background",
+      "Stone room with top of a steep smooth metal slide descending into blackness, no movable objects"
+    ]
+  },
+  {
+    "key": "late-atlas",
+    "rooms": [
+      [
+        78
+      ],
+      [
+        82
+      ],
+      [
+        117
+      ],
+      [
+        216
+      ]
+    ],
+    "cells": [
+      "Large rough stone chamber with low northern passage and stairs leading up, a solid east wall reserved for dynamic opening; no Cyclops, food or bottle",
+      "Large treasure hideout with solid granite east wall and stair leading down, empty floor without sacks or thief or valuables",
+      "Long straight narrow passage ending at a rough opening, sparse stone, no doors or treasures",
+      "Small subterranean chamber below forest floor, overhead opening reserved for separate iron grating; no grating or key or leaves baked in"
+    ]
+  },
+  {
+    "key": "rainbow-atlas",
+    "rooms": [
+      [
+        47
+      ],
+      [
+        125
+      ],
+      [
+        202
+      ],
+      [
+        244
+      ]
+    ],
+    "cells": [
+      "View beside a great waterfall at canyon's end, drifting spray in sunlight, no rainbow painted in, no sceptre or gold",
+      "Rocky ground near opposite side of waterfall, spray drifting across distant canyon, no rainbow or pot of gold",
+      "View high above a canyon gorge looking toward far bank, waterfall below and sky beyond, neutral foreground reserved for separate rainbow walkway; no bridge",
+      "Outside a massive ancient stone barrow in a forest clearing, open dark doorway in east face; no parchment or symbols or text"
+    ]
+  },
+  {
+    "key": "mirror-atlas",
+    "rooms": [
+      [
+        52,
+        110
+      ],
+      [],
+      [],
+      []
+    ],
+    "cells": [
+      "Large square underground stone room with tall ceiling and enormous intact mirror filling south wall, exits on other three sides, mirror reflects only empty stone room, no adventurer",
+      "Exact same square stone room but enormous mirror is broken into shards, no intact reflective sheet, no adventurer",
+      "An enormous bright cavern inside the final stone barrow, wide stream through its center, small wooden footbridge to dark tunnel beyond, no sign or text",
+      "Same open forest clearing as neutral generic clearing but a small dark opening in earth in foreground, no grating or leaves"
+    ]
+  }
+]

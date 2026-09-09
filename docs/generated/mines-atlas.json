@@ -1,0 +1,30 @@
+{
+  "key": "mines-atlas",
+  "rooms": [
+    [
+      188
+    ],
+    [
+      3,
+      90,
+      112,
+      173
+    ],
+    [
+      16
+    ],
+    [
+      72
+    ]
+  ],
+  "cells": [
+    "Rough entrance into an old underground coal mine, narrow tunnel goes inward, no equipment",
+    "One of several indistinguishable narrow coal-mine tunnels, dark seams in grey rock, no unique signposts or objects",
+    "Top of a long vertical wooden ladder descending through a rocky mine shaft, warm lamp foreground, bottom unseen",
+    "Bottom of same long ladder looking up into shaft, rough coal-dark rock and small side passage, no coal pile or tools"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Rough entrance into an old underground coal mine, narrow tunnel goes inward, no equipment. TOP RIGHT: One of several indistinguishable narrow coal-mine tunnels, dark seams in grey rock, no unique signposts or objects. BOTTOM LEFT: Top of a long vertical wooden ladder descending through a rocky mine shaft, warm lamp foreground, bottom unseen. BOTTOM RIGHT: Bottom of same long ladder looking up into shaft, rough coal-dark rock and small side passage, no coal pile or tools. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/mines-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

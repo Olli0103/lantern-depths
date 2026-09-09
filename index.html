@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17221f"><title>Lantern Depths — An illustrated adventure</title><link rel="stylesheet" href="/src/style.css"></head>
 <body>
-  <header class="masthead"><a class="brand" href="./"><span class="brand-mark">✦</span> LANTERN DEPTHS <small>AN ILLUSTRATED ADVENTURE</small></a><nav aria-label="Game controls"><button id="sound" aria-pressed="false">Sound off</button><details id="preferences"><summary>Settings</summary><div class="settings-panel"><label for="volume">Sound level</label><input id="volume" type="range" min="0" max="100" value="30"><label for="text-size">Journal text</label><select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select><label class="check"><input id="reduce-motion" type="checkbox"> Reduce motion</label></div></details><button id="save">Save</button><button id="load">Load</button><button id="new">New game</button></nav></header>
+  <header class="masthead"><a class="brand" href="./"><span class="brand-mark">✦</span> LANTERN DEPTHS <small>AN ILLUSTRATED ADVENTURE</small></a><nav aria-label="Game controls"><button id="sound" aria-pressed="false">Sound off</button><details id="preferences"><summary>Settings</summary><div class="settings-panel"><label for="volume">Sound level</label><input id="volume" type="range" min="0" max="100" value="30"><label for="text-size">Journal text</label><select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select><label class="check"><input id="reduce-motion" type="checkbox"> Reduce motion</label></div></details><button id="map">Map</button><button id="save">Save</button><button id="load">Load</button><button id="new">New game</button></nav></header>
   <main>
     <div class="chapter"><span id="chapter-label">LANTERN DEPTHS</span><span id="stats">Preparing your adventure…</span></div>
     <div class="layout">
@@ -21,6 +21,8 @@
     </div>
     <p id="notice" role="status"></p>
   </main>
-  <footer><span>Independent, open-source adaptation · Early playable prototype</span><a href="https://github.com/Olli0103/lantern-depths">Source & credits ↗</a></footer>
+  <dialog id="map-dialog" aria-labelledby="map-title"><button id="map-close">Close map ×</button><h2 id="map-title">Your discovered routes</h2><div id="map-content"></div></dialog>
+  <dialog id="detail" aria-labelledby="detail-title"><button id="detail-close" aria-label="Close detail">Close ×</button><h2 id="detail-title"></h2><div id="detail-art" aria-hidden="true"></div><p id="detail-text"></p></dialog>
+  <footer><span>Lantern Depths v0.4 · Independent illustrated adaptation</span><a href="https://github.com/Olli0103/lantern-depths">Source & credits ↗</a></footer>
   <script src="/zvm.js"></script><script type="module" src="/src/main.js"></script>
 </body></html>

@@ -1,0 +1,27 @@
+{
+  "key": "temple-atlas",
+  "rooms": [
+    [
+      2
+    ],
+    [
+      129
+    ],
+    [
+      241
+    ],
+    [
+      4
+    ]
+  ],
+  "cells": [
+    "North end of an ancient large underground temple, huge marble pillars toward north, granite west wall, faded indistinct inscription on east wall above descending stair; no bell",
+    "South end of the same temple with bare altar, a small dark hole in floor; no candles or book",
+    "Underground Egyptian burial chamber, ascending staircase west, empty central floor for separate coffin, no loose treasure",
+    "Ancient chamber filled with faded Atlantean murals, sloping passage upward, damp stone, no trident or treasure"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: North end of an ancient large underground temple, huge marble pillars toward north, granite west wall, faded indistinct inscription on east wall above descending stair; no bell. TOP RIGHT: South end of the same temple with bare altar, a small dark hole in floor; no candles or book. BOTTOM LEFT: Underground Egyptian burial chamber, ascending staircase west, empty central floor for separate coffin, no loose treasure. BOTTOM RIGHT: Ancient chamber filled with faded Atlantean murals, sloping passage upward, damp stone, no trident or treasure. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/temple-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

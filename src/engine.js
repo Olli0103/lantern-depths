@@ -79,6 +79,7 @@ export class Engine {
     while (parent && !seen.has(parent)) {
       if (parent === room || parent === 44) return true;
       seen.add(parent);
+      if (this.flag(parent,7)) return false;
       if (!this.flag(parent, 11) && !this.flag(parent, 12)) return false;
       parent = this.parent(parent);
     }

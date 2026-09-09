@@ -1,0 +1,27 @@
+{
+  "key": "mine-chambers-atlas",
+  "rooms": [
+    [
+      8
+    ],
+    [
+      249
+    ],
+    [
+      245
+    ],
+    [
+      89
+    ]
+  ],
+  "cells": [
+    "Timber room deep in mine, tight rough walls and low narrow crack to west, no loose timber in plate",
+    "Small drafty underground chamber with a shaft overhead and passage south, empty space for separate basket",
+    "Upper shaft room with a deep shaft opening and beam overhead, no basket or torch or chain props",
+    "Small underground machine room with bare central stone floor reserved for separate machine, industrial grime on walls, no machine or switch in plate"
+  ],
+  "prompt": "Use case: illustration-story. Production environment atlas for Lantern Depths, a classic first-person adventure. EXACT 2 by 2 grid, four equally sized 3:2 landscape paintings, overall image 3:2 landscape. No gutters, borders, labels or text. Edge-to-edge equal cells. Rich painterly storybook textures, grounded stone and wood, restrained warm foreground light and cool teal shadows for underground; natural daylight where specified. TOP LEFT: Timber room deep in mine, tight rough walls and low narrow crack to west, no loose timber in plate. TOP RIGHT: Small drafty underground chamber with a shaft overhead and passage south, empty space for separate basket. BOTTOM LEFT: Upper shaft room with a deep shaft opening and beam overhead, no basket or torch or chain props. BOTTOM RIGHT: Small underground machine room with bare central stone floor reserved for separate machine, industrial grime on walls, no machine or switch in plate. No humans, creatures, collectable props, UI or invented puzzle symbols unless explicitly specified. Nothing crosses cell boundaries. Match the mature illustrated atmosphere of a 1990s fantasy adventure. Each panel must have its own distinct composition.",
+  "file": "public/art/mine-chambers-atlas.png",
+  "generator": "built-in image-generation tool",
+  "created": "2026-09-09"
+}

@@ -1,13 +1,16 @@
+import { Discovery, observation, renderDiscovery } from './discovery.js';
 import { Engine } from './engine.js';
 import { scenes, nouns, sceneObjects, undergroundRooms, ambienceFor } from './scenes.js';
 import { actionsFor, relations, noun, visualState, changedSounds } from './interactions.js';
-import { spriteIndex, spriteStyle, renderLayers } from './layers.js';
+import { spriteIndex, spriteStyle, renderLayers, hasItemArt, itemArt } from './layers.js';
 import { Soundscape } from './audio.js';
+import { sceneVariant } from './world-state.js';
 
 const $ = id => document.getElementById(id);
 const key = 'lantern-depths.save.v1';
 let engine, story, selected = null, history = [], targeting = null;
 const sound = new Soundscape();
+let discovery=new Discovery();
 const art = new Set(Object.values(scenes).map(scene=>scene.art));
 let previousRoom=null;
 
@@ -51,7 +54,10 @@ function renderSelection() {
   $('selected-name').textContent=engine.name(id);
   $('verbs').replaceChildren();
   $('relations').replaceChildren();
-  for(const verb of actionsFor(engine,id)) button(verb,()=>run(verb.toLowerCase()+' '+noun(engine,id)),$('verbs'));
+  for(const verb of actionsFor(engine,id)) button(verb,()=>{
+    const text=run(verb.toLowerCase()+' '+noun(engine,id));
+    if(text&&['Read','Examine'].includes(verb)&&engine.lit())showDetail(id,text);
+  },$('verbs'));
   if(engine.parent(id)===44) {
     for(const [relation, spec] of Object.entries(relations)) button(spec.label,()=>{
       targeting={id,relation};document.body.classList.add('targeting');
@@ -61,7 +67,7 @@ function renderSelection() {
   }
 }
 function render() {
-  const state=engine.state(), scene=scenes[state.room], lit=engine.lit();
+  const state=engine.state(), scene=sceneVariant(engine,scenes[state.room]), lit=engine.lit();
   $('location').textContent=lit?state.name:'Darkness';
   $('stats').textContent=`SCORE ${state.score} / 350 · MOVES ${state.turns}`;
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
@@ -79,6 +85,8 @@ function render() {
   if(state.room===64&&engine.flag(230,11))painting='west-house-open';
   if(state.room===85&&engine.flag(243,11))painting='behind-house-open';
   if(state.room===27&&!engine.flag(243,11))painting='kitchen-closed';
+  const tile=scene?.cell;
+  Object.assign($('painting').style,tile===undefined?{width:'100%',height:'100%',position:'',left:'',top:''}:{width:'200%',height:'200%',position:'absolute',left:`${-(tile%2)*100}%`,top:`${-Math.floor(tile/2)*100}%`});
   if(hasArt){$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${state.name}`;}
   $('scene').dataset.dark=String(!lit);
   $('scene').dataset.lantern=String(lit&&!engine.flag(state.room,19));
@@ -105,7 +113,7 @@ function render() {
   const items=engine.inventory();$('count').textContent=items.length;
   for(const item of items){
     const el=button(item.name+(item.id===146&&engine.flag(146,19)?' · lit':''),()=>select(item.id),$('inventory'));
-    if(spriteIndex[item.id]!==undefined){const icon=document.createElement('span');icon.className='inventory-icon';icon.setAttribute('aria-hidden','true');spriteStyle(icon,spriteIndex[item.id]);el.prepend(icon);}
+    if(hasItemArt(item.id)){const icon=document.createElement('span');icon.className='inventory-icon';icon.setAttribute('aria-hidden','true');itemArt(engine,item.id,icon);el.prepend(icon);}
   }
   if(!items.length){const p=document.createElement('p');p.textContent='A little room for whatever you find.';$('inventory').append(p);}
   if(selected&&!visible.includes(selected)&&!items.some(i=>i.id===selected)){selected=null;$('selection').hidden=true;}
@@ -116,14 +124,25 @@ function render() {
 function run(command) {
   command=command.trim();if(!command)return;
   cancelTarget();
-  try {const before=visualState(engine);addEntry(command,engine.command(command));for(const effect of changedSounds(before,visualState(engine)))sound.effect(effect);notice('');render();}
+  try {const before=visualState(engine),seen=observation(engine);const output=engine.command(command);discovery.record(seen,observation(engine),command);addEntry(command,output);for(const effect of changedSounds(before,visualState(engine)))sound.effect(effect);notice('');render();return output;}
   catch(e){notice(e.message);}
 }
+function showDetail(id,text){
+  $('detail-title').textContent=engine.name(id);
+  $('detail-text').textContent=text.replace(/\n*>\s*$/, '').trim();
+  const image=$('detail-art');image.className='';image.style.cssText='';
+  image.hidden=!hasItemArt(id)||!engine.visible(id);
+  if(!image.hidden)itemArt(engine,id,image);
+  $('detail').showModal();
+}
+$('map').addEventListener('click',()=>{renderDiscovery(discovery,$('map-content'),engine&&observation(engine));$('map-dialog').showModal();});
+$('map-close').addEventListener('click',()=>$('map-dialog').close());
+$('detail-close').addEventListener('click',()=>$('detail').close());
 async function start() {
   try {
     const response=await fetch('./story.z3');if(!response.ok)throw new Error('The story could not be loaded.');
     story=new Uint8Array(await response.arrayBuffer());
-    engine=new Engine(window.ZVM,story);addEntry('',engine.output);render();
+    engine=new Engine(window.ZVM,story);discovery.record(null,observation(engine));addEntry('',engine.output);render();
   }catch(e){notice(e.message);$('location').textContent='Unable to begin';}
 }
 const compass=document.querySelector('.compass');
@@ -134,7 +153,7 @@ for(const [label,command] of [['NW','northwest'],['N','north'],['NE','northeast'
 for(const direction of ['up','down','in','out'])button(direction,()=>run(direction),$('vertical'));
 $('command-form').addEventListener('submit',e=>{e.preventDefault();if(!engine)return;run($('command').value);$('command').value='';});
 $('look').addEventListener('click',()=>engine&&run('look'));
-$('save').addEventListener('click',()=>{if(!engine)return;try{localStorage.setItem(key,JSON.stringify({engine:engine.snapshot(),history}));notice('Your place in the story is saved in this browser.');}catch(e){notice('Save failed: '+e.message);}});
+$('save').addEventListener('click',()=>{if(!engine)return;try{localStorage.setItem(key,JSON.stringify({engine:engine.snapshot(),history,discovery:discovery.snapshot()}));notice('Your place in the story is saved in this browser.');}catch(e){notice('Save failed: '+e.message);}});
 $('load').addEventListener('click',()=>{
   if(!story)return;
   try {
@@ -143,12 +162,13 @@ $('load').addEventListener('click',()=>{
     const save=JSON.parse(raw);
     if(!Array.isArray(save.history)||save.history.length>150||!save.history.every(e=>typeof e.text==='string'&&typeof e.command==='string'))throw new Error('Invalid journal data.');
     const candidate=new Engine(window.ZVM,story);candidate.restore(save.engine);
-    engine=candidate;history=save.history;selected=null;cancelTarget();$('selection').hidden=true;render();notice('Welcome back. Your adventure has been restored.');
+    const notes=new Discovery();notes.restore(save.discovery);notes.record(null,observation(candidate));
+    engine=candidate;discovery=notes;history=save.history;selected=null;cancelTarget();$('selection').hidden=true;render();notice('Welcome back. Your adventure has been restored.');
   }catch(e){notice('Load failed: '+e.message);}
 });
 $('new').addEventListener('click',()=>{
   if(!story||!window.confirm('Start a new adventure? Your saved game will remain available.'))return;
-  engine=new Engine(window.ZVM,story);history=[];selected=null;cancelTarget();$('selection').hidden=true;addEntry('',engine.output);render();notice('A new adventure begins.');
+  engine=new Engine(window.ZVM,story);discovery=new Discovery();discovery.record(null,observation(engine));history=[];selected=null;cancelTarget();$('selection').hidden=true;addEntry('',engine.output);render();notice('A new adventure begins.');
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){cancelTarget();notice('');}});
 $('sound').addEventListener('click',async()=>{

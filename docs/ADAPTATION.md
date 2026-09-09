@@ -43,3 +43,17 @@ The troll is not baked into a background: `encounters.js` reads object 150's sig
 Acoustic profiles distinguish cellar, stone chamber, narrow passage and chasm, including restrained stereo reflections. Darkness does not change the geography of the sound. Ambient events imply neither hidden actors nor puzzle solutions. Transitions are presentation-only, respect reduced motion, and never delay commands. Darkness removes the image source and all scene objects immediately. Save format and VM bytes are unchanged.
 
 Regression checks cover the chasm route, signed knockout state, defeated-troll removal, dropped axe, passage access, save continuation, and browser concealment. Deterministic seeds are used only in tests, not in the shipped game.
+
+## Gallery and discovery milestone (v0.4)
+
+The gallery/studio branch has separate painting/manual sprites. Release 119 painting property 12 (TVALUE) distinguishes intact versus ruined canvas; destroyed/removed objects are not rendered. Taken then dropped props appear on the floor instead of remounting on the wall. Read/examine actions open an accessible text-and-art dialog using the actual parser response, including its implicit take behaviour. The chimney's original inventory restrictions are unchanged.
+
+The first passage atlas covers Round Room, North-South Passage, Chasm and Engravings Cave. Its 2×2 cells are clipped with CSS; world logic is unchanged. Discovery notes store only observed lit distinct rooms and successful explicit direction changes, never the source exit table or inferred reverse edges. Ambiguous names (maze, forest, coal mine, mirrored/duplicate rooms) are intentionally not individually mapped. Old saves without notes remain supported; only the loaded current room can be recovered into a fresh map, not its unknown past route.
+
+Source building is now reproducible in isolation; see SOURCE-BUILD.md. The public executable is unchanged.
+
+### Whole-world illustration pass
+
+The region registry now maps all 110 original room objects to generated plates. Shared maze, forest, repeated cave and river artwork intentionally preserves ambiguity. `world-state.js` is a read-only release-119 adapter: reservoir LANDBIT, mirror breakage, Cyclops passage, rope attachment and rainbow flags select supported variants. Four transparent atlases add treasures, equipment, damaged objects and encounters. Generic visible-object controls are still filtered by the engine, including hidden ancestors and closed containers. No original puzzle state is written.
+
+Coverage is not an exhaustive cinematic remake: container opening/contents may retain an iconic rather than literal illustration; excavation and every destructive response are not individually animated. The original narration and controls remain authoritative. The old opening atlas remains separate from `world-objects-atlas.png` to preserve its seven established sprite coordinates.
