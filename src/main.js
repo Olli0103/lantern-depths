@@ -1,3 +1,4 @@
+import { expeditionChapter, expeditionStates } from './expedition.js';
 import { SceneMenu } from './scene-menu.js';
 import { setPaintingSource,hasPainting } from './art.js';
 import { damRooms,damState } from './dam-region.js';
@@ -101,6 +102,7 @@ function render() {
   $('painting').hidden=!hasArt;
   if(!hasArt){$('painting-source').removeAttribute('srcset');$('painting').removeAttribute('src');$('painting').alt='';}
   $('chapter-label').textContent=!lit?'LANTERN DEPTHS':undergroundRooms.has(state.room)?'BENEATH THE WHITE HOUSE':'LANTERN DEPTHS';
+  if(lit&&expeditionChapter(state.room))$('chapter-label').textContent=expeditionChapter(state.room);
   if(lit&&damRooms.has(state.room))$('chapter-label').textContent='FLOOD CONTROL DAM #3';
   $('scene').dataset.underground=String(undergroundRooms.has(state.room));
   if(previousRoom!==state.room){
@@ -144,7 +146,7 @@ function render() {
     const el=button('+',element=>select(h.id,element),$('hotspots'),'hotspot');
     el.style.left=h.x+'%';el.style.top=h.y+'%';el.setAttribute('aria-label',`Inspect ${engine.name(h.id)}`);el.dataset.label=engine.name(h.id);el.dataset.selectId=h.id;el.setAttribute('aria-pressed',String(selected===h.id));
   }
-  const states=[];
+  const states=expeditionStates(engine);
   if(lit&&state.room===64)states.push(engine.flag(230,11)?'Mailbox · open':'Mailbox · closed');
   if(lit&&[85,27].includes(state.room))states.push(engine.flag(243,11)?'Window · open':'Window · not open');
   if(lit&&state.room===75&&!engine.flag(240,7))states.push(engine.flag(240,11)?'Trapdoor · open':'Trapdoor · closed');

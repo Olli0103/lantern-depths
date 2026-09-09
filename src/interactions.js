@@ -11,12 +11,19 @@ export function actionsFor(engine, id) {
   if (engine.flag(id, 16)) actions.push('Read');
   if (engine.flag(id, 31)) actions.push(engine.flag(id, 19) ? 'Turn off' : 'Turn on');
   if([63,151,212,225].includes(id))actions.push('Push');
+  if([83,168].includes(id))actions.push('Ring');
+  if([108,203].includes(id))actions.push('Raise','Lower');
+  if(id===208)actions.push('Board');
   if(id===195)actions.push('Squeeze');
   if (!held) actions.push('Move');
   return actions;
 }
 
 export const relations = {
+  light:{label:'Light with…',command:(item,target)=>`light ${target} with ${item}`},
+  tie:{label:'Tie to…',command:(item,target)=>`tie ${item} to ${target}`},
+  inflate:{label:'Inflate with…',command:(item,target)=>`inflate ${target} with ${item}`},
+  dig:{label:'Dig with…',command:(item,target)=>`dig ${target} with ${item}`},
   turn: { label: 'Turn with…', command: (item,target)=>`turn ${target} with ${item}` },
   in: { label: 'Put in…', command: (item, target) => `put ${item} in ${target}` },
   on: { label: 'Put on…', command: (item, target) => `put ${item} on ${target}` },

@@ -4,6 +4,10 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## v0.7 — Beyond the dam
+
+43 rooms across Temple, River, Mine and endgame receive explicit captions, regional staging and chapter labels. Altar, railing, pedestal, sand and machine switch can be selected in the painting. Basket distance and local contents follow the VM; candles visibly light and extinguish. New physical tool relations remain ordinary parser commands. [Delivered scope and remaining art corrections](docs/EXPEDITION-STAGING.md) · [Candle artwork prompt](docs/ART-PROMPTS.md#candles-lit-v1png).
+
 ## v0.6 — The flood-control dam
 
 Seven connected dam/reservoir rooms now have authored interactions and placement. Four dam paintings distinguish sluice position from delayed water level; maintenance buttons, lights, leakage and tool chests follow VM state. A drawn discovery sketch retains the accessible notes and records only actual journeys. Crowded trophy shelves and dropped objects use bounded surface placements. Original story bytes and save formats remain unchanged. [Region scope](docs/DAM-REGION.md) · [Art prompts](docs/DAM-ART-PROMPTS.md).

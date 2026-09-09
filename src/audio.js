@@ -44,7 +44,7 @@ export class Soundscape {
   setScene(scene) {
     this.scene = scene;
     if (!this.context) return;
-    const settings = { sluices:[650,0.032],reservoir:[240,0.012],machinery:[140,0.008],leak:[950,0.029],outdoors: [900, 0.024], house: [180, 0.009], cellar: [310, 0.018], dark: [150, 0.012], stone: [220,0.012], passage: [260,0.012], chasm: [450,0.022], quiet: [150,0.006], gallery:[180,0.006],studio:[240,0.009] };
+    const settings = { temple:[160,0.006],mine:[200,0.011],river:[730,0.025],falls:[1000,0.032],sluices:[650,0.032],reservoir:[240,0.012],machinery:[140,0.008],leak:[950,0.029],outdoors: [900, 0.024], house: [180, 0.009], cellar: [310, 0.018], dark: [150, 0.012], stone: [220,0.012], passage: [260,0.012], chasm: [450,0.022], quiet: [150,0.006], gallery:[180,0.006],studio:[240,0.009] };
     const [hz, gain] = settings[scene] ?? [180, 0.008];
     this.filter.frequency.setTargetAtTime(hz, this.context.currentTime, 0.5);
     this.ambient.gain.setTargetAtTime(gain, this.context.currentTime, 0.5);

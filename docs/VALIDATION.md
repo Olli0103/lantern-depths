@@ -7,3 +7,7 @@ Route planning reference: [Eristic's Zork I walkthrough](http://www.eristic.net/
 `tests/fixtures/winning-route.json` is emitted by the successful run. The browser integration test replays it through normal controls and includes a mid-game Save → Reload → Load. Its deterministic seed is injected only into the test browser, never into the distributed game. The source-build route comparison remains separate because compiled object numbering differs.
 
 Visual coverage and parser completion are separate gates. A successful full playthrough does not mean all rooms, props and alternative states have finished artwork. Do not mark a region visually complete merely because this route passes.
+
+## v0.7 regression gate
+
+38 engine/integrity tests, 20 browser tests and production build passed locally. Additional full-route assertions check temple mounting, hidden machine contents, remote basket contents, buried scarab and carried buoy contents. Browser test selects a filled basket normally (no forced clicks), checks Undo, lit-candle save/load, switch keyboard focus and mobile controls. Screenshots reviewed for altar, pedestal, shaft, drafty room, machine, beach/cave and treasure chamber.

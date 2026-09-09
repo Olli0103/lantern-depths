@@ -478,5 +478,14 @@
     "created": "2026-09-09",
     "prompt": "docs/DAM-ART-PROMPTS.md",
     "status": "verified real-alpha prop; separate state layer"
+  },
+  {
+    "file": "public/art/candles-lit-v1.png",
+    "sha256": "a0a872bff2040488d253612de3fd8546d150e060b90556df1802b6fca75fafb1",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "lit candle pair, genuine transparent alpha"
   }
 ]

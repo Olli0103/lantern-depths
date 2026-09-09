@@ -1,9 +1,11 @@
+import { expeditionFloorZones, stageExpedition } from './expedition.js';
 import {damFloorZones} from './dam-region.js';
 // Authored placement only. No room/puzzle memory writes, exit-table inspection or
 // inferred routes. Source coordinates refer to the existing complete paintings.
-export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130,...Object.keys(damFloorZones).map(Number)]);
+export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130,...Object.keys(damFloorZones).map(Number),...Object.keys(expeditionFloorZones).map(Number)]);
 const floorZones={
   ...damFloorZones,
+  ...expeditionFloorZones,
   64:[[43,84],[53,79],[63,86],[34,89],[72,83],[47,93]],
   137:[[39,84],[54,88],[65,82],[28,90],[72,90],[46,94]],
   85:[[55,88],[66,83],[43,92],[73,91],[32,87],[58,95]],
@@ -72,5 +74,5 @@ export function stageRegion(engine,layers){
     if(!container)continue;const i=counts.get(parent)??0;counts.set(parent,i+1);
     Object.assign(layer,{x:container.x+(i?1:-1)*container.width*.48,y:container.y+container.width*.25,width:Math.min(normalWidth(layer.id),container.width*.52),placement:'contents'});
   }
-  return result;
+  return stageExpedition(engine,result);
 }

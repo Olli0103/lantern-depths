@@ -72,3 +72,5 @@
 @media(max-width:760px){.map-canvas{max-height:340px}}
 
 @media(max-width:760px){#map-dialog{padding:16px}#map-title{margin:8px 0 12px}#map-content>p{font-size:14px;line-height:1.4}.journey-sketch{margin-top:12px}.map-canvas{max-height:45dvh}}
+/* Visible contents sit in front of their container art, never behind its pixels. */
+.scene-object[data-placement='container'],.scene-object[data-placement='held']{z-index:3}
