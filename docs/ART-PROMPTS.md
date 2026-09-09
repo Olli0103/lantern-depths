@@ -104,3 +104,11 @@ Review corrections used the existing atlas as reference, preserving its exact 2�
 - Late: replace bottom-left exterior vista with an interior passage toward an old house.
 
 All edits were generated, not painted or cut with a processing script. Source PNGs remain intact; browser CSS crops atlas cells.
+
+## behind-house-ajar-v2.png
+
+2026-09-09, built-in image-generation tool. Edit target: `public/art/behind-house.png`. Original retained; output copied unchanged. Corrects a misleading large opening in the VM-closed state.
+
+Prompt: Change ONLY the central kitchen window to a virtually closed full rectangular weathered wooden glazed sash filling the entire opening, dark reflective panes and only a hairline gap at the bottom. Eliminate the large open hole. Preserve exterior wall, frame location/size, boarded windows, foliage, path, lighting, painterly texture, viewpoint, aspect ratio and composition. No UI, text or people. Must unmistakably look shut at thumbnail scale.
+
+The original open variant remains authoritative when window object 243 has OPENBIT. Presentation badge now says “Window · not open”; original narration and engine rules are unchanged.

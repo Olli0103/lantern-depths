@@ -111,7 +111,7 @@ function render() {
   }
   const states=[];
   if(lit&&state.room===64)states.push(engine.flag(230,11)?'Mailbox · open':'Mailbox · closed');
-  if(lit&&[85,27].includes(state.room))states.push(engine.flag(243,11)?'Window · open':'Window · ajar');
+  if(lit&&[85,27].includes(state.room))states.push(engine.flag(243,11)?'Window · open':'Window · not open');
   if(lit&&state.room===75&&!engine.flag(240,7))states.push(engine.flag(240,11)?'Trapdoor · open':'Trapdoor · closed');
   $('scene-state').textContent=states.join(' / ');
   $('objects').replaceChildren();

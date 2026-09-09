@@ -379,5 +379,15 @@
     "created": "2026-09-09",
     "status": "transparent 4x4 stateful sprite atlas",
     "prompt": "docs/prop-plan.json"
+  },
+  {
+    "file": "public/art/behind-house-ajar-v2.png",
+    "sha256": "c3ba4e268611ea4dfdedfc33d4a6cecb4c95089bdb9576da0536f04d5eb0245e",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "corrected closed/ajar window variant",
+    "prompt": "docs/ART-PROMPTS.md#behind-house-ajar-v2png"
   }
 ]

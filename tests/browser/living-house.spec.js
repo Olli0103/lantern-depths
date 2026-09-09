@@ -30,7 +30,17 @@ test('window variants, movable rug, trapdoor, lamp and sound settings',async({pa
   await page.locator('#preferences summary').click();
   await page.locator('#reduce-motion').check();await page.locator('#text-size').selectOption('18');
   await page.locator('#preferences summary').click();
-  for(const c of ['north','east','open window'])await command(page,c);
+  for(const c of ['north','east'])await command(page,c);
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/behind-house-ajar-v2.png');
+  await expect(page.locator('#scene-state')).toHaveText('Window · not open');
+  await command(page,'in');
+  await expect(page.locator('#location')).toHaveText('Behind House');
+  await expect(page.locator('#transcript')).toContainText('The kitchen window is closed.');
+  await command(page,'open window');
+  await expect(page.locator('#scene-state')).toHaveText('Window · open');
+  await command(page,'close window');
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/behind-house-ajar-v2.png');
+  await command(page,'open window');
   await expect(page.locator('#painting')).toHaveAttribute('src','./art/behind-house-open.png');
   await command(page,'west');await command(page,'close window');
   await expect(page.locator('#painting')).toHaveAttribute('src','./art/kitchen-closed.png');
