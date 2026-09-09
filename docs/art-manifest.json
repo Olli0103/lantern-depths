@@ -487,5 +487,115 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-09",
     "status": "lit candle pair, genuine transparent alpha"
+  },
+  {
+    "file": "public/art/treasure-states-v1.png",
+    "sha256": "a9424b9444875ae0543632cce587f3c90d22c44e9e6ad168e94e35e4a5b9dfc3",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-b70ea5f0-03ef-4644-98fd-776005206b30"
+  },
+  {
+    "file": "public/art/faithful-props-v1.png",
+    "sha256": "9628ecaa13735ee4e08a64e09fd45118bb67c192cd8f0ccde7643da2786f9dcf",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-9914fdd3-fa2e-4ee8-a055-a6ecde2970e2"
+  },
+  {
+    "file": "public/art/shaft-hero-v1.png",
+    "sha256": "a89bb75e96f52bd6e6a2f9651c11ad7a6e84a8e96084836bc3596680fc1d052c",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-bc902acb-8eb6-4a9d-9a4f-1840ede49493"
+  },
+  {
+    "file": "public/art/drafty-lowered-v1.png",
+    "sha256": "aec95df428cfe1889986d808b2346142fed696ccd1c65df1ca93655342f8bb33",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-505b25e2-c62a-4d42-b8ed-155f3d5ab3ed"
+  },
+  {
+    "file": "public/art/drafty-raised-v1.png",
+    "sha256": "100cd75643adc49553ac4dfafa7e6e255efcd40d45b64f65fc05f81aea4a6473",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-55fbdfe8-f026-4623-8e43-2e93ca2eaffb"
+  },
+  {
+    "file": "public/art/excavation-states-v1.png",
+    "sha256": "44aa206634a0dbb9a9d4b44af600cf1bb5bf970c3ea84a65e4e512b7c9bb4d7e",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-d9bfac37-2555-4e92-92a7-14305a19882a"
+  },
+  {
+    "file": "public/art/strange-passage-v2.png",
+    "sha256": "04d9db8e0b4f01d18942b28ac8e63576ed80a8ae336b7c42a4cc338fc728a95d",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-6e4951ac-5311-4d84-9cd5-1a2cd12b7f3a"
+  },
+  {
+    "file": "public/art/loud-room-v1.png",
+    "sha256": "ef40f91ab7a44bd226def6989f9b83fbd0a5ce9d38337492be90682ce72b648b",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-3bc56992-55fe-4d36-93df-f468566974fc"
+  },
+  {
+    "file": "public/art/barrow-ending-v1.png",
+    "sha256": "36d65229003e854238191ba029843116b1d0b7d6f0c488d1fb3df410199b7fef",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-d7c5a060-68c9-4f52-b2ed-51dd4d44dbc5"
+  },
+  {
+    "file": "public/art/altar-hero-v1.png",
+    "sha256": "9ba3460e35054b423830d43acc19d6115ada49298b05752804f31c5c5d88807c",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-9c9c05d3-a61f-4401-9997-2137bcd7130b"
+  },
+  {
+    "file": "public/art/lantern-lit-v1.png",
+    "sha256": "9a67402f0c55f752a99a0652ec5cab3e557e31feb2476545e6bb65989ad65326",
+    "width": 1024,
+    "height": 1536,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "reviewed source-faithful state/hero artwork",
+    "generation": "exec-c0e84cfb-85e2-40fb-8a10-e93d316519f9"
   }
 ]

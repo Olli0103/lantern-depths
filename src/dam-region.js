@@ -2,7 +2,7 @@
 // Globals verified against source routines and parser-driven transitions.
 export const damRooms=new Set([178,120,224,111,123,95,191]);
 export function damState(engine){
- const word=i=>engine.vm.m.getInt16(engine.vm.globals+i*2);
+ const word=i=>engine.global(i);
  const gates=!!word(56),low=engine.flag(95,6);
  return {gates,low,enabled:!!word(88),waterLevel:word(94),
    water:low?(gates?'low':'rising'):(gates?'falling':'high'),

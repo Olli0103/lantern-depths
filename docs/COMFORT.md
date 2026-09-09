@@ -10,7 +10,7 @@ New-game startup is still genuinely random. This is checkpoint replay, not unive
 
 ## Saves
 
-`lantern-depths.save.v1` remains the independent quick slot. Three named slots use separate keys. Version-2 envelopes contain the actual loaded story's SHA-256 and release-119 adapter identifier; legacy envelopes without a format/version remain supported via the original interpreter signature. Rebuilt-story saves are not migrated or relabelled.
+`lantern-depths.save.v1` remains the independent quick slot. Three named slots use separate keys. Version-2 envelopes contain the actual loaded story's SHA-256 and its matching adapter identifier. Legacy envelopes without a format/version remain supported via the original interpreter signature. A verified engine catalog selects retail for old saves and source for new saves; incompatible bytes are never migrated or relabelled.
 
 Imports are limited to 2 MB and validate envelope/build identity, bounded byte/input arrays, journal entries, discovery notes and entropy data before replacing the session. Import uses textContent for content, never HTML; no external upload occurs. Failure preserves the active game and existing slots. Replacing a named slot or importing a valid file asks for confirmation in the game. File export includes the current game, not the Undo stack. Exported journal contains only the retained on-screen history (up to 150 entries), not a promised unlimited log.
 

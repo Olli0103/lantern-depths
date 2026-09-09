@@ -1,9 +1,11 @@
+import {supportingFloorZones} from './supporting-regions.js';
 import { expeditionFloorZones, stageExpedition } from './expedition.js';
 import {damFloorZones} from './dam-region.js';
 // Authored placement only. No room/puzzle memory writes, exit-table inspection or
 // inferred routes. Source coordinates refer to the existing complete paintings.
-export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130,...Object.keys(damFloorZones).map(Number),...Object.keys(expeditionFloorZones).map(Number)]);
+export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130,...Object.keys(supportingFloorZones).map(Number),...Object.keys(damFloorZones).map(Number),...Object.keys(expeditionFloorZones).map(Number)]);
 const floorZones={
+  ...supportingFloorZones,
   ...damFloorZones,
   ...expeditionFloorZones,
   64:[[43,84],[53,79],[63,86],[34,89],[72,83],[47,93]],
@@ -24,14 +26,14 @@ export const localHotspots={
 };
 // These are fixed in-world fixtures, never generic floor props.
 const fixed=new Set([55,240,150,199,164,70,207,108,203,29,59,237]);
-const normalWidth=id=>({92:18,41:9,227:10,36:12,99:10,138:6,146:7,14:7,217:5})[id]??8;
+const normalWidth=id=>({179:28,185:16,105:12,92:18,41:9,227:10,36:12,99:10,138:6,146:7,14:7,217:5})[id]??8;
 export function stageRegion(engine,layers){
   const room=engine.state().room;if(!authoredRooms.has(room))return layers;
   const result=layers.filter(l=>l.decorative||!engine.carried(l.id));
   let floor=0,table=0,shelf=0;
   const loose=result.filter(l=>!l.decorative&&!fixed.has(l.id)&&engine.parent(l.id)===room);
-  const shelves=result.filter(l=>engine.parent(l.id)===197).length;
-  const tabletop=result.filter(l=>engine.parent(l.id)===169&&![99,138].includes(l.id)).length;
+  const shelves=result.filter(l=>!l.decorative&&engine.parent(l.id)===197).length;
+  const tabletop=result.filter(l=>!l.decorative&&engine.parent(l.id)===169&&![99,138].includes(l.id)).length;
   const shelfCols=Math.max(4,Math.ceil(shelves/4));
   const shelfHeights=[30.8,38.2,45.1,51.0];
   const awaiting=[];
@@ -39,6 +41,7 @@ export function stageRegion(engine,layers){
     const id=layer.id;
     if(layer.decorative||fixed.has(id))continue;
     const parent=engine.parent(id);
+    if(room===5&&id===135&&parent===5&&!engine.flag(id,3)){Object.assign(layer,{x:65,y:73,width:20,placement:"branch"});continue;}
     // Untouched objects keep their source-authored mounting; the manual is on
     // the studio FLOOR, never attached to its paint-spattered wall.
     if(room===122&&id===92&&parent===122&&!engine.flag(id,3)){Object.assign(layer,{x:69,y:39,width:23,placement:'wall'});continue;}
@@ -64,7 +67,7 @@ export function stageRegion(engine,layers){
       const groupSize=Math.ceil(loose.length/6),cols=Math.ceil(Math.sqrt(groupSize)),row=Math.floor(i/6),dense=loose.length>6;
       const dx=dense?((row%cols)-(cols-1)/2)*9/cols:0;
       const dy=dense?(Math.floor(row/cols)-(cols-1)/2)*6/cols:0;
-      Object.assign(layer,{x:Math.max(13,Math.min(87,zone[0]))+dx,y:Math.max(72,Math.min(90,zone[1]))+dy,width:dense?Math.min(normalWidth(id),9/cols):normalWidth(id),placement:'floor',dense});
+      Object.assign(layer,{x:Math.max(13,Math.min(87,zone[0]))+dx,y:Math.max(room===5?55:72,Math.min(90,zone[1]))+dy,width:dense?Math.min(normalWidth(id),9/cols):normalWidth(id),placement:'floor',dense});
     }else if([99,138].includes(parent))awaiting.push(layer);
   }
   // Contents stay by their container, not in an unrelated strip at the bottom.

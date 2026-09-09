@@ -31,10 +31,11 @@ export function itemArt(engine,id,el){
     el.style.backgroundSize='200% 200%';
     el.style.backgroundPosition=`${cell%2*100}% ${Math.floor(cell/2)*100}%`;
     el.style.aspectRatio='1';
-  }else if(props[id])propStyle(engine,id,el);
+  }else if(id===146&&engine.flag(id,19))propStyle(engine,'lantern-lit',el);
+  else if(props[id])propStyle(engine,id,el);
   else if(galleryItems.has(id)){
     el.classList.add('gallery-sprite');
-    const index=id===41?2:engine.vm.get_prop(92,12)===0?1:0;
+    const index=id===41?2:engine.prop(92,12)===0?1:0;
     const [x,y,w,h]=index===2?[55,570,540,680]:index===1?[627,0,627,550]:[0,0,620,550];
     el.style.aspectRatio=`${w}/${h}`;el.style.backgroundSize=`${1254/w*100}% ${1254/h*100}%`;
     el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
@@ -44,7 +45,7 @@ export function itemArt(engine,id,el){
 }
 
 export function layersFor(engine) {
-  if (!engine.lit()) return [];
+  if (!engine.lit()||engine.completed()) return [];
   const room = engine.state().room;
   const visible = id => engine.visible(id) && engine.parent(id) !== 44;
   const layers = propLayers(engine);
@@ -80,7 +81,9 @@ export function layersFor(engine) {
       layers.push({id,index:spriteIndex[id],gallery:galleryItems.has(id)});
     }
   }
-  return stageRegion(engine,layers);
+  const staged=stageRegion(engine,layers);
+  for(const l of staged){if(l.decorative)continue;const parent=engine.parent(l.id);if(parent===135){const n=staged.find(x=>x.id===135);if(n)Object.assign(l,{x:n.x,y:n.y-2,width:n.width*.4,placement:'nest'});}}
+  return staged;
 }
 
 export function renderLayers(engine, parent, select, makeButton) {
@@ -105,7 +108,7 @@ export function renderLayers(engine, parent, select, makeButton) {
       el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
     }else if(layer.prop)propStyle(engine,layer.id,el);
     else if(layer.gallery)itemArt(engine,layer.id,el);
-    else if([99,138].includes(layer.id))itemArt(engine,layer.id,el);
+    else if([99,138,146].includes(layer.id))itemArt(engine,layer.id,el);
     else spriteStyle(el, layer.index);
     el.style.left = layer.x + '%'; el.style.top = layer.y + '%'; el.style.width = layer.width + '%';
     el.dataset.placement=layer.placement??'authored';

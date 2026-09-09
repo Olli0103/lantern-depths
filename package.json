@@ -1,6 +1,6 @@
 {
   "name": "lantern-depths",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "An illustrated interface to the MIT-released Zork I source",
   "scripts": {
     "prepare": "node scripts/prepare.mjs",
@@ -10,7 +10,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "playwright test",
     "build:source": "node scripts/build-source.mjs",
-    "verify:source": "node scripts/verify-source.mjs"
+    "verify:source": "node scripts/story-adapter.mjs --check && node scripts/verify-source.mjs"
   },
   "keywords": [],
   "author": "",

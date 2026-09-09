@@ -134,3 +134,91 @@ Closed sack and full/closed bottle retain the original atlas. Open sack does not
 Built-in image-generation tool; equipment-atlas.png used as the candle identity/style reference. Output: `public/art/candles-lit-v1.png`. Real alpha verified before integration.
 
 Prompt: Use case: precise-object-edit. Asset type: Lantern Depths game sprite. Reference image: equipment atlas, use ONLY the two ivory pillar candles in its top-right cell as identity/style reference. Produce a new standalone square transparent PNG containing that same pair of uneven ivory wax pillar candles, BOTH LIT with small warm golden flames. Preserve their relative tall-left/short-right arrangement, wax texture and painterly realism. Candles centered with 12% clear padding, full silhouettes visible, no other atlas items. Genuine transparent alpha background, NOT a painted checkerboard, no floor, no box, no text. This image will be layered on an existing temple painting.
+
+## treasure-states-v1.png
+
+Built-in image generation, exec-b70ea5f0-03ef-4644-98fd-776005206b30. Production prompt specification:
+
+> 2x2 transparent sprite atlas: closed/open horizontal gold Egyptian coffin and closed/open jeweled red-and-gold egg; same identity, perspective and lighting; empty dark interiors, no body, sceptre or bird. Reference treasures-atlas, painterly aged materials, genuine alpha, no text/grid.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## faithful-props-v1.png
+
+Built-in image generation, exec-9914fdd3-fa2e-4ee8-a055-a6ecde2970e2. Production prompt specification:
+
+> 2x2 transparent sprite atlas: burning ivory-handled torch, black leather book always open with indistinct printing, silver chalice and open empty red buoy. Painterly adventure, muted upper-left light, real alpha, no backdrop or text.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## shaft-hero-v1.png
+
+Built-in image generation, exec-bc902acb-8eb6-4a9d-9a4f-1840ede49493. Production prompt specification:
+
+> Hero Shaft Room, reference mine-chambers bottom-left style. Replace timber supports with iron framework. Small person-inaccessible shaft in wide stone floor x55 y78. Heavy chain from overhead frame into shaft. No basket, daylight, items or lit fixtures. Warm off-camera lantern light.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## drafty-lowered-v1.png
+
+Built-in image generation, exec-505b25e2-c62a-4d42-b8ed-155f3d5ab3ed. Production prompt specification:
+
+> Hero Drafty Room, reference mine-chambers top-right style. Enclosed cave, right passage and low left opening. Narrow ceiling shaft x54, iron chain to floor y74. No basket, sky, daylight or props. Soft warm lantern light.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## drafty-raised-v1.png
+
+Built-in image generation, exec-55fbdfe8-f026-4623-8e43-2e93ca2eaffb. Production prompt specification:
+
+> Precise edit of drafty-lowered-v1: chain raised into shaft; remove below ceiling, retaining short chain only inside top opening to y16. Preserve all other geometry and lighting. No basket.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## excavation-states-v1.png
+
+Built-in image generation, exec-d9bfac37-2555-4e92-92a7-14305a19882a. Production prompt specification:
+
+> Four-state 2x2 Sandy Cave environment atlas, reference river-atlas bottom-right. Identical camera/rock/entrance left. Untouched sandy floor; shallow hollow; deeper pit; deep pit with sand walls and empty bottom. No shovel, scarab, characters or labels.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## strange-passage-v2.png
+
+Built-in image generation, exec-6e4951ac-5311-4d84-9cd5-1a2cd12b7f3a. Production prompt specification:
+
+> Hero Strange Passage, reference late-atlas bottom-left. Long stone passage ending at wooden door with huge jagged cyclops-sized hole smashed through middle; splintered sides/top and dim room beyond. No intact door, monster, treasure or labels.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## loud-room-v1.png
+
+Built-in image generation, exec-3bc56992-55fe-4d36-93df-f468566974fc. Production prompt specification:
+
+> Hero Loud Room: vast natural stone chamber, dry floor, ceiling lost in darkness, narrow east-west passage and stone stairs upward. No visible water, machinery, bridge, rails or lit fixtures. Source of rushing sound stays unseen. Clear floor for separate treasure.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## barrow-ending-v1.png
+
+Built-in image generation, exec-d7c5a060-68c9-4f52-b2ed-51dd4d44dbc5. Production prompt specification:
+
+> Final bright cavern: wide stream, small wooden footbridge, path into dark tunnel, blank floating sign above bridge. No characters or treasure; source text stays in journal. Correction removed all sign poles/brackets while preserving low bridge handrails.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## altar-hero-v1.png
+
+Built-in image generation, exec-9c9c05d3-a61f-4401-9997-2137bcd7130b. Production prompt specification:
+
+> Hero Altar, reference temple-atlas top-right. Bare centered stone altar, columns, decorative stone recess not door, small dark hole at right floor corner. No book/candles/items baked in. Warm ivory light, aged marble and painterly texture.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.
+
+## lantern-lit-v1.png
+
+Built-in image generation, exec-c0e84cfb-85e2-40fb-8a10-e93d316519f9. Production prompt specification:
+
+> Single brass lantern matching objects-atlas top-left, turned on with warm ivory glow inside glass. Complete centered silhouette, transparent alpha with restrained halo, no other objects.
+
+Alpha verified for sprite atlases; scene geometry and state selection reviewed separately.

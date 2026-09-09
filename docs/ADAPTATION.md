@@ -1,5 +1,7 @@
 # Adaptation contract
 
+**Current edition:** source-built gameplay and dual-engine old-save support are now shipped. All 110 rooms have captions and authored surfaces; the later sections below are historical milestone notes, not current missing-feature claims. See SOURCE-BUILD.md, ROADMAP.md and VALIDATION.md for current guarantees.
+
 ## Current architecture
 
 `src/main.js` (DOM interface) → `src/engine.js` (Glk presentation adapter and read-only state access) → ifvms ZVM → pinned Zork story.
@@ -8,7 +10,7 @@ All interactions are parser commands. The UI never sets game-object attributes, 
 
 Each Engine owns an independent copy of the story bytes. Save files contain Quetzal state plus the pending input buffer and story signature; UI history is separate. A restored game is constructed before replacing the current session.
 
-The input is the archived executable bundled with the MIT source repository. A separate reproducible source build exists; the public adapter still targets archived release 119. See SOURCE-BUILD.md for the verified scope.
+New games use the reproducible source build. Archived release 119 is retained for old saves, using a separate checksum-bound adapter. See SOURCE-BUILD.md.
 
 ## Art and puzzle rules
 
@@ -17,7 +19,7 @@ The input is the archived executable bundled with the MIT source repository. A s
 - A closed opaque container must not expose its contents.
 - UI selection does not advance game turns. Sending a command delegates turn behaviour to the game.
 - Keep movable objects separate from environment plates. The generated sprite atlas supplies the opening objects, including separate trapdoor states. Known dropped objects return to the floor, not their original furniture placement.
-- Mailbox and window flags select generated scene variants. Rug discovery controls both its movement and trapdoor visibility. Unrepresented states (including sack opening and bottle contents) remain explicit visual limitations.
+- Mailbox and window flags select generated scene variants. Rug discovery controls both its movement and trapdoor visibility. Sack, bottle, coffin, egg, buoy and lamp variants follow their own VM state; the black book is always open, as required by its original action routine.
 - Keep original writing and humour. Do not ask a model to improvise puzzle truth at runtime.
 
 ## Validation milestone

@@ -1,7 +1,13 @@
+import adapters from './story-adapters.json' with {type:'json'};
 import { EntropyTape } from './checkpoints.js';
 // Presentation adapter for ifvms; all puzzle logic remains in the original story.
 export class Engine {
   constructor(ZVM, bytes) {
+    const header=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+    const serial=String.fromCharCode(...bytes.subarray(18,24));
+    this.adapter=Object.values(adapters).find(a=>a.length===bytes.length&&a.release===header.getUint16(2)&&a.serial===serial&&a.checksum===header.getUint16(28));
+    if(!this.adapter)throw Error('Unsupported story build.');
+    this.reverse=this.adapter.objects?Object.fromEntries(Object.entries(this.adapter.objects).map(([a,b])=>[b,Number(a)])):null;
     this.output = '';
     this.vm = new ZVM();
     const vm = this.vm;
@@ -60,22 +66,29 @@ export class Engine {
     vm.resume();
     return this.output.trim();
   }
+  completed(){const f=this.adapter.finish;return this.state().room===244&&!!f&&(this.vm.stack.getUint32(this.vm.frameptr)>>>8)===f.caller&&(this.vm.pc===f.read||(this.vm.quit&&this.vm.pc===f.quit));}
+  raw(id){if(!id)return 0;const value=this.adapter.objects?.[id]??id;if(!Number.isInteger(value)||value<1||value>250)throw Error('Unknown object');return value;}
+  canonical(id){return this.reverse?.[id]??id;}
+  mapped(kind,id){const map=this.adapter[kind];if(!map)return id;if(!Object.hasOwn(map,id))throw Error(`Unmapped ${kind} symbol: ${id}`);return map[id];}
+  prop(id,property){return this.vm.get_prop(this.raw(id),this.mapped('properties',property));}
+  global(index){return this.vm.m.getInt16(this.vm.globals+this.mapped('globals',index)*2);}
+  children(id){const result=[];for(let child=this.vm.get_child(this.raw(id));child;child=this.vm.get_sibling(child))result.push(this.canonical(child));return result;}
   name(id) {
     if (!id) return '';
     const vm = this.vm;
-    const prop = vm.m.getUint16(vm.objects + 9 * id + 7);
+    const prop = vm.m.getUint16(vm.objects + 9 * this.raw(id) + 7);
     return String(vm.decode(prop + 1, vm.m.getUint8(prop) * 2));
   }
   state() {
     const vm = this.vm;
-    const room = vm.m.getUint16(vm.globals);
+    const room = this.canonical(vm.m.getUint16(vm.globals));
     return { room, name: this.name(room), score: vm.m.getInt16(vm.globals + 2), turns: vm.m.getUint16(vm.globals + 4) };
   }
-  flag(id, bit) { return !!this.vm.test_attr(id, bit); }
-  parent(id) { return this.vm.get_parent(id); }
+  flag(id, bit) { return !!this.vm.test_attr(this.raw(id), this.mapped('flags',bit)); }
+  parent(id) { return this.canonical(this.vm.get_parent(this.raw(id))); }
   inventory() {
     const items = [];
-    for (let id = this.vm.get_child(44); id; id = this.vm.get_sibling(id)) items.push({ id, name: this.name(id) });
+    for (const id of this.children(44)) items.push({ id, name: this.name(id) });
     return items;
   }
   visible(id) {

@@ -1,20 +1,28 @@
 import { propImage } from './art.js';
 import {worldState} from './world-state.js';
 export const props={"10":{"art":"treasures-atlas","index":0},"12":{"art":"equipment-atlas","index":0},"14":{"art":"equipment-atlas","index":1},"17":{"art":"equipment-atlas","index":2},"23":{"art":"treasures-atlas","index":1},"24":{"art":"world-objects-atlas","index":0},"26":{"art":"equipment-atlas","index":3},"29":{"art":"encounters-atlas","index":5},"58":{"art":"equipment-atlas","index":4},"59":{"art":"encounters-atlas","index":12},"60":{"art":"equipment-atlas","index":5},"68":{"art":"world-objects-atlas","index":1},"70":{"art":"encounters-atlas","index":4},"80":{"art":"treasures-atlas","index":2},"83":{"art":"encounters-atlas","index":10},"91":{"art":"world-objects-atlas","index":2},"96":{"art":"equipment-atlas","index":6},"97":{"art":"treasures-atlas","index":3},"105":{"art":"treasures-atlas","index":4},"108":{"art":"encounters-atlas","index":9},"109":{"art":"equipment-atlas","index":7},"114":{"art":"equipment-atlas","index":8},"115":{"art":"world-objects-atlas","index":3},"119":{"art":"treasures-atlas","index":5},"126":{"art":"treasures-atlas","index":6},"132":{"art":"equipment-atlas","index":9},"133":{"art":"treasures-atlas","index":7},"135":{"art":"equipment-atlas","index":10},"136":{"art":"world-objects-atlas","index":4},"140":{"art":"treasures-atlas","index":8},"142":{"art":"world-objects-atlas","index":5},"149":{"art":"world-objects-atlas","index":6},"154":{"art":"treasures-atlas","index":9},"157":{"art":"equipment-atlas","index":11},"163":{"art":"world-objects-atlas","index":7},"164":{"art":"encounters-atlas","index":2},"165":{"art":"world-objects-atlas","index":8},"168":{"art":"encounters-atlas","index":11},"179":{"art":"treasures-atlas","index":10},"180":{"art":"world-objects-atlas","index":9},"181":{"art":"equipment-atlas","index":12},"185":{"art":"equipment-atlas","index":13},"192":{"art":"treasures-atlas","index":11},"195":{"art":"equipment-atlas","index":14},"196":{"art":"world-objects-atlas","index":10},"199":{"art":"encounters-atlas","index":0},"201":{"art":"treasures-atlas","index":12},"203":{"art":"encounters-atlas","index":9},"204":{"art":"treasures-atlas","index":13},"207":{"art":"encounters-atlas","index":7},"208":{"art":"world-objects-atlas","index":11},"214":{"art":"treasures-atlas","index":14},"215":{"art":"world-objects-atlas","index":12},"217":{"art":"world-objects-atlas","index":13},"219":{"art":"world-objects-atlas","index":14},"229":{"art":"world-objects-atlas","index":15},"232":{"art":"world-objects-atlas","index":8},"236":{"art":"equipment-atlas","index":15},"242":{"art":"treasures-atlas","index":15},"246":{"art":"world-objects-atlas","index":8},"cyclops-asleep":{"art":"encounters-atlas","index":1},"thief-down":{"art":"encounters-atlas","index":3},"grate-open":{"art":"encounters-atlas","index":6},"machine-open":{"art":"encounters-atlas","index":8},"bell-hot":{"art":"encounters-atlas","index":11},"wall-hole":{"art":"encounters-atlas","index":13},"rope-tied":{"art":"encounters-atlas","index":14},"ghosts":{"art":"encounters-atlas","index":15}};
+for(const [key,art,index] of [[179,'treasure-states-v1',0],['coffin-open','treasure-states-v1',1],[105,'treasure-states-v1',2],['egg-open','treasure-states-v1',3],[12,'faithful-props-v1',0],[196,'faithful-props-v1',1],[242,'faithful-props-v1',2],['buoy-open','faithful-props-v1',3]])props[key]={art,index,grid:2};
+props[196].rect=[627,0,627,565];props['buoy-open'].rect=[627,565,627,689];
+props['lantern-lit']={art:'lantern-lit-v1',standalone:true};
 props['candles-lit']={art:'candles-lit-v1',standalone:true};
 props[237]={art:'dam-tool-chests-v1',standalone:true};
 export function propStyle(engine,id,el){
   let key=id;
+  if(id===179&&engine.flag(id,11))key='coffin-open';
+  if(id===105&&engine.flag(id,11))key='egg-open';
+  if(id===185&&engine.flag(id,11))key='buoy-open';
   if(id===26&&engine.flag(id,19))key='candles-lit';
   if(id===207&&engine.flag(id,11))key='machine-open';
   if(id===29&&engine.flag(id,11))key='grate-open';
   if(id===199&&worldState(engine).cyclopsSleeping)key='cyclops-asleep';
-  if(id===164&&engine.vm.get_prop(164,7)>32767)key='thief-down';
+  if(id===164&&engine.prop(164,7)>32767)key='thief-down';
   if(id===58&&worldState(engine).ropeTied)key='rope-tied';
   const p=props[key];if(!p)return;
   el.classList.add('world-prop');el.style.backgroundImage=propImage(p.art);
-  el.style.backgroundSize=p.standalone?'contain':'400% 400%';el.style.backgroundRepeat='no-repeat';el.style.backgroundPosition=p.standalone?'center':`${(p.index%4)*100/3}% ${Math.floor(p.index/4)*100/3}%`;
-  el.style.aspectRatio='1';el.dataset.artState=String(key);
+  const grid=p.grid??4;el.style.backgroundSize=p.standalone?'contain':`${grid*100}% ${grid*100}%`;el.style.backgroundRepeat='no-repeat';el.style.backgroundPosition=p.standalone?'center':`${(p.index%grid)*100/(grid-1)}% ${Math.floor(p.index/grid)*100/(grid-1)}%`;
+  el.style.aspectRatio='1';
+  if(p.rect){const [x,y,w,h]=p.rect;el.style.aspectRatio=`${w}/${h}`;el.style.backgroundSize=`${1254/w*100}% ${1254/h*100}%`;el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;}
+  el.dataset.artState=String(key);
 }
 const staged={237:[21,73,25],199:[57,64,42],164:[62,64,32],70:[50,23,25],207:[52,68,38],108:[60,71,22],203:[51,79,22],157:[51,82,34],29:[51,80,33],179:[50,76,30],135:[54,75,23],12:[50,54,12]};
 export function propLayers(engine){

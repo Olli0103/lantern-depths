@@ -1,4 +1,4 @@
-name: Verify prototype
+name: Verify illustrated edition
 on: [push, pull_request]
 permissions:
   contents: read
@@ -38,6 +38,6 @@ jobs:
       group: pages
       cancel-in-progress: false
     steps:
-      - name: Deploy playable prototype
+      - name: Deploy illustrated edition
         id: deployment
         uses: actions/deploy-pages@v4

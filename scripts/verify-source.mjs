@@ -14,7 +14,10 @@ for(const command of commands){
   for(const key of ['name','score','turns'])assert.equal(rebuilt.state()[key],original.state()[key],`${key} differs after: ${command}`);
 }
 assert.equal(rebuilt.state().name,'Kitchen');
-assert.notEqual(rebuilt.state().room,original.state().room,'Keep compiled object IDs separate');
+assert.equal(rebuilt.state().room,original.state().room,'Both adapters expose canonical room identity');
+assert.notEqual(rebuilt.vm.m.getUint16(rebuilt.vm.globals),original.vm.m.getUint16(original.vm.globals),'Raw compiled object IDs remain separate');
 const saved=rebuilt.snapshot(),restored=new Engine(ZVM,readFileSync('build/source-a/rebuilt.z3'));restored.restore(saved);
 assert.equal(restored.command('look'),rebuilt.command('look'));
-console.log('Rebuilt source: opening/gallery/studio/chimney transcript content matches retail (room-list ordering differs); own save continuation passes. Object IDs differ; retail graphical mapping must not be reused.');
+console.log('Rebuilt source: opening/gallery/studio/chimney transcript content matches retail (room-list ordering differs); own save continuation passes. Raw IDs differ; build-specific adapters preserve presentation identity.');
+
+assert.equal(Buffer.compare(readFileSync('build/source-a/rebuilt.z3'),readFileSync('public/story-source.z3')),0,'Shipped source story matches fresh reproducible build');

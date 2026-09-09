@@ -6,6 +6,9 @@
   "storySha256": "37084966477dff679282de42974b2077156b1bd68fad92a65d4ea94d8eb64d79",
   "release": 119,
   "serial": "880429",
-  "buildStatus": "Archived upstream executable. Not yet rebuilt from the source snapshot.",
-  "interpreter": "ifvms@1.1.6"
+  "buildStatus": "Reproducibly built from pinned source; source build default, archived release retained exclusively for old-save compatibility.",
+  "interpreter": "ifvms@1.1.6",
+  "defaultStory": "public/story-source.z3",
+  "defaultStorySha256": "e21b4e04a078349e9bbcc8d6a324c5d01ffc3f16db1e8c9c0f32294c01794b58",
+  "adapter": "src/story-adapters.json"
 }

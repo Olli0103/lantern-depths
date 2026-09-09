@@ -1,3 +1,4 @@
+import storyAdapters from './story-adapters.json' with {type:'json'};
 import { expeditionChapter, expeditionStates } from './expedition.js';
 import { SceneMenu } from './scene-menu.js';
 import { setPaintingSource,hasPainting } from './art.js';
@@ -17,6 +18,7 @@ const $ = id => document.getElementById(id);
 const key = QUICK_SAVE_KEY;
 const undoHistory=new UndoHistory(),commandHistory=new CommandHistory();
 let storyHash='';
+const storyCatalog={};
 const checkpoint=()=>capture(engine,history,discovery,storyHash);
 let engine, story, selected = null, history = [], targeting = null;
 const sound = new Soundscape();
@@ -79,7 +81,7 @@ function renderSelection() {
     if(text&&['Read','Examine'].includes(verb)&&engine.lit())showDetail(id,text);
   },$('verbs'));
   const children=[];
-  if(engine.lit())for(let child=engine.vm.get_child(id);child;child=engine.vm.get_sibling(child))if(engine.visible(child))children.push(child);
+  if(engine.lit())for(const child of engine.children(id))if(engine.visible(child))children.push(child);
   if(children.length){const heading=document.createElement('p');heading.textContent='Contents';$('contents').append(heading);
     for(const child of children)button(engine.name(child),()=>select(child),$('contents')).setAttribute('aria-label',`Select contents: ${engine.name(child)}`);
   }
@@ -94,8 +96,9 @@ function renderSelection() {
 }
 function render() {
   const state=engine.state(), scene=sceneVariant(engine,scenes[state.room]), lit=engine.lit();
-  $('location').textContent=lit?state.name:'Darkness';
-  $('journal-location').textContent=lit?state.name:'Darkness';
+  const locationName=scene?.ending?'Inside the Barrow':state.name;
+  $('location').textContent=lit?locationName:'Darkness';
+  $('journal-location').textContent=lit?locationName:'Darkness';
   $('stats').textContent=`SCORE ${state.score} / 350 · MOVES ${state.turns}`;
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
   const hasArt=lit&&hasPainting(scene?.art);
@@ -117,7 +120,7 @@ function render() {
   if(state.room===75&&engine.flag(197,11))painting='living-room-case-open-v1';
   const tile=scene?.cell;
   Object.assign($('painting').style,tile===undefined?{width:'100%',height:'100%',position:'',left:'',top:''}:{width:'200%',height:'200%',position:'absolute',left:`${-(tile%2)*100}%`,top:`${-Math.floor(tile/2)*100}%`});
-  if(hasArt){setPaintingSource($('painting-source'),painting,tile!==undefined);$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${state.name}`;}
+  if(hasArt){setPaintingSource($('painting-source'),painting,tile!==undefined);$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${locationName}`;}
   $('scene').dataset.dark=String(!lit);
   $('scene').dataset.lantern=String(lit&&!engine.flag(state.room,19));
   $('scene').dataset.room=state.room;
@@ -125,7 +128,7 @@ function render() {
   sound.setScene(ambienceFor(engine));
   $('unpainted').hidden=hasArt||!lit;
   $('hotspots').replaceChildren();
-  const visible=sceneObjects(engine);
+  const visible=scene?.ending?[]:sceneObjects(engine);
   for(const h of (hasArt?scene?.hotspots??[]:[])) {
     if(h.ids){
       const ids=h.ids.filter(id=>visible.includes(id));if(!ids.length)continue;
@@ -164,7 +167,7 @@ function render() {
     el.dataset.selectId=id;el.setAttribute('aria-pressed',String(selected===id));
     if(hasItemArt(id)){const icon=document.createElement('span');icon.className='nearby-icon';icon.setAttribute('aria-hidden','true');itemArt(engine,id,icon);el.prepend(icon);}
   }
-  if(!visible.length){const p=document.createElement('p');p.textContent=lit?'Look around. There may be more than meets the eye.':'You cannot see your surroundings.';$('objects').append(p);}
+  if(!visible.length){const p=document.createElement('p');p.textContent=scene?.ending?'Your adventure is complete. The conclusion is in your journal.':lit?'Look around. There may be more than meets the eye.':'You cannot see your surroundings.';$('objects').append(p);}
   $('inventory').replaceChildren();
   const items=engine.inventory();$('count').textContent=items.length;
   for(const item of items){
@@ -201,9 +204,15 @@ $('map-close').addEventListener('click',()=>$('map-dialog').close());
 $('detail-close').addEventListener('click',()=>$('detail').close());
 async function start() {
   try {
-    const response=await fetch('./story.z3');if(!response.ok)throw new Error('The story could not be loaded.');
-    story=new Uint8Array(await response.arrayBuffer());
-    storyHash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',story)),b=>b.toString(16).padStart(2,'0')).join('');
+    await Promise.all(Object.entries(storyAdapters).map(async([id,adapter])=>{
+      const response=await fetch(id==='source'?'./story-source.z3':'./story.z3');if(!response.ok)throw Error('The story could not be loaded.');
+      const bytes=new Uint8Array(await response.arrayBuffer());
+      const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+      if(hash!==adapter.sha256)throw Error('Story integrity check failed. Reload to get a consistent build.');
+      const probe=new Engine(window.ZVM,bytes);
+      storyCatalog[id]={bytes,hash,signature:probe.vm.signature};
+    }));
+    story=storyCatalog.source.bytes;storyHash=storyCatalog.source.hash;
     engine=new Engine(window.ZVM,story);discovery.record(null,observation(engine));addEntry('',engine.output);render();
   }catch(e){notice(e.message);$('location').textContent='Unable to begin';}
 }
@@ -216,7 +225,7 @@ for(const direction of ['up','down','in','out'])button(direction,()=>run(directi
 $('command-form').addEventListener('submit',e=>{e.preventDefault();if(!engine)return;run($('command').value);$('command').value='';});
 $('look').addEventListener('click',()=>engine&&run('look'));
 function applyCheckpoint(raw,{undo=false}={}) {
-  const restored=decodeSave(raw,window.ZVM,story,storyHash,undo?engine.entropy.snapshot():undefined);
+  const restored=decodeSave(raw,window.ZVM,story,storyHash,undo?engine.entropy.snapshot():undefined,storyCatalog);
   engine=restored.engine;history=restored.history;discovery=restored.discovery;
   sceneMenu.close();selected=null;cancelTarget();$('selection').hidden=true;
   for(const id of ['detail','map-dialog'])if($(id).open)$(id).close();
@@ -262,7 +271,7 @@ $('save-import').addEventListener('change',async e=>{
   const file=e.target.files[0];if(!file)return;
   try{if(file.size>MAX_SAVE_BYTES)throw Error('Save is too large.');const raw=await file.text();
     // Validate completely before offering to replace the current session.
-    decodeSave(raw,window.ZVM,story,storyHash);
+    decodeSave(raw,window.ZVM,story,storyHash,undefined,storyCatalog);
     if(!window.confirm('Load this adventure file? Your current unsaved progress will be replaced.'))return;
     applyCheckpoint(raw);$('saves-dialog').close();notice('Adventure file loaded. Use Save to keep it in this browser.');
   }catch(error){$('saves-notice').textContent='Import failed: '+error.message;}finally{e.target.value='';}

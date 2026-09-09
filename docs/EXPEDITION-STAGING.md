@@ -15,6 +15,10 @@ Read-only release-119 presentation increment for Temple, River, Mine and endgame
 
 Parser-driven full 350-point route with per-turn visibility, container placement and hidden treasure checks; basket restore and new action command checks. Browser coverage includes lit/unlit candles, mid-route save/load, direct basket controls with Undo, switch keyboard focus, mobile selection, and existing full-game/house/dam suites.
 
-## Still not finished
+## Completion pass
 
-This is not a claim of full cinematic art completion. The existing atlas plates remain lower resolution than hero paintings. The altar book is still depicted closed although the prose describes an open book. The existing torch material and mine beam material need art correction; the basket's chain is not yet illustrated. Excavation depth and open/closed coffin/egg variants need bespoke images. Generic fire/light prose and combat exceptions remain parser-led. Endgame conclusion uses the journal instead of inventing a VM room change. Source-built adapter migration remains separately gated; this increment does not change story bytes or old-save compatibility.
+Open/closed coffin and egg sprites, open buoy, open black book, ivory torch and silver chalice are now present. Exact alpha and source rectangles are verified; the book crop excludes the neighbouring buoy. Shaft/Drafty hero scenes replace timber with iron and show the chain raised/lowered with the actual basket. Sand excavation follows BEACH-DIG, including restoration and collapse reset; hidden scarab remains absent. The altar, Loud Room and Strange Passage have source-faithful hero plates. The strange door now has its permanent Cyclops-sized hole.
+
+The finale uses the VM's build-bound FINISH call from Stone Barrow and its preserved caller, not narration matching or a fabricated room transition. Its bright cavern and floating sign are illustrated; the original sign text stays in the journal. Undo restores the exterior presentation correctly. The source adapter and old-save compatibility are complete; see SOURCE-BUILD.md.
+
+Wordplay, exceptional narration and individual injury descriptions remain text/parser-led by design. This is a complete illustrated adaptation baseline, not animation of every sentence or a mouse-only rewrite.
