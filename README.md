@@ -6,7 +6,7 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 ## v0.4.1 — Optional opening music
 
-The owner-supplied Suno track is available under **Settings → Play opening music**. It plays a quiet, fading 60-second excerpt only on request; no looping or room-triggered restarts. Hidden tabs pause playback. The audio level controls both music and separately enabled ambient sound. Original game rules and saves are unchanged. The MP3 has a [separate rights notice](public/audio/README.md), not the code’s MIT licence.
+The owner-supplied Suno track is available under **Settings → Play opening music**. It automatically starts a quiet, fading 60-second excerpt on opening the game (or on the first click/key press if browser autoplay policy blocks it); no looping or room-triggered restarts. Hidden tabs pause playback. The audio level controls both music and separately enabled ambient sound. Original game rules and saves are unchanged. The MP3 has a [separate rights notice](public/audio/README.md), not the code’s MIT licence.
 
 ## v0.4 — The wider Great Underground Empire
 
@@ -74,7 +74,7 @@ The Zork name is used to identify the source. This project is not affiliated wit
 
 1. Validate a separate graphical mapping for the reproducibly rebuilt source; preserve retail save compatibility.
 2. Extend object-state coverage to container contents, destruction and the remaining world objects.
-3. Add reviewed ambient recordings and sparse musical cues using the user's authorised audio services; retain opt-in playback and document redistribution rights separately.
+3. Add reviewed ambient recordings and sparse musical cues using the user's authorised audio services; retain user-controlled playback and document redistribution rights separately.
 4. Audit parser-dependent puzzles before attempting a mouse-only mode.
 
 See [docs/ADAPTATION.md](docs/ADAPTATION.md) and [asset provenance](public/art/README.md).

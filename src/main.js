@@ -195,6 +195,7 @@ const music = new MusicCue((enabled,error) => {
   $('music').setAttribute('aria-pressed',String(enabled));
   if(error) notice(error);
 });
+void music.autostart();
 $('music').addEventListener('click',async()=>{
   $('music').disabled=true;
   try { await music.toggle(); } catch(e) { notice(e.message); }

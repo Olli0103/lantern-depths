@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test('music is opt-in, independently stoppable, and never advances game turns', async ({page}) => {
+test('opening music starts automatically, is independently stoppable, and never advances game turns', async ({page}) => {
+  await page.addInitScript(() => {
+    const nativePlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function() { this.muted = true; return nativePlay.call(this); };
+  });
   const requests=[];
   page.on('request',r=>{if(r.url().includes('/audio/lantern-depths.mp3'))requests.push(r.url());});
   await page.addInitScript(()=>{
@@ -9,10 +13,9 @@ test('music is opt-in, independently stoppable, and never advances game turns', 
   });
   await page.goto('/');
   await expect(page.locator('#location')).toHaveText('West of House');
-  expect(requests).toHaveLength(0);
+
   const stats=await page.locator('#stats').innerText();
   await page.locator('#preferences summary').click();
-  await page.locator('#music').click();
   await expect(page.locator('#music')).toHaveAttribute('aria-pressed','true');
   await expect.poll(()=>page.evaluate(()=>window.testMusic.currentTime)).toBeGreaterThan(0);
   expect(requests.length).toBeGreaterThan(0);
@@ -32,4 +35,26 @@ test('music is opt-in, independently stoppable, and never advances game turns', 
   await expect(page.locator('#music')).toHaveAttribute('aria-pressed','true');
   await page.locator('#music').click();
   expect(await page.evaluate(()=>window.testMusic.paused)).toBe(true);
+});
+
+ test('blocked autoplay retries on first gesture and never restarts after stopping', async ({page}) => {
+  await page.addInitScript(() => {
+    window.musicAttempts = 0;
+    HTMLMediaElement.prototype.play = function() {
+      window.musicAttempts++;
+      if (window.musicAttempts === 1) return Promise.reject(new DOMException('Gesture required', 'NotAllowedError'));
+      return Promise.resolve();
+    };
+  });
+  await page.goto('/');
+  await expect.poll(() => page.evaluate(() => window.musicAttempts)).toBe(1);
+  await expect(page.locator('#music')).toHaveAttribute('aria-pressed', 'false');
+  await page.locator('#preferences summary').click();
+  await expect(page.locator('#music')).toHaveAttribute('aria-pressed', 'true');
+  expect(await page.evaluate(() => window.musicAttempts)).toBe(2);
+  await page.locator('#music').click();
+  await page.locator('#command-form input').focus();
+  await page.keyboard.press('x');
+  await expect(page.locator('#music')).toHaveAttribute('aria-pressed', 'false');
+  expect(await page.evaluate(() => window.musicAttempts)).toBe(2);
 });
