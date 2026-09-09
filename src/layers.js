@@ -109,6 +109,7 @@ export function renderLayers(engine, parent, select, makeButton) {
     else spriteStyle(el, layer.index);
     el.style.left = layer.x + '%'; el.style.top = layer.y + '%'; el.style.width = layer.width + '%';
     el.dataset.placement=layer.placement??'authored';
+    el.dataset.dense=String(!!layer.dense);
     el.dataset.moved = layer.moved ? 'true' : 'false';
     el.classList.toggle('lamp-lit', layer.id === 146 && engine.flag(146, 19));
     el.dataset.sprite = layer.index;

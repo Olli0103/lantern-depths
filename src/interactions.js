@@ -10,11 +10,14 @@ export function actionsFor(engine, id) {
   if (engine.flag(id, 18) || engine.flag(id, 22)) actions.push(engine.flag(id, 11) ? 'Close' : 'Open');
   if (engine.flag(id, 16)) actions.push('Read');
   if (engine.flag(id, 31)) actions.push(engine.flag(id, 19) ? 'Turn off' : 'Turn on');
+  if([63,151,212,225].includes(id))actions.push('Push');
+  if(id===195)actions.push('Squeeze');
   if (!held) actions.push('Move');
   return actions;
 }
 
 export const relations = {
+  turn: { label: 'Turn with…', command: (item,target)=>`turn ${target} with ${item}` },
   in: { label: 'Put in…', command: (item, target) => `put ${item} in ${target}` },
   on: { label: 'Put on…', command: (item, target) => `put ${item} on ${target}` },
   give: { label: 'Give to…', command: (item, target) => `give ${item} to ${target}` },

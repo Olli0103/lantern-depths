@@ -1,5 +1,6 @@
 import { SceneMenu } from './scene-menu.js';
-import { setPaintingSource } from './art.js';
+import { setPaintingSource,hasPainting } from './art.js';
+import { damRooms,damState } from './dam-region.js';
 import { UndoHistory, CommandHistory } from './checkpoints.js';
 import { QUICK_SAVE_KEY, MAX_SAVE_BYTES, SLOT_COUNT, capture, decodeSave, saveSlot, readSlot, slotMetadata } from './saves.js';
 import { MusicCue } from './music.js';
@@ -19,7 +20,6 @@ const checkpoint=()=>capture(engine,history,discovery,storyHash);
 let engine, story, selected = null, history = [], targeting = null;
 const sound = new Soundscape();
 let discovery=new Discovery();
-const art = new Set(Object.values(scenes).map(scene=>scene.art));
 let previousRoom=null;
 const sceneMenu=new SceneMenu($('scene'),$('selection'),$('selection-home'),$('scene-actions'),$('command-form'));
 $('scene-actions-close').addEventListener('click',()=>sceneMenu.close(true));
@@ -97,10 +97,11 @@ function render() {
   $('journal-location').textContent=lit?state.name:'Darkness';
   $('stats').textContent=`SCORE ${state.score} / 350 · MOVES ${state.turns}`;
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
-  const hasArt=lit&&art.has(scene?.art);
+  const hasArt=lit&&hasPainting(scene?.art);
   $('painting').hidden=!hasArt;
   if(!hasArt){$('painting-source').removeAttribute('srcset');$('painting').removeAttribute('src');$('painting').alt='';}
   $('chapter-label').textContent=!lit?'LANTERN DEPTHS':undergroundRooms.has(state.room)?'BENEATH THE WHITE HOUSE':'LANTERN DEPTHS';
+  if(lit&&damRooms.has(state.room))$('chapter-label').textContent='FLOOD CONTROL DAM #3';
   $('scene').dataset.underground=String(undergroundRooms.has(state.room));
   if(previousRoom!==state.room){
     if(lit&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.documentElement.classList.contains('reduce-motion'))
@@ -124,6 +125,21 @@ function render() {
   $('hotspots').replaceChildren();
   const visible=sceneObjects(engine);
   for(const h of (hasArt?scene?.hotspots??[]:[])) {
+    if(h.ids){
+      const ids=h.ids.filter(id=>visible.includes(id));if(!ids.length)continue;
+      const el=button(h.label,()=>{
+        $('detail-title').textContent=h.label;$('detail-art').hidden=true;$('detail-text').replaceChildren();
+        for(const id of ids){
+          if(!engine.visible(id))continue;
+          const row=document.createElement('div');row.className='control-row';
+          const label=document.createElement('span');label.textContent=engine.name(id);row.append(label);
+          for(const verb of ['Examine','Push'])button(verb,()=>{$('detail').close();run(`${verb.toLowerCase()} ${noun(engine,id)}`);},row).setAttribute('aria-label',`${verb} ${engine.name(id)}`);
+          $('detail-text').append(row);
+        }
+        $('detail').showModal();
+      },$('hotspots'),'hotspot');
+      el.style.left=h.x+'%';el.style.top=h.y+'%';el.dataset.label=h.label;continue;
+    }
     if(!visible.includes(h.id))continue;
     const el=button('+',element=>select(h.id,element),$('hotspots'),'hotspot');
     el.style.left=h.x+'%';el.style.top=h.y+'%';el.setAttribute('aria-label',`Inspect ${engine.name(h.id)}`);el.dataset.label=engine.name(h.id);el.dataset.selectId=h.id;el.setAttribute('aria-pressed',String(selected===h.id));
@@ -133,6 +149,12 @@ function render() {
   if(lit&&[85,27].includes(state.room))states.push(engine.flag(243,11)?'Window · open':'Window · not open');
   if(lit&&state.room===75&&!engine.flag(240,7))states.push(engine.flag(240,11)?'Trapdoor · open':'Trapdoor · closed');
   if(lit&&state.room===75)states.push(engine.flag(197,11)?'Case · open':'Case · closed');
+  const dam=damState(engine);
+  $('scene').dataset.damEnabled=String(lit&&state.room===178&&dam.enabled);
+  $('scene').dataset.leaking=String(lit&&state.room===224&&dam.waterLevel>0);
+  $('scene').style.setProperty('--flood-height',`${lit&&state.room===224?Math.max(0,Math.min(50,dam.waterLevel*3.5)):0}%`);
+  if(lit&&state.room===178)states.push(`Sluices · ${dam.gates?'open':'closed'}`,`Water · ${dam.water}`);
+  if(lit&&state.room===224&&dam.leak)states.push(dam.waterLevel<0?'Leak · stopped':'Leak · flowing');
   $('scene-state').textContent=states.join(' / ');
   $('objects').replaceChildren();
   for(const id of visible){

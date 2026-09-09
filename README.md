@@ -4,6 +4,10 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## v0.6 — The flood-control dam
+
+Seven connected dam/reservoir rooms now have authored interactions and placement. Four dam paintings distinguish sluice position from delayed water level; maintenance buttons, lights, leakage and tool chests follow VM state. A drawn discovery sketch retains the accessible notes and records only actual journeys. Crowded trophy shelves and dropped objects use bounded surface placements. Original story bytes and save formats remain unchanged. [Region scope](docs/DAM-REGION.md) · [Art prompts](docs/DAM-ART-PROMPTS.md).
+
 ## v0.5.1 — Actions in the scene
 
 Scene-object clicks now open nearby action controls; keyboard and sidebar controls remain available. Eleven opening-region rooms have authored floor/surface placements, the trophy case visibly opens, and accessible container contents follow actual possession and visibility. [Scope and remaining art work](docs/REGION-STAGING.md). Original puzzles, binary and saves remain unchanged.

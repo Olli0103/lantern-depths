@@ -1,3 +1,4 @@
+import { damRooms,damCaption } from './dam-region.js';
 // Read-only visual adapter for the pinned release 119 image.
 // Global slots were verified against parser-driven state transitions.
 export const globalFlag=(engine,index)=>!!engine.vm.m.getUint16(engine.vm.globals+index*2);
@@ -15,7 +16,7 @@ export function worldState(engine){
 export function sceneVariant(engine,scene){
   if(!scene)return scene;
   const room=engine.state().room,state=worldState(engine);
-  if([123,191,95].includes(room)&&state.drained)return {...scene,art:'reservoir-atlas',cell:3};
+  if(damRooms.has(room))return damCaption(engine,scene);
   if([52,110].includes(room)&&state.mirrorBroken)return {...scene,art:'mirror-atlas',cell:1};
   return scene;
 }

@@ -408,5 +408,75 @@
     "created": "2026-09-09",
     "status": "2x2 transparent container-state atlas; original RGBA preserved",
     "prompt": "docs/ART-PROMPTS.md#container-states-v1png"
+  },
+  {
+    "file": "public/art/dam-closed-high-v1.png",
+    "sha256": "652d08a4d5039729305389eafe0c8c935a094bf442e1957a9aeddcfc75464028",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/dam-open-high-v1.png",
+    "sha256": "dbec973e93d0d52c02a40b25e752e3f280ba7da1af5b5edc1aa552fb99092a1c",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/dam-open-low-v1.png",
+    "sha256": "db56cf1e159787b26fb2f8ae681496e61cd0e0bb07099d2c402deb2f67cfc831",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/dam-closed-low-v1.png",
+    "sha256": "3f71c54a29f95298f3f2957c2c9087a6f99cb67f6563a41ded1c0eab4a92c435",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/dam-maintenance-v1.png",
+    "sha256": "951ea1d4b5d3e97f098d637bd8a6c48216fe6ca8fd52d03fc831651348ff99d5",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/reservoir-dry-v1.png",
+    "sha256": "22c8919af8c3c1c238497be6ffb5b873c951c64c5f105048553a3167cd0e4dba",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "source-grounded dam/water state artwork"
+  },
+  {
+    "file": "public/art/dam-tool-chests-v1.png",
+    "sha256": "d64f32ebbb5d9af6147ad9113234a11e8db7e4b980317337946d224442cb8722",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "prompt": "docs/DAM-ART-PROMPTS.md",
+    "status": "verified real-alpha prop; separate state layer"
   }
 ]

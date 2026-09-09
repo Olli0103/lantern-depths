@@ -26,7 +26,7 @@ test('parser-only winning route validates stateful world presentation and hidden
   if(c==='odysseus'){assert.equal(s.cyclopsPassage,true);assert.ok(!propLayers(e).some(x=>x.id===199));}
   if(c==='tie rope to railing'){assert.equal(s.ropeTied,true);rope=true;}
   if(c==='wave sceptre'){assert.equal(s.rainbow,true);rainbow=true;}
-  if([95,123,191].includes(e.state().room)&&s.drained){assert.equal(sceneVariant(e,scenes[e.state().room]).cell,3);drained=true;}
+  if([95,123,191].includes(e.state().room)&&s.drained){assert.equal(sceneVariant(e,scenes[e.state().room]).art,'reservoir-dry-v1');assert.equal(sceneVariant(e,scenes[e.state().room]).cell,({123:0,191:1,95:2})[e.state().room]);drained=true;}
   for(const layer of propLayers(e))if(!layer.decorative&&![29,59].includes(layer.id))assert.ok(e.visible(layer.id),`hidden prop ${layer.id}`);
  }
  assert.ok(drained&&mirrored&&rope&&rainbow);assert.equal(e.state().score,350);assert.equal(e.vm.quit,true);

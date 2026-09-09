@@ -1,9 +1,11 @@
+import { damScenes, damRooms, damState } from './dam-region.js';
 import { localHotspots } from './staging.js';
 // Object IDs and attributes are tied to the pinned release 119 story.
 // No action changes VM memory: every interaction sends a parser command.
 import { regions } from './regions.js';
 export const scenes = {
   ...regions,
+  ...damScenes,
   15:{art:'passage-atlas',cell:0,caption:'Passages lead away into the dark.',objects:[],hotspots:[]},
   175:{art:'passage-atlas',cell:1,caption:'A fork in the silence.',objects:[],hotspots:[]},
   106:{art:'passage-atlas',cell:2,caption:'The path follows the edge.',objects:[],hotspots:[]},
@@ -20,12 +22,13 @@ export const scenes = {
   220: { art:'studio',caption:'An entire universe. Some assembly required.',objects:[41,43],hotspots:[{id:43,x:79,y:55}] },
   130: { art: 'east-west-passage-v2', caption: 'Stone narrows around the lamplight.', objects: [], hotspots: [] },
 };
-export const nouns = { 197:'case',169:'table',100:'wooden door',186:'water',217:'garlic',14:'lunch', 92:'painting',41:'manual',43:'chimney', 150:'troll',36:'axe',230:'mailbox',76:'leaflet',243:'window',99:'sack',138:'bottle',146:'lamp',227:'sword',55:'rug',240:'trap door' };
+export const nouns = {9:'panel',210:'bolt',200:'bubble',223:'dam',63:'yellow button',151:'brown button',212:'red button',225:'blue button',237:'tool chests',49:'leak',215:'guidebook',109:'pump', 197:'case',169:'table',100:'wooden door',186:'water',217:'garlic',14:'lunch', 92:'painting',41:'manual',43:'chimney', 150:'troll',36:'axe',230:'mailbox',76:'leaflet',243:'window',99:'sack',138:'bottle',146:'lamp',227:'sword',55:'rug',240:'trap door' };
 const surfaceRooms=new Set([64,137,85,209,238,5,32,87,167,221,128,160,22,21,74,47,125,202,244,30,155,166,184,37,45,53,174,182,40,67,86,111]);
 export const undergroundRooms = new Set(Object.keys(scenes).map(Number).filter(id=>!surfaceRooms.has(id)&&![27,75,187].includes(id)));
 export function ambienceFor(engine) {
   const room=engine.state().room;
   // Acoustic identity is geographical, independent of whether a lamp is lit.
+  if(damRooms.has(room)){const s=damState(engine);return room===224?(s.waterLevel>0?'leak':'machinery'):room===120?'gallery':s.gates?'sluices':'reservoir';}
   return ({33:'cellar',127:'stone',247:'chasm',130:'passage',122:'gallery',220:'studio'})[room]
     ?? (surfaceRooms.has(room)?'outdoors':undergroundRooms.has(room)?'passage':'house');
 }

@@ -51,3 +51,24 @@
 
 /* State artwork shares the same source of truth in room, satchel and detail. */
 .container-sprite{background-repeat:no-repeat}
+/* Crowded authored surfaces retain the artwork scale. Full-size Nearby controls
+   remain the accessible alternative to these intentionally small scene props. */
+.scene-object[data-dense='true']{min-width:0}
+/* Pure visual effects: actual VM state selects intensity/visibility. */
+#dam-indicator,#dam-leak,#dam-flood{position:absolute;pointer-events:none;display:none}
+#scene[data-dam-enabled='true'] #dam-indicator{display:block;left:80.7%;top:41.8%;width:2.4%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(#c1ff9f99,#40db7255 45%,transparent 70%);box-shadow:0 0 16px #75ef78aa;z-index:3}
+#scene[data-leaking='true'] #dam-leak{display:block;left:82.7%;top:36%;height:36%;width:2.5%;transform:rotate(13deg);transform-origin:top;background:linear-gradient(90deg,transparent,#d6f3ff85,#6fadb599,transparent);border-radius:50%;filter:blur(1px);z-index:3}
+#scene[data-leaking='true'] #dam-flood{display:block;inset:auto 0 0;height:var(--flood-height);background:linear-gradient(#709da535,#244b6280);border-top:1px solid #bddcdf55;z-index:3}
+.control-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.control-row span{flex:1;text-transform:capitalize}.control-row button{min-height:44px;font:14px system-ui}
+.control-row span{font:14px system-ui;min-width:98px;text-transform:none}
+#scene[data-leaking='true'] #dam-leak{background:linear-gradient(90deg,transparent,#dce0d854,#7e88864f,transparent);filter:blur(.4px)}
+.journey-sketch{margin:20px 0 28px}.journey-sketch h3{font:23px Georgia;font-weight:normal;margin:0 0 8px}.journey-sketch>p{font:14px system-ui;color:var(--muted);line-height:1.5;max-width:650px}
+.map-zoom{display:flex;gap:8px;margin:10px 0}.map-zoom button{min-width:44px;min-height:44px;font:20px Georgia}
+.map-canvas{max-height:430px;overflow:auto;border:1px solid var(--line);background:#0c1713;scrollbar-color:#7d846b #0c1713;overscroll-behavior:contain}
+.map-canvas svg{display:block;max-width:none;color:#a18f60}.journey-edge{fill:none;stroke:#9c906c;stroke-width:1.4}.journey-direction{font:12px system-ui;fill:#d7c69c;paint-order:stroke;stroke:#0c1713;stroke-width:5px;stroke-linejoin:round}
+.journey-node{cursor:pointer;outline:none}.journey-node rect{fill:#14231d;stroke:#687160;stroke-width:1}.journey-node text{font:15px Georgia;fill:var(--ink);pointer-events:none}.journey-node .journey-here{font:9px system-ui;letter-spacing:1px;fill:#dec68a}.journey-node.current rect{stroke:#d6b56b;stroke-width:2}.journey-node:hover rect,.journey-node:focus-visible rect{stroke:#ffe5a8;stroke-width:3}
+.discovery-room:focus{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:760px){.map-canvas{max-height:340px}}
+
+@media(max-width:760px){#map-dialog{padding:16px}#map-title{margin:8px 0 12px}#map-content>p{font-size:14px;line-height:1.4}.journey-sketch{margin-top:12px}.map-canvas{max-height:45dvh}}

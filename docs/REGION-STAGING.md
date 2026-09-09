@@ -1,4 +1,4 @@
-# Connected-region staging — v0.5.2
+# Connected-region staging — v0.6
 
 This increment improves the house/cellar/troll/chasm/gallery/studio route; it is not the completed regional art milestone.
 
@@ -13,4 +13,4 @@ Keep the established painterly lighting, earthy wood/stone, restrained brass and
 
 ## Known remaining work
 
-Sack opening and all four bottle open/closed × full/empty states now use verified transparent artwork across scene, inventory and detail. Full/closed bottle and closed sack retain the original art. Open sack artwork intentionally has an obscured interior, never guessed contents; visible contents remain separate controls/layers. Previous painted-grid attempts remain rejected. Filling/emptying the sack is not assigned an invented fullness flag or shape. Packed case shelves and more than six dropped objects need further art/layout review. This is authored positioning, not a collision/physics system. Rooms outside the eleven-room opening region retain prior placement. A visual coordinate editor, additional source-built adapter and the later regions remain separate roadmap tasks.
+Sack opening and all four bottle open/closed × full/empty states now use verified transparent artwork across scene, inventory and detail. Full/closed bottle and closed sack retain the original art. Open sack artwork intentionally has an obscured interior, never guessed contents; visible contents remain separate controls/layers. Previous painted-grid attempts remain rejected. Filling/emptying the sack is not assigned an invented fullness flag or shape. Packed shelves now align to the four actual shelf heights and were visually reviewed after the full 350-point treasure route. Crowded floor/table placements use bounded non-overlapping anchor grids; synthetic 100-object floor, 70-object shelf and 30-object table tests cover placement limits. Dense props retain full-size accessible Nearby controls. This is authored positioning, not a collision/physics system. Seven dam/reservoir rooms also have authored placement; other regions retain prior placement. A visual coordinate editor, additional source-built adapter and the later regions remain separate roadmap tasks.

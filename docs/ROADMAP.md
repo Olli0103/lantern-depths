@@ -42,3 +42,5 @@ Do not start a universal Z-machine platform, PWA/service-worker caching, AI runt
 - v0.5.1: direct scene actions, local container contents, eleven-room placement rules and open trophy-case artwork. The region is not declared complete: unsupported container sprites and crowded placement states are recorded in `REGION-STAGING.md`.
 
 - v0.5.2: real-alpha container atlas; open sack and all bottle water/open states follow VM state in room, inventory and detail. Closing a reused node clears stale atlas styling. Packed shelves and crowded floor staging remain open regional work.
+
+- v0.6: reviewed packed trophy shelves, bounded crowded surface placements; seven-room Dam/Reservoir staging with four gate/water combinations, visible control buttons, maintenance light/leak states and distinct dry-shore perspectives. Discovery sketch uses only saved observed routes, with keyboard-accessible notes and no travel/inferred links. Existing coordinate data and browser inspection remain sufficient for this targeted authoring; a custom editor is deferred. Temple, River, Mine, endgame refinement and source-adapter migration remain open.

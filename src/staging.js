@@ -1,7 +1,9 @@
+import {damFloorZones} from './dam-region.js';
 // Authored placement only. No room/puzzle memory writes, exit-table inspection or
 // inferred routes. Source coordinates refer to the existing complete paintings.
-export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130]);
+export const authoredRooms=new Set([64,137,85,27,75,33,127,247,122,220,130,...Object.keys(damFloorZones).map(Number)]);
 const floorZones={
+  ...damFloorZones,
   64:[[43,84],[53,79],[63,86],[34,89],[72,83],[47,93]],
   137:[[39,84],[54,88],[65,82],[28,90],[72,90],[46,94]],
   85:[[55,88],[66,83],[43,92],[73,91],[32,87],[58,95]],
@@ -19,12 +21,17 @@ export const localHotspots={
   75:[{id:197,x:67,y:39},{id:100,x:10,y:41}],
 };
 // These are fixed in-world fixtures, never generic floor props.
-const fixed=new Set([55,240,150,199,164,70,207,108,203,29,59]);
+const fixed=new Set([55,240,150,199,164,70,207,108,203,29,59,237]);
 const normalWidth=id=>({92:18,41:9,227:10,36:12,99:10,138:6,146:7,14:7,217:5})[id]??8;
 export function stageRegion(engine,layers){
   const room=engine.state().room;if(!authoredRooms.has(room))return layers;
   const result=layers.filter(l=>l.decorative||!engine.carried(l.id));
   let floor=0,table=0,shelf=0;
+  const loose=result.filter(l=>!l.decorative&&!fixed.has(l.id)&&engine.parent(l.id)===room);
+  const shelves=result.filter(l=>engine.parent(l.id)===197).length;
+  const tabletop=result.filter(l=>engine.parent(l.id)===169&&![99,138].includes(l.id)).length;
+  const shelfCols=Math.max(4,Math.ceil(shelves/4));
+  const shelfHeights=[30.8,38.2,45.1,51.0];
   const awaiting=[];
   for(const layer of result){
     const id=layer.id;
@@ -39,15 +46,23 @@ export function stageRegion(engine,layers){
     }
     if(room===64&&parent===230){Object.assign(layer,{x:28,y:62,width:8,placement:'mailbox'});continue;}
     if(room===27&&parent===169){
-      const pos=id===99?[43,55,12]:id===138?[61,55,8]:[[53,62,8],[70,62,7],[34,64,7],[63,66,6]][table++%4];
+      const n=[99,138].includes(id)?0:table++,cols=Math.max(4,Math.ceil(Math.sqrt(tabletop*2))),rows=Math.max(1,Math.ceil(tabletop/cols));
+      const pos=id===99?[43,55,12]:id===138?[61,55,8]:[34+(n%cols)*38/Math.max(1,cols-1),62+Math.floor(n/cols)*7/rows,Math.min(7,30/cols)];
       Object.assign(layer,{x:pos[0],y:pos[1],width:pos[2],placement:'table'});continue;
     }
     if(room===75&&parent===197){
-      const i=shelf++;Object.assign(layer,{x:60.3+(i%4)*4,y:28+Math.min(5,Math.floor(i/4))*3.8,width:Math.min(normalWidth(id),3.6),placement:'shelf'});continue;
+      const i=shelf++,width=Math.min(normalWidth(id),11.5/shelfCols);
+      Object.assign(layer,{x:59.1+(i%shelfCols+.5)*13.4/shelfCols,y:shelfHeights[Math.floor(i/shelfCols)]-width*.65,width,placement:'shelf',dense:true});continue;
     }
     if(parent===room){
       const i=floor++,zone=floorZones[room][i%floorZones[room].length];
-      Object.assign(layer,{x:zone[0]+Math.floor(i/6)*2,y:zone[1]-Math.floor(i/6)*3,width:normalWidth(id),placement:'floor'});
+      // A bounded cluster around each authored safe surface, not an ever-growing
+      // offset that eventually sends possessions off-screen. Nearby stays the
+      // full-size keyboard/touch alternative for a heavily crowded floor.
+      const groupSize=Math.ceil(loose.length/6),cols=Math.ceil(Math.sqrt(groupSize)),row=Math.floor(i/6),dense=loose.length>6;
+      const dx=dense?((row%cols)-(cols-1)/2)*9/cols:0;
+      const dy=dense?(Math.floor(row/cols)-(cols-1)/2)*6/cols:0;
+      Object.assign(layer,{x:Math.max(13,Math.min(87,zone[0]))+dx,y:Math.max(72,Math.min(90,zone[1]))+dy,width:dense?Math.min(normalWidth(id),9/cols):normalWidth(id),placement:'floor',dense});
     }else if([99,138].includes(parent))awaiting.push(layer);
   }
   // Contents stay by their container, not in an unrelated strip at the bottom.

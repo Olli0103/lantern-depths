@@ -1,4 +1,5 @@
 import manifest from '../build/art-manifest.json' with { type: 'json' };
+export const hasPainting=id=>!!manifest[id];
 export function setPaintingSource(source,id,atlas=false){
   const asset=manifest[id];
   if(!asset){source.removeAttribute('srcset');return;}
