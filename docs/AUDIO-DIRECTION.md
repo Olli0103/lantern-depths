@@ -30,3 +30,12 @@ Keep music separate from environmental beds. Trigger only at deliberate chapter 
 ## Asset gate
 
 Record provider, generation date, prompt, applicable plan/terms, source file hash and permitted redistribution. Do not place third-party generated audio under the repository's code licence or assume CC0. Never commit login data or session URLs. Audition each file for clipping, unwanted speech, abrupt loop seams and excessive loudness before integration.
+
+## First supplied music — 2026-09-09
+
+The owner supplied the selected Suno MP3 in a ZIP. It is integrated unmodified
+as an explicitly requested opening cue in Settings, separately from procedural
+ambience. Playback uses a bounded 60-second envelope, not a continuous score.
+See `public/audio/README.md` for provenance, technical measurements and separate
+rights. No claim of independent listening review or verified absence of vocals.
+ElevenLabs recordings remain pending; no additional generation was attempted.

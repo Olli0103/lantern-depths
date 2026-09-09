@@ -1,3 +1,4 @@
+import { MusicCue } from './music.js';
 import { Discovery, observation, renderDiscovery } from './discovery.js';
 import { Engine } from './engine.js';
 import { scenes, nouns, sceneObjects, undergroundRooms, ambienceFor } from './scenes.js';
@@ -176,7 +177,20 @@ $('sound').addEventListener('click',async()=>{
   try{const enabled=await sound.toggle();$('sound').textContent=enabled?'Sound on':'Sound off';$('sound').setAttribute('aria-pressed',String(enabled));}
   catch(e){notice(e.message);}finally{$('sound').disabled=false;}
 });
-$('volume').addEventListener('input',e=>sound.setVolume(Number(e.target.value)/100));
+const music = new MusicCue((enabled,error) => {
+  $('music').textContent=enabled?'Stop music':'Play opening music';
+  $('music').setAttribute('aria-pressed',String(enabled));
+  if(error) notice(error);
+});
+$('music').addEventListener('click',async()=>{
+  $('music').disabled=true;
+  try { await music.toggle(); } catch(e) { notice(e.message); }
+  finally { $('music').disabled=false; }
+});
+$('volume').addEventListener('input',e=>{
+  const value=Number(e.target.value)/100;
+  sound.setVolume(value);music.setVolume(value);
+});
 $('text-size').addEventListener('change',e=>document.documentElement.style.setProperty('--journal-size',e.target.value+'px'));
 $('reduce-motion').checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('reduce-motion').addEventListener('change',e=>document.documentElement.classList.toggle('reduce-motion',e.target.checked));

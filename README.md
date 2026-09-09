@@ -4,6 +4,10 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## v0.4.1 — Optional opening music
+
+The owner-supplied Suno track is available under **Settings → Play opening music**. It plays a quiet, fading 60-second excerpt only on request; no looping or room-triggered restarts. Hidden tabs pause playback. The audio level controls both music and separately enabled ambient sound. Original game rules and saves are unchanged. The MP3 has a [separate rights notice](public/audio/README.md), not the code’s MIT licence.
+
 ## v0.4 — The wider Great Underground Empire
 
 Environment artwork now covers all 110 original room objects, with shared paintings for intentionally indistinguishable maze/forest locations. Generated props, treasure icons, encounter states, readable close-ups and saved discovery notes extend the opening prototype. Reservoir and mirror variants follow the original state. A deterministic full parser route reaches 350/350 and the ending, including a mid-game browser save/reload. The original source also builds reproducibly in isolation with ZILF 1.9; see [build evidence](docs/SOURCE-BUILD.md). The public story and existing saves are unchanged.
