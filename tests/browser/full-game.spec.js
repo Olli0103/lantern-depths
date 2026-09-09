@@ -24,6 +24,7 @@ test('complete 350-point adventure through browser with mid-game save/reload',as
   }
   await expect(page.locator('#stats')).toContainText('SCORE 350 / 350');
   await expect(page.locator('#transcript')).toContainText('Master Adventurer');
-  await expect(page.locator('#command-form button')).toBeDisabled();
+  await expect(page.locator('#command-form button')).toHaveCount(3);
+  for(const control of await page.locator('#command-form button').all()) await expect(control).toBeDisabled();
   expect(errors).toEqual([]);
 });

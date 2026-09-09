@@ -1,28 +1,124 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17221f"><title>Lantern Depths — An illustrated adventure</title><link rel="stylesheet" href="/src/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1512">
+  <title>Lantern Depths — An illustrated adventure</title>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/ui.css">
+</head>
 <body>
-  <header class="masthead"><a class="brand" href="./"><span class="brand-mark">✦</span> LANTERN DEPTHS <small>AN ILLUSTRATED ADVENTURE</small></a><nav aria-label="Game controls"><button id="sound" aria-pressed="false">Sound off</button><details id="preferences"><summary>Settings</summary><div class="settings-panel"><button id="music" aria-pressed="false">Play opening music</button><label for="volume">Audio level</label><input id="volume" type="range" min="0" max="100" value="30"><label for="text-size">Journal text</label><select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select><label class="check"><input id="reduce-motion" type="checkbox"> Reduce motion</label></div></details><button id="map">Map</button><button id="save">Save</button><button id="load">Load</button><button id="new">New game</button></nav></header>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Lantern Depths home">
+      <span class="brand-emblem" aria-hidden="true"><svg class="ui-icon"><use href="/ui/icons.svg#icon-lantern"></use></svg></span>
+      <span class="brand-copy"><strong>LANTERN DEPTHS</strong><small>AN ILLUSTRATED ADVENTURE</small></span>
+    </a>
+    <nav aria-label="Game controls">
+      <button id="sound" aria-pressed="false">Sound off</button>
+      <button id="journal-toggle" aria-expanded="true" aria-controls="journal-body">Journal</button>
+      <details id="preferences">
+        <summary><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-settings"></use></svg><span>Settings</span></summary>
+        <div class="settings-panel">
+
+          <button id="new" type="button">New game</button><button id="music" aria-pressed="false">Play opening music</button><label for="volume">Audio level</label>
+          <input id="volume" type="range" min="0" max="100" value="30">
+          <label for="text-size">Journal text</label>
+          <select id="text-size"><option value="15">Standard</option><option value="18">Large</option><option value="21">Extra large</option></select>
+          <label class="check"><input id="reduce-motion" type="checkbox"> Reduce motion</label>
+        </div>
+      </details>
+      <button id="map">Map</button><button id="save"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-save"></use></svg><span>Save</span></button>
+      <button id="load"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-load"></use></svg><span>Load</span></button>
+
+    </nav>
+  </header>
+
   <main>
     <div class="chapter"><span id="chapter-label">LANTERN DEPTHS</span><span id="stats">Preparing your adventure…</span></div>
     <div class="layout">
       <section class="world" aria-label="Current location">
-        <div id="scene"><img id="painting" alt=""/><div id="object-layers"></div><div id="lightwash" aria-hidden="true"></div><div id="air" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="vignette"></div><div class="location"><span class="eyebrow">YOU ARE HERE</span><h1 id="location">The adventure begins</h1><p id="caption"></p></div><div id="hotspots"></div><p id="unpainted" hidden>The illustration ends here.<br>The adventure continues in your journal.</p><span id="scene-state"></span></div>
-        <div class="scene-footer"><span id="instruction">Explore the scene, or write what you want to do.</span><button id="look">Look around ↻</button></div>
-        <section class="journal" aria-label="Adventure journal"><div class="section-head"><h2>THE JOURNAL</h2><span>Every adventure begins with a little curiosity.</span></div><div id="transcript" role="log" aria-live="polite"></div></section>
-        <form id="command-form"><label for="command">YOUR NEXT MOVE</label><div class="command-row"><span aria-hidden="true">›</span><input id="command" name="command" placeholder="Try a command, e.g. examine house" autocomplete="off" maxlength="78"><button type="submit">Explore →</button></div></form>
+        <div class="scene-card">
+          <div id="scene">
+            <img id="painting" alt="">
+            <div id="object-layers"></div>
+            <div id="lightwash" aria-hidden="true"></div>
+            <div id="air" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="vignette"></div>
+            <div class="location">
+              <span class="eyebrow">YOU ARE HERE</span>
+              <h1 id="location">The adventure begins</h1>
+              <p id="caption"></p>
+            </div>
+            <div id="hotspots"></div>
+            <p id="unpainted" hidden>The illustration ends here.<br>The adventure continues in your journal.</p>
+            <span id="scene-state"></span>
+          </div>
+          <div class="scene-footer">
+            <span id="instruction">Explore the scene, or write what you want to do.</span>
+            <button id="look"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-look"></use></svg><span>Look around</span><b aria-hidden="true">↻</b></button>
+          </div>
+        </div>
+
+
       </section>
-      <aside>
-        <section class="panel"><h2>EXPLORE</h2><p class="muted">Follow a path. See where it leads.</p><div class="compass" aria-label="Directions"></div><div id="vertical"></div></section>
-        <section class="panel"><h2>WITHIN REACH</h2><div id="objects"></div><div id="selection" hidden><h3 id="selected-name"></h3><div id="verbs"></div><div id="relations"></div></div></section>
-        <section class="panel inventory-panel"><h2>YOUR SATCHEL <span id="count">0</span></h2><div id="inventory"></div></section>
-        <section class="note"><span class="eyebrow">A WORD TO THE CURIOUS</span><p>Look closely. Try unlikely things.<br>Keep a light within reach.</p></section>
+
+      <aside class="sidebar">
+        <div class="sidebar-ornament" aria-hidden="true"></div>
+        <section class="panel explore-panel">
+          <div class="panel-heading"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-map"></use></svg><h2>EXPLORE</h2></div>
+          <p class="muted">Move through the world.</p>
+          <div class="compass" aria-label="Directions"></div>
+          <div id="vertical"></div>
+        </section>
+
+        <section class="panel reach-panel">
+          <div class="panel-heading"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-look"></use></svg><h2>NEARBY</h2></div>
+          <p class="panel-kicker">Select an object to act.</p>
+          <div id="objects"></div>
+          <div id="selection" hidden>
+            <h3 id="selected-name"></h3>
+            <div id="verbs"></div>
+            <div id="relations"></div>
+          </div>
+        </section>
+
+        <section class="panel inventory-panel">
+          <div class="panel-heading panel-heading-split"><span><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-satchel"></use></svg><h2>YOUR SATCHEL</h2></span><b id="count">0</b></div>
+          <div id="inventory"></div>
+          <p class="satchel-note"></p>
+        </section>
+
+        <section class="note hint-panel">
+          <div class="panel-heading"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-hint"></use></svg><span class="eyebrow">A WORD TO THE CURIOUS</span></div>
+          <p>Look closely. Try unlikely things.<br>Keep a light within reach.</p>
+        </section>
       </aside>
+        <div class="journal-card">
+          <section id="journal-body" class="journal" aria-label="Adventure journal">
+            <div class="section-head">
+              <h2><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-journal"></use></svg><span>THE JOURNAL</span></h2>
+              <span id="journal-location">West of House</span>
+            </div>
+            <div id="transcript" role="log" aria-live="polite" tabindex="0" aria-label="Journal history"></div>
+          </section>
+          <form id="command-form">
+            <label for="command">YOUR NEXT MOVE</label>
+            <div class="command-row">
+              <span aria-hidden="true">›</span>
+              <input id="command" name="command" placeholder="Type a command…" autocomplete="off" maxlength="78">
+              <button type="button" id="parser-inventory">Inventory</button><button type="button" id="parser-help">Help</button><button type="submit">Go <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+        </div>
     </div>
     <p id="notice" role="status"></p>
   </main>
+
   <dialog id="map-dialog" aria-labelledby="map-title"><button id="map-close">Close map ×</button><h2 id="map-title">Your discovered routes</h2><div id="map-content"></div></dialog>
   <dialog id="detail" aria-labelledby="detail-title"><button id="detail-close" aria-label="Close detail">Close ×</button><h2 id="detail-title"></h2><div id="detail-art" aria-hidden="true"></div><p id="detail-text"></p></dialog>
-  <footer><span>Lantern Depths v0.4.1 · Independent illustrated adaptation</span><a href="https://github.com/Olli0103/lantern-depths">Source & credits ↗</a></footer>
+  <dialog id="help-dialog" aria-labelledby="help-title"><button id="help-close">Close help ×</button><h2 id="help-title">A word to the curious</h2><p>Select a marker or a nearby object to see its actions. Select an item in your satchel to use it with another object.</p><p>The command line understands the original game’s commands. Try <em>look</em>, <em>inventory</em>, or <em>examine mailbox</em>. Unusual ideas are welcome.</p><p>Use Tab to move between controls and Enter to activate them. Escape cancels an item-to-object action or closes a dialog. The Journal button folds the text without hiding the command line.</p></dialog>
+  <footer><span>Lantern Depths · Cinematic interface preview</span><span class="footer-mark" aria-hidden="true">✦</span><a href="https://github.com/Olli0103/lantern-depths">Source &amp; credits ↗</a></footer>
   <script src="/zvm.js"></script><script type="module" src="/src/main.js"></script>
-</body></html>
+</body>
+</html>

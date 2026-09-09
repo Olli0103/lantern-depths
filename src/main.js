@@ -19,7 +19,11 @@ function button(label, action, parent, className) {
   const el = document.createElement('button');
   el.type = 'button'; el.textContent = label; el.setAttribute('aria-label', label);
   if (className) el.className = className;
-  el.addEventListener('click', action); parent.append(el); return el;
+  el.addEventListener('click', event => {
+    action();
+    if(event.detail===0&&el.matches('[data-select-id],.scene-object')&&!$('selection').hidden)
+      $('verbs').querySelector('button')?.focus({preventScroll:true});
+  }); parent.append(el); return el;
 }
 function notice(text) { $('notice').textContent = text; }
 function addEntry(command, text) {
@@ -43,6 +47,7 @@ function select(id) {
   }
   selected=id;
   renderSelection();
+  if(window.matchMedia('(max-width:760px)').matches) $('selection').scrollIntoView({block:'nearest',behavior:'instant'});
 }
 function cancelTarget() {
   targeting=null;document.body.classList.remove('targeting');
@@ -53,6 +58,7 @@ function renderSelection() {
   if(!id){$('selection').hidden=true;return;}
   $('selection').hidden=false;
   $('selected-name').textContent=engine.name(id);
+  document.querySelectorAll('[data-select-id]').forEach(el=>el.setAttribute('aria-pressed',String(Number(el.dataset.selectId)===id)));
   $('verbs').replaceChildren();
   $('relations').replaceChildren();
   for(const verb of actionsFor(engine,id)) button(verb,()=>{
@@ -70,6 +76,7 @@ function renderSelection() {
 function render() {
   const state=engine.state(), scene=sceneVariant(engine,scenes[state.room]), lit=engine.lit();
   $('location').textContent=lit?state.name:'Darkness';
+  $('journal-location').textContent=lit?state.name:'Darkness';
   $('stats').textContent=`SCORE ${state.score} / 350 · MOVES ${state.turns}`;
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
   const hasArt=lit&&art.has(scene?.art);
@@ -100,7 +107,7 @@ function render() {
   for(const h of (hasArt?scene?.hotspots??[]:[])) {
     if(!visible.includes(h.id))continue;
     const el=button('+',()=>select(h.id),$('hotspots'),'hotspot');
-    el.style.left=h.x+'%';el.style.top=h.y+'%';el.setAttribute('aria-label',`Inspect ${engine.name(h.id)}`);el.title=engine.name(h.id);
+    el.style.left=h.x+'%';el.style.top=h.y+'%';el.setAttribute('aria-label',`Inspect ${engine.name(h.id)}`);el.dataset.label=engine.name(h.id);el.dataset.selectId=h.id;el.setAttribute('aria-pressed',String(selected===h.id));
   }
   const states=[];
   if(lit&&state.room===64)states.push(engine.flag(230,11)?'Mailbox · open':'Mailbox · closed');
@@ -108,12 +115,17 @@ function render() {
   if(lit&&state.room===75&&!engine.flag(240,7))states.push(engine.flag(240,11)?'Trapdoor · open':'Trapdoor · closed');
   $('scene-state').textContent=states.join(' / ');
   $('objects').replaceChildren();
-  for(const id of visible)button(engine.name(id),()=>select(id),$('objects'));
+  for(const id of visible){
+    const el=button(engine.name(id),()=>select(id),$('objects'));
+    el.dataset.selectId=id;el.setAttribute('aria-pressed',String(selected===id));
+    if(hasItemArt(id)){const icon=document.createElement('span');icon.className='nearby-icon';icon.setAttribute('aria-hidden','true');itemArt(engine,id,icon);el.prepend(icon);}
+  }
   if(!visible.length){const p=document.createElement('p');p.textContent=lit?'Look around. There may be more than meets the eye.':'You cannot see your surroundings.';$('objects').append(p);}
   $('inventory').replaceChildren();
   const items=engine.inventory();$('count').textContent=items.length;
   for(const item of items){
     const el=button(item.name+(item.id===146&&engine.flag(146,19)?' · lit':''),()=>select(item.id),$('inventory'));
+    el.dataset.selectId=item.id;el.setAttribute('aria-pressed',String(selected===item.id));
     if(hasItemArt(item.id)){const icon=document.createElement('span');icon.className='inventory-icon';icon.setAttribute('aria-hidden','true');itemArt(engine,item.id,icon);el.prepend(icon);}
   }
   if(!items.length){const p=document.createElement('p');p.textContent='A little room for whatever you find.';$('inventory').append(p);}
@@ -124,8 +136,9 @@ function render() {
 }
 function run(command) {
   command=command.trim();if(!command)return;
+  const restoreActionFocus=$('selection').contains(document.activeElement);
   cancelTarget();
-  try {const before=visualState(engine),seen=observation(engine);const output=engine.command(command);discovery.record(seen,observation(engine),command);addEntry(command,output);for(const effect of changedSounds(before,visualState(engine)))sound.effect(effect);notice('');render();return output;}
+  try {const before=visualState(engine),seen=observation(engine);const output=engine.command(command);discovery.record(seen,observation(engine),command);addEntry(command,output);for(const effect of changedSounds(before,visualState(engine)))sound.effect(effect);notice('');render();if(restoreActionFocus&&!$('selection').hidden)$('verbs').querySelector('button')?.focus({preventScroll:true});return output;}
   catch(e){notice(e.message);}
 }
 function showDetail(id,text){
@@ -194,4 +207,12 @@ $('volume').addEventListener('input',e=>{
 $('text-size').addEventListener('change',e=>document.documentElement.style.setProperty('--journal-size',e.target.value+'px'));
 $('reduce-motion').checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('reduce-motion').addEventListener('change',e=>document.documentElement.classList.toggle('reduce-motion',e.target.checked));
+$('journal-toggle').addEventListener('click',()=>{
+  const expanded=$('journal-toggle').getAttribute('aria-expanded')!=='true';
+  $('journal-toggle').setAttribute('aria-expanded',String(expanded));
+  $('journal-body').hidden=!expanded;
+});
+$('parser-inventory').addEventListener('click',()=>engine&&run('inventory'));
+$('parser-help').addEventListener('click',()=>$('help-dialog').showModal());
+$('help-close').addEventListener('click',()=>$('help-dialog').close());
 start();
