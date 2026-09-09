@@ -1,9 +1,16 @@
+import { EntropyTape } from './checkpoints.js';
 // Presentation adapter for ifvms; all puzzle logic remains in the original story.
 export class Engine {
   constructor(ZVM, bytes) {
     this.output = '';
     this.vm = new ZVM();
     const vm = this.vm;
+    this.entropy = new EntropyTape();
+    const originalRandom=vm.random, entropy=this.entropy;
+    vm.random=function(range){
+      if(range<1||this.xorshift_seed!==0)return originalRandom.call(this,range);
+      return 1 + (entropy.draw()*range) | 0;
+    };
     class RefStruct {
       fields = [];
       push_field(v) { this.fields.push(v); }
@@ -92,11 +99,12 @@ export class Engine {
   }
   snapshot() {
     const vm = this.vm;
-    return { version: 1, signature: vm.signature, data: Array.from(new Uint8Array(vm.save_file(vm.pc))), read: structuredClone(vm.read_data), random: vm.xorshift_seed, quit: !!vm.quit };
+    return { version: 1, signature: vm.signature, data: Array.from(new Uint8Array(vm.save_file(vm.pc))), read: structuredClone(vm.read_data), random: vm.xorshift_seed, quit: !!vm.quit, entropy: this.entropy.snapshot() };
   }
-  restore(save) {
+  restore(save, futureEntropy) {
     const vm = this.vm;
     if (save.version !== 1 || save.signature !== vm.signature || !Array.isArray(save.data) || !save.read?.buffer) throw new Error('This save does not match this story.');
+    this.entropy.restore(save.entropy, futureEntropy);
     if (!vm.restore_file(new Uint8Array(save.data))) throw new Error('Could not restore this save.');
     vm.read_data = structuredClone(save.read);
     vm.xorshift_seed = save.random;

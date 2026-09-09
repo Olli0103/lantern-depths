@@ -2,7 +2,7 @@
 
 /* Living-house presentation. The engine owns every visible state. */
 #object-layers{position:absolute;inset:0;pointer-events:none}
-.sprite{background-image:url('/art/objects-atlas.png');background-repeat:no-repeat;background-size:400% 200%}
+.sprite{background-image:url('/art/webp/objects-atlas.webp');background-repeat:no-repeat;background-size:400% 200%}
 .scene-object{position:absolute;aspect-ratio:1;border:0;padding:0;border-radius:0;transform:translate(-50%,-50%);pointer-events:auto;transition:left .75s ease,top .75s ease,width .75s ease,filter .2s;filter:drop-shadow(0 4px 3px #0006);animation:reveal .2s ease}
 .scene-object:hover{background-color:transparent;border:0;filter:drop-shadow(0 0 5px #ffe3a8aa)}
 .scene-object[data-object-id='55']{z-index:2}.scene-object[data-object-id='240']{z-index:1}
@@ -30,13 +30,13 @@
 .scene-object[data-object-id='240']{transform:translate(-50%,-50%) scaleY(.58)}
 
 /* Underground: conceal immediately; only entrances receive a brief fade. */
-.encounter-sprite{background-image:url('/art/troll-atlas.png');background-size:200% 200%;background-repeat:no-repeat}
+.encounter-sprite{background-image:url('/art/webp/troll-atlas.webp');background-size:200% 200%;background-repeat:no-repeat}
 #scene[data-underground='true'] #air{display:none}
 #scene[data-underground='true'] .vignette{background:radial-gradient(ellipse at 50% 70%,transparent 30%,#020708b0 100%)}
 #scene[data-dark='true'] #lightwash{opacity:0;transition:none}
 #scene[data-dark='true']{background:#000}
 
-.gallery-sprite{background-image:url('/art/gallery-props.png');background-size:200% 200%;background-repeat:no-repeat}
+.gallery-sprite{background-image:url('/art/webp/gallery-props.webp');background-size:200% 200%;background-repeat:no-repeat}
 #detail{max-width:min(640px,92vw);max-height:85vh;overflow:auto;background:#202b25;color:var(--ink);border:1px solid var(--gold);border-radius:10px;padding:28px;box-shadow:0 20px 90px #000a}
 #detail::backdrop{background:#030805cc}#detail-close{float:right;margin:0 0 12px 20px}#detail-title{font:24px Georgia;letter-spacing:0;line-height:1.3;padding-top:8px}
 #detail-text{white-space:pre-wrap;font-size:var(--journal-size,17px);line-height:1.8}#detail-art{width:min(300px,60vw);aspect-ratio:1;margin:18px auto}

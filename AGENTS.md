@@ -10,3 +10,5 @@
 - Distinguish a static environment plate from state-correct object artwork.
 - Run `npm test`, `npm run test:browser` and `npm run build` for gameplay or rendering changes.
 - Do not add paid runtime services, credentials, private workspace files or unrelated personal information.
+
+- Follow `docs/ROADMAP.md` as the accepted product goal; record completed increments and remaining limitations. Finish authored connected regions before platform generalisation.

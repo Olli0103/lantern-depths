@@ -8,7 +8,7 @@ All interactions are parser commands. The UI never sets game-object attributes, 
 
 Each Engine owns an independent copy of the story bytes. Save files contain Quetzal state plus the pending input buffer and story signature; UI history is separate. A restored game is constructed before replacing the current session.
 
-The input is the archived executable bundled with the MIT source repository. A fresh-source compiler pipeline is an outstanding task, not a completed claim.
+The input is the archived executable bundled with the MIT source repository. A separate reproducible source build exists; the public adapter still targets archived release 119. See SOURCE-BUILD.md for the verified scope.
 
 ## Art and puzzle rules
 
@@ -57,3 +57,7 @@ Source building is now reproducible in isolation; see SOURCE-BUILD.md. The publi
 The region registry now maps all 110 original room objects to generated plates. Shared maze, forest, repeated cave and river artwork intentionally preserves ambiguity. `world-state.js` is a read-only release-119 adapter: reservoir LANDBIT, mirror breakage, Cyclops passage, rope attachment and rainbow flags select supported variants. Four transparent atlases add treasures, equipment, damaged objects and encounters. Generic visible-object controls are still filtered by the engine, including hidden ancestors and closed containers. No original puzzle state is written.
 
 Coverage is not an exhaustive cinematic remake: container opening/contents may retain an iconic rather than literal illustration; excavation and every destructive response are not individually animated. The original narration and controls remain authoritative. The old opening atlas remains separate from `world-objects-atlas.png` to preserve its seven established sprite coordinates.
+
+## Comfort and delivery milestone (v0.5)
+
+See COMFORT.md for bounded Undo, stock-distribution random replay, compatible save envelopes and WebP delivery. This is an interpreter/presentation checkpoint facility, not a new story opcode. Original object/puzzle state remains VM-owned. ROADMAP.md records the accepted region-first production goal.

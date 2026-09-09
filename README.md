@@ -4,6 +4,17 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## Direction and v0.5 — Room to experiment
+
+The [accepted roadmap](docs/ROADMAP.md) prioritises a fully authored adventure over a universal engine platform: comfort and delivery first, then the connected house/cellar/troll/gallery region, then the remaining puzzle regions. Whole-world illustration is not the same as finished point-and-click staging.
+
+- **Undo** beside the parser restores up to 20 recent commands (bounded to 8 MB), including journal, discovered routes and replayable random draws. Available even after the session ends. Undo history lasts for this page session and is cleared by Load/New game.
+- **Settings → Saved adventures** provides three named slots in addition to existing quick Save/Load, portable JSON import/export and journal text export. Old quick saves remain supported; new files identify the exact story bytes and adapter. Loading another story's file is rejected before replacing the current session.
+- **Up/Down** in the parser recalls recent commands and preserves an unfinished draft. No global dictionary autocomplete or solution suggestions.
+- **Smaller artwork downloads:** generated WebP derivatives total 19.3 MB at full resolution versus 115.6 MB for source PNGs (83% reduction). Individual environments also have 768-pixel variants; the browser selects one for its viewport/density. This is aggregate derivative size, not a claim that all images download on opening. Original PNGs remain in the repo and deployment as sources/fallbacks, so the deployed archive itself is not 83% smaller. Transparent sprites use lossless WebP. No artwork was regenerated in this pass.
+
+The story binary and puzzle rules are unchanged. [Implementation and limitations](docs/COMFORT.md).
+
 ## v0.4.1 — Optional opening music
 
 The owner-supplied Suno track is available under **Settings → Play opening music**. It automatically starts a quiet, fading 60-second excerpt on opening the game (or on the first click/key press if browser autoplay policy blocks it); no looping or room-triggered restarts. Hidden tabs pause playback. The audio level controls both music and separately enabled ambient sound. Original game rules and saves are unchanged. The MP3 has a [separate rights notice](public/audio/README.md), not the code’s MIT licence.

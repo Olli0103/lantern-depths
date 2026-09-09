@@ -24,7 +24,7 @@ main{max-width:1800px;margin:auto;padding:18px var(--gutter) 0}.chapter{align-it
 .journal-card{margin-top:16px;border:1px solid var(--line);background:#101d1870;border-radius:3px}.journal{margin:0;padding:16px 21px 0;background:url('/ui/journal-tree.svg') right bottom/140px no-repeat}.section-head{padding-bottom:12px;border-color:var(--line);align-items:center}.section-head h2{display:flex;align-items:center;gap:9px;font:11px system-ui;letter-spacing:1.7px}.section-head .ui-icon{width:16px;height:16px}.section-head>span{font:17px Georgia;font-style:normal;color:#d9dccb}#transcript{height:170px;padding:15px 14px 12px 0;mask-image:none;scrollbar-width:thin}#transcript p{font:var(--journal-size,16px)/1.65 Georgia;color:var(--ink);margin-bottom:13px}#transcript .command{font:12px system-ui;color:var(--gold);letter-spacing:.4px}
 #command-form{margin:0;background:#14231d;border:0;border-top:1px solid var(--line);border-radius:0;padding:12px 17px;position:sticky;bottom:0;z-index:10;box-shadow:0 -5px 18px #08110e55}#command-form label{font:10px system-ui;color:var(--muted);letter-spacing:1.2px}.command-row{margin-top:3px;gap:10px}#command{font:16px Georgia;height:44px;border:0;background:transparent;padding:8px 0}.command-row button{min-width:60px;min-height:42px;padding:9px 14px;font:13px system-ui;border:1px solid #d6bc8155;background:#c7ab72;color:#0d1912;border-radius:3px}.command-row button[type='button']{background:transparent;border:0;color:#bac8b9;padding-inline:9px}.command-row button[type='button']:hover{color:var(--ink);background:#ffffff09}
 #notice{font:13px system-ui;min-height:20px;margin:10px 0;color:var(--gold)}footer{max-width:1800px;padding:12px var(--gutter) 22px;color:#a3aea0;font:11px system-ui}footer .footer-mark{display:none}footer a{color:var(--gold)}
-#help-dialog,#detail,#map-dialog{background:#101d18;border:1px solid #6c7358;border-radius:4px;color:var(--ink);padding:28px;max-height:85dvh}#help-dialog{width:min(540px,92vw)}#help-dialog::backdrop{background:#030805dd}#help-title{font:26px Georgia;letter-spacing:0;margin:15px 0}#help-dialog p{font:17px/1.7 Georgia}#help-close{float:right}dialog button{min-height:44px}
+#help-dialog,#detail,#map-dialog,#saves-dialog{background:#101d18;border:1px solid #6c7358;border-radius:4px;color:var(--ink);padding:28px;max-height:85dvh}#help-dialog{width:min(540px,92vw)}#help-dialog::backdrop,#saves-dialog::backdrop{background:#030805dd}#help-title{font:26px Georgia;letter-spacing:0;margin:15px 0}#help-dialog p{font:17px/1.7 Georgia}#help-close{float:right}dialog button{min-height:44px}
 @media(max-width:1100px){.brand-copy small{display:none}.masthead{gap:12px}.masthead nav{gap:0}.masthead nav>button,#preferences summary{padding:8px}.layout{grid-template-columns:minmax(0,1fr) 250px;gap:16px}.panel{padding:14px 12px}.location{left:20px;top:19px}.location p{font-size:14px}.location h1{font-size:36px}#inventory{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){
  .masthead{padding:14px 16px;flex-wrap:wrap;gap:10px}.brand-copy strong{font-size:19px;letter-spacing:2px}.brand-copy small{display:none}.brand-emblem{width:23px}.masthead nav{width:100%;margin:0;justify-content:space-between;flex-wrap:wrap;font-size:12px}.masthead nav .ui-icon{display:none}.masthead nav>button,#preferences summary{padding:8px;min-height:44px}.masthead #new{font-size:12px}.settings-panel{right:0;min-width:230px}
@@ -45,3 +45,17 @@ html{scroll-padding-bottom:105px}#selection{scroll-margin-bottom:110px}
  .journal-card{padding-bottom:16px}
 }
 @media(min-width:761px) and (max-width:1100px){#command-form{width:calc(100vw - 2 * var(--gutter) - 266px)}}
+
+/* Comfort controls stay subordinate to the room. */
+#saves-dialog{width:min(650px,calc(100vw - 32px));max-height:85dvh;overflow:auto}
+.save-slot{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin:18px 0;padding:14px 0;border-bottom:1px solid var(--line, #304038)}
+.save-slot label{grid-column:1}.save-slot small{grid-column:2/-1;grid-row:1;text-align:right;color:var(--muted);font:12px/1.5 system-ui}.save-slot input{grid-column:1}
+.save-slot input{min-width:0;padding:10px;background:#101d18;color:#ece9da;border:1px solid #526052;border-radius:3px;font:inherit}
+.save-file-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.import-label{display:grid;gap:8px;max-width:100%;font-size:14px}
+#save-import{max-width:100%}
+#saves-notice{min-height:1.5em}
+@media(max-width:480px){.save-slot{grid-template-columns:1fr 1fr}.save-slot input{grid-column:1/-1}#command-form .command-row{gap:6px}#undo{padding-inline:8px}}
+
+#saves-title{font:26px Georgia;letter-spacing:0;margin:12px 0 18px}#saves-close{float:right;margin-left:15px}#saves-dialog>p{font:16px/1.6 Georgia;color:var(--muted)}#saves-dialog button{font:13px system-ui}.save-slot label{font:15px Georgia}.save-slot button{padding-inline:10px}#saves-notice{color:var(--gold)}
+@media(max-width:480px){#saves-dialog{padding:18px}.save-slot label{grid-column:1}.save-slot small{grid-column:2;grid-row:1}.save-slot input{grid-column:1/-1}.save-slot button{min-width:0}#saves-close{float:none;margin:0 0 12px}}
