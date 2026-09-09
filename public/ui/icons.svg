@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="icon-map" viewBox="0 0 24 24"><path d="M3 5.5 8.5 3l7 2.5L21 3v15.5L15.5 21l-7-2.5L3 21z"/><path d="M8.5 3v15.5M15.5 5.5V21"/></symbol>
+    <symbol id="icon-journal" viewBox="0 0 24 24"><path d="M4 4.5c3-1 5.2-.5 8 1.1v14c-2.8-1.6-5-2.1-8-1.1z"/><path d="M20 4.5c-3-1-5.2-.5-8 1.1v14c2.8-1.6 5-2.1 8-1.1z"/></symbol>
+    <symbol id="icon-save" viewBox="0 0 24 24"><path d="M5 3h12l2 2v16H5z"/><path d="M8 3v6h8V3M8 17h8M9 13h6v8H9z"/></symbol>
+    <symbol id="icon-load" viewBox="0 0 24 24"><path d="M3.5 7h6l2-2h9v14H3.5z"/><path d="M12 10v6M9.5 13.5 12 16l2.5-2.5"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.7v2M12 19.3v2M2.7 12h2M19.3 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4"/><circle cx="12" cy="12" r="7.2"/></symbol>
+    <symbol id="icon-look" viewBox="0 0 24 24"><path d="M2.7 12s3.3-5.4 9.3-5.4 9.3 5.4 9.3 5.4-3.3 5.4-9.3 5.4S2.7 12 2.7 12z"/><circle cx="12" cy="12" r="2.4"/></symbol>
+    <symbol id="icon-mailbox" viewBox="0 0 24 24"><path d="M4 10c0-3 2.1-5 5-5h5c3 0 5 2 5 5v8H4z"/><path d="M4 10h15M8 10v8M15 5v6M15 7h4"/></symbol>
+    <symbol id="icon-door" viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 6h6v15M13.5 12.5h.1"/></symbol>
+    <symbol id="icon-forest-path" viewBox="0 0 24 24"><path d="M7 21c2.6-4.7 3.4-8.7 2.2-12.1M17 21c-2.5-4.6-3.3-8.6-2.1-12"/><path d="M4.5 9 8 4l3.5 5M12.5 8 16 3l3.5 5M3 14l3-4.2L9 14M15 14l3-4.2 3 4.2"/></symbol>
+    <symbol id="icon-bushes" viewBox="0 0 24 24"><path d="M5 18c-2.2-.8-2.2-4 .1-4.8-1.2-2.7 2.4-4.7 4.2-2.4.4-3.5 5.4-3.6 5.9-.2 2-1.7 5 .5 4.1 2.9 2.5.7 2.3 4-.2 4.7z"/></symbol>
+    <symbol id="icon-satchel" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z"/><path d="M8 8c0-3 1.7-5 4-5s4 2 4 5M5 11h14M10 13h4"/></symbol>
+    <symbol id="icon-hint" viewBox="0 0 24 24"><path d="M9 18h6M9.5 21h5"/><path d="M8.2 14.5C6.8 13.3 6 11.7 6 10a6 6 0 0 1 12 0c0 1.8-.8 3.3-2.2 4.5-.9.8-1.3 1.5-1.3 2.5h-5c0-1-.4-1.7-1.3-2.5z"/></symbol>
+    <symbol id="icon-lantern" viewBox="0 0 24 24"><path d="M8 7h8l1.5 13h-11z"/><path d="M9 7V5h6v2M9 4c.6-1.3 1.6-2 3-2s2.4.7 3 2"/><path d="M9 11h6v6H9zM6.5 13H4M17.5 13H20"/></symbol>
+    <symbol id="icon-sword" viewBox="0 0 24 24"><path d="M17.8 3.2 10 14l-2 2"/><path d="M14.8 4.2 19 2l-1.2 4.8"/><path d="m7 13 4 4M6 17l-2 2M5 18l1 1"/></symbol>
+    <symbol id="icon-rug" viewBox="0 0 24 24"><path d="m5 6 14 2-2 11-12-1z"/><path d="M7 8.5 17 10l-1.2 6.5-8.8-1.1zM5.5 6.7l-2-.4M5.2 8l-2-.4M18.8 8.6l2 .4M18.5 10l2 .4"/></symbol>
+    <symbol id="icon-trapdoor" viewBox="0 0 24 24"><path d="M4 6h16v13H4z"/><path d="M7 9h10v7H7z"/><circle cx="12" cy="12.5" r="1.1"/></symbol>
+    <symbol id="icon-bottle" viewBox="0 0 24 24"><path d="M10 3h4v4l2 2v10c0 1.1-.9 2-2 2h-4c-1.1 0-2-.9-2-2V9l2-2z"/><path d="M10 5h4M8 12h8"/></symbol>
+    <symbol id="icon-sack" viewBox="0 0 24 24"><path d="M9 5c1.6.7 4.4.7 6 0l-1 3c3 2 4 5.1 4 8.2 0 3-2.5 4.8-6 4.8s-6-1.8-6-4.8C6 13.1 7 10 10 8z"/><path d="M9 8h6"/></symbol>
+    <symbol id="icon-troll" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.2"/><path d="M7.5 21v-7c0-2.3 2-4 4.5-4s4.5 1.7 4.5 4v7M8.2 13l-4 3M15.8 13l4 3M9.5 6h.01M14.5 6h.01M10 8.3c1.2.7 2.8.7 4 0"/></symbol>
+    <symbol id="icon-axe" viewBox="0 0 24 24"><path d="M13 3 8 21"/><path d="M11.7 5.2c2.7-2.6 5-2.8 7.3-1.5-.4 2.8-2 4.8-5.9 5.6z"/></symbol>
+  </defs>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<defs>
+  <radialGradient id="g1" cx="35%" cy="0%" r="85%"><stop offset="0" stop-color="#26372d"/><stop offset=".42" stop-color="#122019"/><stop offset="1" stop-color="#08110e"/></radialGradient>
+  <filter id="noise" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence baseFrequency=".55" numOctaves="3" seed="17" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .07"/></feComponentTransfer></filter>
+  <radialGradient id="edge" cx="50%" cy="45%" r="70%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect width="1600" height="1200" fill="url(#g1)"/><rect width="1600" height="1200" filter="url(#noise)" opacity=".65"/><rect width="1600" height="1200" fill="url(#edge)"/>
+<path d="M0 140C95 80 135 70 230 30 170 120 120 200 0 260Z" fill="#183126" opacity=".45"/><path d="M1600 1020c-110 10-210 50-310 150 120-25 220-5 310 30Z" fill="#173026" opacity=".33"/>
+</svg>
