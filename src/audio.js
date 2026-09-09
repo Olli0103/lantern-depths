@@ -27,7 +27,10 @@ export class Soundscape {
     this.timer = window.setInterval(() => {
       if (!this.enabled || ctx.state !== 'running') return;
       if (this.scene === 'outdoors') this.tone(1750 + Math.random() * 450, 0.16, 0.025, 'sine', 2300);
-      if (this.scene === 'cellar') this.tone(600, 0.15, 0.045, 'sine', 220);
+      if (['cellar','stone','passage','chasm'].includes(this.scene)) {
+        const chasm=this.scene==='chasm';
+        this.tone(chasm?420:600, 0.15, chasm?0.025:0.035, 'sine', 220, chasm?-0.65:0.35, chasm?0.6:0.18);
+      }
     }, 8500);
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) ctx.suspend().catch(() => {});
@@ -41,18 +44,22 @@ export class Soundscape {
   setScene(scene) {
     this.scene = scene;
     if (!this.context) return;
-    const settings = { outdoors: [900, 0.024], house: [180, 0.009], cellar: [310, 0.018], dark: [150, 0.012] };
+    const settings = { outdoors: [900, 0.024], house: [180, 0.009], cellar: [310, 0.018], dark: [150, 0.012], stone: [220,0.012], passage: [260,0.012], chasm: [450,0.022], quiet: [150,0.006] };
     const [hz, gain] = settings[scene] ?? [180, 0.008];
     this.filter.frequency.setTargetAtTime(hz, this.context.currentTime, 0.5);
     this.ambient.gain.setTargetAtTime(gain, this.context.currentTime, 0.5);
   }
-  tone(hz, duration, level, type = 'sine', end = hz) {
+  tone(hz, duration, level, type = 'sine', end = hz, pan = 0, echo = 0) {
     const ctx = this.context, start = ctx.currentTime;
     const oscillator = ctx.createOscillator(), gain = ctx.createGain();
     oscillator.type = type; oscillator.frequency.setValueAtTime(hz, start); oscillator.frequency.exponentialRampToValueAtTime(end, start + duration);
     gain.gain.setValueAtTime(0.0001, start); gain.gain.exponentialRampToValueAtTime(level, start + 0.015); gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-    oscillator.connect(gain); gain.connect(this.master); oscillator.start(start); oscillator.stop(start + duration + 0.02);
-    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+    const panner=ctx.createStereoPanner(), delay=ctx.createDelay(1), reflection=ctx.createGain();
+    panner.pan.value=pan; delay.delayTime.value=echo; reflection.gain.value=echo?0.22:0;
+    oscillator.connect(gain); gain.connect(panner); panner.connect(this.master);
+    panner.connect(delay); delay.connect(reflection); reflection.connect(this.master);
+    oscillator.start(start); oscillator.stop(start + duration + echo + 0.1);
+    oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); panner.disconnect(); delay.disconnect(); reflection.disconnect(); };
   }
   effect(name) {
     if (!this.enabled || this.context.state !== 'running') return;

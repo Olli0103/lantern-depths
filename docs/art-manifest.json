@@ -88,5 +88,50 @@
     "generator": "built-in image-generation tool",
     "created": "2026-09-08",
     "status": "initial static environment plate"
+  },
+  {
+    "file": "public/art/troll-room.png",
+    "sha256": "c0ac94179b6a4f814028bcaff624d347a2b9efd507fea100ff96defd6cd77dea",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "underground environment plate"
+  },
+  {
+    "file": "public/art/east-chasm.png",
+    "sha256": "bfd6185e425b0685bbd13ab619fd0b044fdd190350370efa74ad255e6ea263c5",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "underground environment plate"
+  },
+  {
+    "file": "public/art/east-west-passage.png",
+    "sha256": "0dbd4b04797aef2a79f9f1b262982ff1f57f51d8c3a882cecf888d42af6b9783",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "unused initial variant"
+  },
+  {
+    "file": "public/art/east-west-passage-v2.png",
+    "sha256": "139ee0dd07bd87136c952eaa9d44327e63f9db00284156f86a73f7af0bd7b4f2",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "underground environment plate"
+  },
+  {
+    "file": "public/art/troll-atlas.png",
+    "sha256": "a751918fca019c3478f6a6ca2af41d6975e03ef1ebe6811e1facc88d65f0fb8e",
+    "width": 1254,
+    "height": 1254,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "transparent sprite atlas with authored CSS source rectangles"
   }
 ]

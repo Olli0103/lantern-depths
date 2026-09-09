@@ -1,5 +1,5 @@
 import { Engine } from './engine.js';
-import { scenes, nouns, sceneObjects } from './scenes.js';
+import { scenes, nouns, sceneObjects, undergroundRooms, ambienceFor } from './scenes.js';
 import { actionsFor, relations, noun, visualState, changedSounds } from './interactions.js';
 import { spriteIndex, spriteStyle, renderLayers } from './layers.js';
 import { Soundscape } from './audio.js';
@@ -8,7 +8,8 @@ const $ = id => document.getElementById(id);
 const key = 'lantern-depths.save.v1';
 let engine, story, selected = null, history = [], targeting = null;
 const sound = new Soundscape();
-const art = new Set(['west-house','north-house','behind-house','kitchen','living-room','cellar']);
+const art = new Set(Object.values(scenes).map(scene=>scene.art));
+let previousRoom=null;
 
 function button(label, action, parent, className) {
   const el = document.createElement('button');
@@ -66,6 +67,14 @@ function render() {
   $('caption').textContent=lit?(scene?.caption??'Beyond the familiar.'):'It is pitch black. You are likely to be eaten by a grue.';
   const hasArt=lit&&art.has(scene?.art);
   $('painting').hidden=!hasArt;
+  if(!hasArt){$('painting').removeAttribute('src');$('painting').alt='';}
+  $('chapter-label').textContent=!lit?'LANTERN DEPTHS':undergroundRooms.has(state.room)?'BENEATH THE WHITE HOUSE':'LANTERN DEPTHS';
+  $('scene').dataset.underground=String(undergroundRooms.has(state.room));
+  if(previousRoom!==state.room){
+    if(lit&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&!document.documentElement.classList.contains('reduce-motion'))
+      $('painting').animate([{opacity:0},{opacity:1}],{duration:450});
+    previousRoom=state.room;
+  }
   let painting=scene?.art;
   if(state.room===64&&engine.flag(230,11))painting='west-house-open';
   if(state.room===85&&engine.flag(243,11))painting='behind-house-open';
@@ -75,7 +84,7 @@ function render() {
   $('scene').dataset.lantern=String(lit&&!engine.flag(state.room,19));
   $('scene').dataset.room=state.room;
   if(hasArt)renderLayers(engine,$('object-layers'),select,button);else $('object-layers').replaceChildren();
-  sound.setScene(!lit?'dark':[64,137,85].includes(state.room)?'outdoors':state.room===33?'cellar':'house');
+  sound.setScene(ambienceFor(engine));
   $('unpainted').hidden=hasArt||!lit;
   $('hotspots').replaceChildren();
   const visible=sceneObjects(engine);

@@ -45,3 +45,27 @@ Edit this exact adventure background, change ONLY the small kitchen window at ce
 ## kitchen-closed.png (edit target: kitchen.png)
 
 Edit this exact production adventure background. Change ONLY the small kitchen window on the right wall: close its wooden-framed glass sash across the opening, retaining warm daylight passing through the glass. The closed frame must visibly block entry, and remain the same size and location. Keep the table completely empty. Preserve all other scene geometry, camera, lighting, colours, wall, staircase, fireplace, doorway and furniture exactly. Same dimensions. No new objects, people, letters or UI. This is the closed-window state variant viewed from inside the kitchen.
+
+## v0.3 underground — 2026-09-09
+
+Built-in image-generation tool; not Google Imagen. Raster outputs copied unchanged into `public/art`; no image-processing fallback. Files and hashes are in `art-manifest.json`.
+
+### troll-room.png
+
+Use case: illustration-story. Create a production background painting for a first-person classic text adventure illustrated as a richly textured painterly fantasy storybook, 3:2 landscape. A small empty underground stone chamber, narrow east passage on right, south passage behind viewer, forbidding low hole on left leading west. Deep axe scratches and a few old rust-brown stains mar rough stone walls. Warm lantern light from below viewer, cold charcoal and muted teal recesses, atmospheric but readable floor. No troll, no axe, no creature, no treasure, no visible lamp, no text or UI. Keep central floor free for separately composited character. Output this single room artwork.
+
+### east-chasm.png
+
+Use case: illustration-story. Single 3:2 landscape production background for a painterly first-person fantasy adventure, richly textured stone, warm lantern light from below the unseen viewer, charcoal and muted teal darkness. The viewer stands on the EAST edge of a vast underground chasm whose bottom cannot be seen. A narrow solid ledge runs from foreground toward a narrow north passage in the upper middle, another route continues east to the right. Black unfathomable void fills left half; rock edge is sharp and dangerous. No bridge, no railings, no bottom, no treasure, no creatures, no lantern in frame, no UI/text. Contained claustrophobic geology, not an epic outdoor landscape. Match a classic illustrated storybook with grounded materials, not cartoon.
+
+### east-west-passage.png (initial generation)
+
+Use case: illustration-story. Single 3:2 landscape background painting for first-person classic fantasy adventure. A narrow ancient underground east-west stone passage, viewed obliquely along its length toward the EAST opening at right rear; WEST entrance behind viewer. In the NORTH wall on the left there is a narrow stone stairway descending into blackness. Rough grey stone, damp joints, warm lantern illumination from below and behind unseen viewer, cold muted teal shadows. Rich painterly storybook texture, grounded materials, eerie restraint. No doors, no treasure, no creatures, no visible lamps, no text, no UI. Open empty walking floor, no invented puzzles or decorative symbols.
+
+### east-west-passage-v2.png (direction correction)
+
+Edit target: this underground corridor painting. Change ONLY the left stairway: it must lead DOWN below the viewer's floor into blackness, not ascend. Show the first step's top surface immediately below the floor edge, successive steps receding DOWNWARDS and vanishing into a pitch black lower shaft. Remove the ascending stairs entirely. Preserve the entire remainder of the painting, perspective, rough stone textures, warm foreground illumination, cool right corridor, aspect ratio. No new objects or text.
+
+### troll-atlas.png
+
+Use case: stylized-concept. Production sprite atlas on genuinely TRANSPARENT alpha background. Exactly 2 columns by 2 rows, four equal square cells, no gutters, no labels. Same squat nasty-looking fantasy troll with leathery moss-grey skin, ragged brown tunic, large crooked nose and small cunning eyes, grounded richly textured painterly storybook style. Top left: complete full body armed standing troll brandishing a worn iron axe, facing viewer. Top right: identical troll disarmed, cowering with empty hands. Bottom left: identical troll unconscious, lying horizontally on its side, eyes shut, without weapon; no blood or gore. Bottom right: the single iron axe alone diagonally. Each subject centered entirely in its own cell with 10 percent transparent padding, no overlap, no floor or background, no drop shadow extending into other cells. Warm light from lower left, subdued cold shadows. A game sprite sheet, NOT a scene or mockup. Actual transparent background, no checkerboard.

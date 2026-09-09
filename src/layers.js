@@ -1,3 +1,4 @@
+import { trollState } from './encounters.js';
 // The single generated 4x2 PNG atlas remains intact; CSS selects its cells.
 export const spriteIndex = { 146: 0, 76: 1, 227: 2, 99: 3, 138: 4, 55: 5, 240: 6 };
 export function spriteStyle(element, index) {
@@ -10,6 +11,9 @@ export function layersFor(engine) {
   const room = engine.state().room;
   const visible = id => engine.visible(id) && engine.parent(id) !== 44;
   const layers = [];
+  const encounter=trollState(engine);
+  if(encounter) layers.push({id:150,x:57,y:66,width:encounter==='unconscious'?46:35,encounter});
+  if(visible(36)&&engine.parent(36)===room)layers.push({id:36,x:70,y:87,width:15,encounter:'axe'});
   const add = (id, x, y, width, extra = {}) => { if (visible(id)) layers.push({id, x, y, width, index: spriteIndex[id], ...extra}); };
   if (room === 75) {
     // The rug is rendered over the same location as the hidden door until discovery.
@@ -43,7 +47,15 @@ export function renderLayers(engine, parent, select, makeButton) {
       el.setAttribute('aria-label', `Inspect ${engine.name(layer.id)}`);
       el.title = engine.name(layer.id);
     }
-    spriteStyle(el, layer.index);
+    if(layer.encounter){
+      el.classList.add('encounter-sprite');
+      el.dataset.encounter=layer.encounter;
+      // Authored source rectangles keep irregular generated cell padding intact.
+      const [x,y,w,h]=({armed:[0,0,700,700],disarmed:[720,0,534,700],unconscious:[0,760,715,410],axe:[720,700,534,540]})[layer.encounter];
+      el.style.aspectRatio=`${w}/${h}`;
+      el.style.backgroundSize=`${1254/w*100}% ${1254/h*100}%`;
+      el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
+    }else spriteStyle(el, layer.index);
     el.style.left = layer.x + '%'; el.style.top = layer.y + '%'; el.style.width = layer.width + '%';
     el.dataset.moved = layer.moved ? 'true' : 'false';
     el.classList.toggle('lamp-lit', layer.id === 146 && engine.flag(146, 19));

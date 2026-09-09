@@ -33,3 +33,13 @@ The whole original world remains accessible by parser. That is not evidence that
 `layers.js` renders cells from one unchanged generated transparent sprite atlas. CSS positioning/perspective integrates the objects with the paintings; hidden objects are not present in the DOM. Reduced-motion preferences disable movement and dust effects. Darkness removes object layers entirely.
 
 `audio.js` uses Web Audio noise buffers and oscillators for a deliberately restrained prototype soundscape. It is off until explicitly enabled, suspends in hidden tabs, and never controls game timing. No external audio files, AI endpoints or paid services are involved.
+
+## Underground expedition (v0.3)
+
+Three new plates extend the cellar into The Troll Room (127), East of Chasm (247), and East-West Passage (130). They are grounded in the pinned source's descriptions and exits. The gallery, studio, maze and remaining map still use the explicit unillustrated view.
+
+The troll is not baked into a background: `encounters.js` reads object 150's signed STRENGTH property 7 (negative means unconscious) and axe 36's parent. Separate armed, disarmed and unconscious atlas cells follow those values; absent/hidden trolls and darkness have no sprite. A dropped axe is rendered separately. The original combat, randomness, timing and narrator remain unchanged. This is state illustration, not animated combat or a complete injury model.
+
+Acoustic profiles distinguish cellar, stone chamber, narrow passage and chasm, including restrained stereo reflections. Darkness does not change the geography of the sound. Ambient events imply neither hidden actors nor puzzle solutions. Transitions are presentation-only, respect reduced motion, and never delay commands. Darkness removes the image source and all scene objects immediately. Save format and VM bytes are unchanged.
+
+Regression checks cover the chasm route, signed knockout state, defeated-troll removal, dropped axe, passage access, save continuation, and browser concealment. Deterministic seeds are used only in tests, not in the shipped game.

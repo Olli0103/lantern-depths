@@ -4,6 +4,10 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## v0.3 — Beneath the white house
+
+Three new underground paintings, a state-driven troll encounter (armed, disarmed, unconscious or absent), a dropped axe layer, room-specific stereo ambience, and reduced-motion-aware entrance fades. The engine still decides every combat outcome. Existing saves remain compatible.
+
 ## What works
 
 - The actual archived Zork I executable runs locally in the browser through the MIT-licensed **ifvms** Z-machine interpreter.
@@ -13,7 +17,7 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 - Opening-area object layers: take/drop items, slide the rug, uncover and open the trapdoor. Mailbox and window scene variants reflect the engine's state.
 - Contextual physical actions and inventory-to-target commands: choose an item, select an action such as **Put in…**, then click the target. Escape cancels; selecting does not consume a turn.
 - Optional quiet procedural ambience and interaction sounds, initially off. Volume, journal text size and reduced-motion controls are in Settings.
-- Original AI-generated opening-area background paintings. The rest of the game remains accessible through the parser with an explicit unillustrated view.
+- Original AI-generated opening-area and underground background paintings. The rest of the game remains accessible through the parser with an explicit unillustrated view.
 - Automated checks for the opening route, hidden objects, darkness, and save continuation.
 
 No AI service, account, API key or backend is required to play.
@@ -53,7 +57,7 @@ The Zork name is used to identify the source. This project is not affiliated wit
 
 - This is an illustrated interface milestone, **not a complete point-and-click adaptation**. Some original commands require typing.
 - Initial object layers cover the opening route, not every world object or possible state. Sack opening, bottle contents, nested-container placement and destruction/burning still need more visual treatments. Named controls and the journal remain authoritative for these cases.
-- Only the opening region has artwork. South of House, the attic and the wider underground map are not yet illustrated.
+- The opening region plus the troll chamber, east chasm edge and east-west passage have artwork. South of House, the attic, gallery, studio, maze and the wider underground map are not yet illustrated.
 - The adapter is bound to the exact release in `docs/upstream.json`; do not swap story files without updating and testing the object map.
 - Save slots are local to the browser and origin. There is no cloud save or downloadable save. Existing v0.1 saves remain compatible. Sound is locally synthesized with Web Audio, not recorded samples or voice acting.
 - The original game's deaths, resource limits and unusual parser behaviour remain. Full-game completion has not been validated through this interface.
@@ -62,7 +66,7 @@ The Zork name is used to identify the source. This project is not affiliated wit
 
 1. Rebuild the ZIL source with pinned tooling and compare behaviour with the archived executable.
 2. Extend object-state coverage to container contents, destruction and the remaining world objects.
-3. Extend room art into a coherent underground region and refine the ambient sound palette.
+3. Continue beyond the first underground region: gallery, studio and passage network with state-correct treasures.
 4. Audit parser-dependent puzzles before attempting a mouse-only mode.
 
 See [docs/ADAPTATION.md](docs/ADAPTATION.md) and [asset provenance](public/art/README.md).

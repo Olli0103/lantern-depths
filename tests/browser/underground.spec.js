@@ -1,0 +1,32 @@
+import { test, expect } from '@playwright/test';
+const command=async(page,text)=>{await page.locator('#command').fill(text);await page.locator('#command').press('Enter');};
+const descend=['north','east','open window','west','west','take lamp','take sword','turn on lamp','move rug','open trap door','down'];
+test('chasm expedition hides all scenery in darkness and restores a saved underground view',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('/');await expect(page.locator('#location')).toHaveText('West of House');
+  await page.locator('#sound').click();
+  for(const c of [...descend,'south'])await command(page,c);
+  await expect(page.locator('#location')).toHaveText('East of Chasm');
+  await expect(page.locator('#painting')).toHaveAttribute('src','./art/east-chasm.png');
+  await expect(page.locator('#chapter-label')).toHaveText('BENEATH THE WHITE HOUSE');
+  await expect.poll(()=>page.locator('#painting').evaluate(el=>el.complete&&el.naturalWidth>0)).toBe(true);
+  await page.locator('#save').click();await command(page,'turn off lamp');
+  await expect(page.locator('#painting')).toBeHidden();await expect(page.locator('#painting')).not.toHaveAttribute('src');
+  await expect(page.locator('#object-layers')).toBeEmpty();await expect(page.locator('#hotspots')).toBeEmpty();
+  await page.locator('#load').click();await expect(page.locator('#location')).toHaveText('East of Chasm');
+  await command(page,'north');await expect(page.locator('#location')).toHaveText('Cellar');
+  await command(page,'north');await expect(page.locator('#location')).toHaveText('The Troll Room');
+  await expect(page.locator('[data-object-id="150"]')).toHaveAttribute('data-encounter','armed');
+  const moves=await page.locator('#stats').textContent();
+  await page.locator('[data-object-id="150"]').click();await expect(page.locator('#stats')).toHaveText(moves);
+  await expect(page.locator('#selected-name')).toHaveText('troll');
+  await page.locator('[data-object-id="150"]').evaluate(async el=>{
+    const url=getComputedStyle(el).backgroundImage.slice(5,-2);const image=new Image();image.src=url;await image.decode();
+  });
+  await page.evaluate(()=>Promise.all(document.getAnimations().filter(a=>a.effect?.getTiming().iterations!==Infinity).map(a=>a.finished)));
+  await page.screenshot({path:'test-results/underground-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:'test-results/underground-mobile.png',fullPage:true});
+  expect(errors).toEqual([]);
+});

@@ -81,3 +81,31 @@ test('returning a leaflet to the mailbox and closing it hides the artwork',()=>{
   assert.ok(layersFor(e).some(layer=>layer.id===76));
   e.command('close mailbox');assert.ok(!layersFor(e).some(layer=>layer.id===76));
 });
+
+// Fixed seeds belong only to tests: shipping combat keeps the VM's randomness.
+import { trollState } from '../src/encounters.js';
+import { ambienceFor, scenes } from '../src/scenes.js';
+const descend=[...enter,'take lamp','take sword','turn on lamp','move rug','open trap door','down'];
+test('underground route, acoustics and concealment follow the original world',()=>{
+  const e=make();walk(e,descend);e.command('south');
+  assert.equal(e.state().room,247);assert.equal(scenes[247].art,'east-chasm');
+  assert.equal(ambienceFor(e),'chasm');e.command('turn off lamp');
+  assert.equal(ambienceFor(e),'chasm');assert.deepEqual(layersFor(e),[]);assert.deepEqual(sceneObjects(e),[]);
+  e.command('turn on lamp');assert.equal(e.lit(),true);e.command('north');assert.equal(e.state().room,33);
+});
+test('troll knockout artwork and save continuation come from signed VM strength',()=>{
+  const e=make();e.vm.xorshift_seed=2;walk(e,[...descend,'north']);
+  assert.equal(trollState(e),'armed');e.command('attack troll with sword');
+  assert.equal(trollState(e),'unconscious');assert.equal(e.parent(36),127);
+  assert.ok(layersFor(e).some(x=>x.id===150&&x.encounter==='unconscious'));
+  const restored=make();restored.restore(JSON.parse(JSON.stringify(e.snapshot())));
+  assert.equal(trollState(restored),'unconscious');assert.deepEqual(layersFor(restored),layersFor(e));
+  restored.command('east');assert.equal(restored.state().room,130);assert.equal(trollState(restored),null);
+});
+test('a defeated troll is absent, its dropped axe remains, and the passage opens',()=>{
+  const e=make();e.vm.xorshift_seed=1;walk(e,[...descend,'north','attack troll with sword']);
+  assert.equal(e.parent(150),0);assert.equal(trollState(e),null);
+  assert.ok(!layersFor(e).some(x=>x.id===150));assert.ok(layersFor(e).some(x=>x.id===36));
+  e.command('take axe');assert.ok(!layersFor(e).some(x=>x.id===36));
+  e.command('east');assert.equal(e.state().room,130);assert.equal(scenes[130].art,'east-west-passage-v2');
+});
