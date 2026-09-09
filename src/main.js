@@ -1,3 +1,4 @@
+import { SceneMenu } from './scene-menu.js';
 import { setPaintingSource } from './art.js';
 import { UndoHistory, CommandHistory } from './checkpoints.js';
 import { QUICK_SAVE_KEY, MAX_SAVE_BYTES, SLOT_COUNT, capture, decodeSave, saveSlot, readSlot, slotMetadata } from './saves.js';
@@ -20,13 +21,15 @@ const sound = new Soundscape();
 let discovery=new Discovery();
 const art = new Set(Object.values(scenes).map(scene=>scene.art));
 let previousRoom=null;
+const sceneMenu=new SceneMenu($('scene'),$('selection'),$('selection-home'),$('scene-actions'),$('command-form'));
+$('scene-actions-close').addEventListener('click',()=>sceneMenu.close(true));
 
 function button(label, action, parent, className) {
   const el = document.createElement('button');
   el.type = 'button'; el.textContent = label; el.setAttribute('aria-label', label);
   if (className) el.className = className;
   el.addEventListener('click', event => {
-    action();
+    action(el,event);
     if(event.detail===0&&el.matches('[data-select-id],.scene-object')&&!$('selection').hidden)
       $('verbs').querySelector('button')?.focus({preventScroll:true});
   }); parent.append(el); return el;
@@ -44,7 +47,7 @@ function renderLog() {
   }
   log.scrollTop=log.scrollHeight;
 }
-function select(id) {
+function select(id,anchor=null) {
   if(targeting) {
     const attempt=targeting;
     if(attempt.id===id){cancelTarget();return;}
@@ -52,7 +55,9 @@ function select(id) {
     return;
   }
   selected=id;
+  if(!anchor)sceneMenu.close();
   renderSelection();
+  if(anchor&&sceneMenu.open(id))return;
   if(window.matchMedia('(max-width:760px)').matches) $('selection').scrollIntoView({block:'nearest',behavior:'instant'});
 }
 function cancelTarget() {
@@ -61,20 +66,27 @@ function cancelTarget() {
 }
 function renderSelection() {
   const id=selected;
-  if(!id){$('selection').hidden=true;return;}
+  if(!id){$('selection').hidden=true;sceneMenu.close();return;}
   $('selection').hidden=false;
   $('selected-name').textContent=engine.name(id);
   document.querySelectorAll('[data-select-id]').forEach(el=>el.setAttribute('aria-pressed',String(Number(el.dataset.selectId)===id)));
   $('verbs').replaceChildren();
   $('relations').replaceChildren();
+  $('contents').replaceChildren();
   for(const verb of actionsFor(engine,id)) button(verb,()=>{
     const text=run(verb.toLowerCase()+' '+noun(engine,id));
     if(text&&['Read','Examine'].includes(verb)&&engine.lit())showDetail(id,text);
   },$('verbs'));
+  const children=[];
+  if(engine.lit())for(let child=engine.vm.get_child(id);child;child=engine.vm.get_sibling(child))if(engine.visible(child))children.push(child);
+  if(children.length){const heading=document.createElement('p');heading.textContent='Contents';$('contents').append(heading);
+    for(const child of children)button(engine.name(child),()=>select(child),$('contents')).setAttribute('aria-label',`Select contents: ${engine.name(child)}`);
+  }
   if(engine.parent(id)===44) {
     for(const [relation, spec] of Object.entries(relations)) button(spec.label,()=>{
       targeting={id,relation};document.body.classList.add('targeting');
       $('instruction').textContent=`${engine.name(id)} → ${spec.label.toLowerCase()} Choose a target · Esc to cancel`;
+      sceneMenu.close();
       notice('Select a visible object or another item in your satchel.');
     },$('relations'));
   }
@@ -99,6 +111,7 @@ function render() {
   if(state.room===64&&engine.flag(230,11))painting='west-house-open';
   if(state.room===85&&engine.flag(243,11))painting='behind-house-open';
   if(state.room===27&&!engine.flag(243,11))painting='kitchen-closed';
+  if(state.room===75&&engine.flag(197,11))painting='living-room-case-open-v1';
   const tile=scene?.cell;
   Object.assign($('painting').style,tile===undefined?{width:'100%',height:'100%',position:'',left:'',top:''}:{width:'200%',height:'200%',position:'absolute',left:`${-(tile%2)*100}%`,top:`${-Math.floor(tile/2)*100}%`});
   if(hasArt){setPaintingSource($('painting-source'),painting,tile!==undefined);$('painting').src=`./art/${painting}.png`;$('painting').alt=`Painted view of ${state.name}`;}
@@ -112,13 +125,14 @@ function render() {
   const visible=sceneObjects(engine);
   for(const h of (hasArt?scene?.hotspots??[]:[])) {
     if(!visible.includes(h.id))continue;
-    const el=button('+',()=>select(h.id),$('hotspots'),'hotspot');
+    const el=button('+',element=>select(h.id,element),$('hotspots'),'hotspot');
     el.style.left=h.x+'%';el.style.top=h.y+'%';el.setAttribute('aria-label',`Inspect ${engine.name(h.id)}`);el.dataset.label=engine.name(h.id);el.dataset.selectId=h.id;el.setAttribute('aria-pressed',String(selected===h.id));
   }
   const states=[];
   if(lit&&state.room===64)states.push(engine.flag(230,11)?'Mailbox · open':'Mailbox · closed');
   if(lit&&[85,27].includes(state.room))states.push(engine.flag(243,11)?'Window · open':'Window · not open');
   if(lit&&state.room===75&&!engine.flag(240,7))states.push(engine.flag(240,11)?'Trapdoor · open':'Trapdoor · closed');
+  if(lit&&state.room===75)states.push(engine.flag(197,11)?'Case · open':'Case · closed');
   $('scene-state').textContent=states.join(' / ');
   $('objects').replaceChildren();
   for(const id of visible){
@@ -135,8 +149,9 @@ function render() {
     if(hasItemArt(item.id)){const icon=document.createElement('span');icon.className='inventory-icon';icon.setAttribute('aria-hidden','true');itemArt(engine,item.id,icon);el.prepend(icon);}
   }
   if(!items.length){const p=document.createElement('p');p.textContent='A little room for whatever you find.';$('inventory').append(p);}
-  if(selected&&!visible.includes(selected)&&!items.some(i=>i.id===selected)){selected=null;$('selection').hidden=true;}
+  if(selected&&!visible.includes(selected)&&!(engine.carried(selected)&&engine.visible(selected))){selected=null;$('selection').hidden=true;}
   renderSelection();
+  sceneMenu.sync();
   document.querySelectorAll('.compass button, #vertical button, #command-form button').forEach(el=>{if(el.id!=='undo')el.disabled=!!engine.vm.quit;});
   $('undo').disabled=!undoHistory.length;
   renderLog();
@@ -154,6 +169,7 @@ function showDetail(id,text){
   const image=$('detail-art');image.className='';image.style.cssText='';
   image.hidden=!hasItemArt(id)||!engine.visible(id);
   if(!image.hidden)itemArt(engine,id,image);
+  sceneMenu.close();
   $('detail').showModal();
 }
 $('map').addEventListener('click',()=>{renderDiscovery(discovery,$('map-content'),engine&&observation(engine));$('map-dialog').showModal();});
@@ -178,7 +194,7 @@ $('look').addEventListener('click',()=>engine&&run('look'));
 function applyCheckpoint(raw,{undo=false}={}) {
   const restored=decodeSave(raw,window.ZVM,story,storyHash,undo?engine.entropy.snapshot():undefined);
   engine=restored.engine;history=restored.history;discovery=restored.discovery;
-  selected=null;cancelTarget();$('selection').hidden=true;
+  sceneMenu.close();selected=null;cancelTarget();$('selection').hidden=true;
   for(const id of ['detail','map-dialog'])if($(id).open)$(id).close();
   if(!undo){undoHistory.clear();commandHistory.reset();}
   render();

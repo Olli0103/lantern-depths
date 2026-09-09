@@ -66,7 +66,7 @@ test('illustrated props follow discovery, possession and save restoration',()=>{
   assert.equal(layersFor(e).find(layer=>layer.id===55).moved,true);
   e.restore(save);assert.ok(ids().includes(146));assert.ok(!ids().includes(240));
   walk(e,['take lamp','drop lamp']);
-  assert.equal(layersFor(e).find(layer=>layer.id===146).y,90);
+  assert.equal(layersFor(e).find(layer=>layer.id===146).placement,'floor');
 });
 test('opening a closed mailbox changes actions and only successful changes produce effects',()=>{
   const e=make();const before=visualState(e);
@@ -115,7 +115,7 @@ test('gallery painting damage, taking and dropping use original state',()=>{
   const e=make();walk(e,[...descend,'south','east']);
   assert.equal(e.state().room,122);assert.ok(layersFor(e).some(x=>x.id===92&&x.y===39));
   e.command('take painting');assert.ok(!layersFor(e).some(x=>x.id===92));
-  e.command('drop painting');assert.ok(layersFor(e).some(x=>x.id===92&&x.y===86));
+  e.command('drop painting');assert.ok(layersFor(e).some(x=>x.id===92&&x.placement==='floor'&&x.y>75));
   assert.match(e.command('destroy painting with sword'),/destroyed/);assert.equal(e.vm.get_prop(92,12),0);
 });
 test('studio manual is discoverable and chimney retains its inventory restriction',()=>{
@@ -131,4 +131,17 @@ test('discovery notes never infer reverse paths, unseen rooms or maze identity',
   d.record(b,{id:19,name:'Maze'},'west');d.record(null,null,'north');assert.equal(d.rooms.length,2);
   const restored=new Discovery();restored.restore(JSON.parse(JSON.stringify(d.snapshot())));assert.deepEqual(restored.snapshot(),d.snapshot());
   assert.throws(()=>restored.restore({version:1,rooms:[a],routes:[{from:64,to:137,direction:'north'}]}),/route/);
+});
+
+test('authored containers keep local contents staged and carried contents out of scenery',()=>{
+ const e=make();walk(e,['n','e','open window','in']);
+ assert.equal(layersFor(e).find(l=>l.id===99).placement,'table');
+ assert.ok(!sceneObjects(e).includes(217));e.command('open sack');
+ assert.ok(sceneObjects(e).includes(217));assert.equal(layersFor(e).find(l=>l.id===217).placement,'contents');
+ e.command('take sack');assert.ok(e.carried(217));assert.ok(!sceneObjects(e).includes(217));assert.ok(!layersFor(e).some(l=>[99,217,14].includes(l.id)));
+ e.command('drop sack');assert.equal(layersFor(e).find(l=>l.id===99).placement,'floor');assert.equal(layersFor(e).find(l=>l.id===217).placement,'contents');
+ e.command('close sack');assert.ok(!layersFor(e).some(l=>[217,14].includes(l.id)));
+ walk(e,['w','take sword','open case','put sword in case','close case']);
+ assert.equal(e.parent(227),197);assert.equal(layersFor(e).find(l=>l.id===227).placement,'shelf');
+ const restored=make();restored.restore(JSON.parse(JSON.stringify(e.snapshot())));assert.deepEqual(layersFor(restored),layersFor(e));
 });

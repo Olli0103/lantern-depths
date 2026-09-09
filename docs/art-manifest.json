@@ -389,5 +389,14 @@
     "created": "2026-09-09",
     "status": "corrected closed/ajar window variant",
     "prompt": "docs/ART-PROMPTS.md#behind-house-ajar-v2png"
+  },
+  {
+    "file": "public/art/living-room-case-open-v1.png",
+    "sha256": "aa0b0a61e949e7d29fbb794aab8fe7d0f82c426b641fe5efe8546cbac0b0c01a",
+    "width": 1536,
+    "height": 1024,
+    "generator": "built-in image-generation tool",
+    "created": "2026-09-09",
+    "status": "open trophy-case environment variant; reviewed in browser"
   }
 ]

@@ -4,6 +4,10 @@ An independent, illustrated browser interface to **Zork I**, built on the histor
 
 **[Play in your browser](https://olli0103.github.io/lantern-depths/)**
 
+## v0.5.1 — Actions in the scene
+
+Scene-object clicks now open nearby action controls; keyboard and sidebar controls remain available. Eleven opening-region rooms have authored floor/surface placements, the trophy case visibly opens, and accessible container contents follow actual possession and visibility. [Scope and remaining art work](docs/REGION-STAGING.md). Original puzzles, binary and saves remain unchanged.
+
 ## Direction and v0.5 — Room to experiment
 
 The [accepted roadmap](docs/ROADMAP.md) prioritises a fully authored adventure over a universal engine platform: comfort and delivery first, then the connected house/cellar/troll/gallery region, then the remaining puzzle regions. Whole-world illustration is not the same as finished point-and-click staging.

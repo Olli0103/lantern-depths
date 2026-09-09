@@ -1,3 +1,4 @@
+import { stageRegion, authoredRooms } from './staging.js';
 import { trollState } from './encounters.js';
 import { props,propStyle,propLayers } from './props.js';
 // The single generated 4x2 PNG atlas remains intact; CSS selects its cells.
@@ -50,7 +51,15 @@ export function layersFor(engine) {
     if ([55,240].includes(id) || layers.some(layer => layer.id === id)) continue;
     if (visible(id) && engine.parent(id) === room) add(id, 35 + 12 * dropped++, 90, 8);
   }
-  return layers;
+  if(authoredRooms.has(room)){
+    // Add supported loose items in visible local containers (including the
+    // transparent case). Never render possessions inside a carried container.
+    for(const id of [...Object.keys(spriteIndex).map(Number),...galleryItems]){
+      if(!visible(id)||engine.carried(id)||layers.some(l=>l.id===id)||![99,138,169,197].includes(engine.parent(id)))continue;
+      layers.push({id,index:spriteIndex[id],gallery:galleryItems.has(id)});
+    }
+  }
+  return stageRegion(engine,layers);
 }
 
 export function renderLayers(engine, parent, select, makeButton) {
@@ -61,7 +70,7 @@ export function renderLayers(engine, parent, select, makeButton) {
     let el = parent.querySelector(`[data-object-id="${layer.id}"]`);
     if (!el) {
       if(layer.decorative){el=document.createElement('span');el.className='scene-object decorative';el.setAttribute('aria-hidden','true');parent.append(el);}
-      else el = makeButton('', () => select(layer.id), parent, 'scene-object');
+      else el = makeButton('', element => select(layer.id,element), parent, 'scene-object');
       el.dataset.objectId = layer.id;
       if(!layer.decorative){el.setAttribute('aria-label', `Inspect ${engine.name(layer.id)}`);el.title = engine.name(layer.id);}
     }
@@ -75,8 +84,10 @@ export function renderLayers(engine, parent, select, makeButton) {
       el.style.backgroundPosition=`${x/(1254-w)*100}% ${y/(1254-h)*100}%`;
     }else if(layer.prop)propStyle(engine,layer.id,el);
     else if(layer.gallery)itemArt(engine,layer.id,el);
+    else if([99,138].includes(layer.id))itemArt(engine,layer.id,el);
     else spriteStyle(el, layer.index);
     el.style.left = layer.x + '%'; el.style.top = layer.y + '%'; el.style.width = layer.width + '%';
+    el.dataset.placement=layer.placement??'authored';
     el.dataset.moved = layer.moved ? 'true' : 'false';
     el.classList.toggle('lamp-lit', layer.id === 146 && engine.flag(146, 19));
     el.dataset.sprite = layer.index;

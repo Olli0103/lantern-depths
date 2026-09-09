@@ -92,6 +92,11 @@ export class Engine {
     }
     return false;
   }
+  carried(id) {
+    const seen=new Set();let parent=this.parent(id);
+    while(parent&&!seen.has(parent)){if(parent===44)return true;seen.add(parent);parent=this.parent(parent);}
+    return false;
+  }
   lit() {
     if (this.flag(this.state().room, 19)) return true;
     for (let id = 1; id <= 250; id++) if (this.flag(id, 19) && this.visible(id)) return true;

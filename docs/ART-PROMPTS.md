@@ -112,3 +112,9 @@ All edits were generated, not painted or cut with a processing script. Source PN
 Prompt: Change ONLY the central kitchen window to a virtually closed full rectangular weathered wooden glazed sash filling the entire opening, dark reflective panes and only a hairline gap at the bottom. Eliminate the large open hole. Preserve exterior wall, frame location/size, boarded windows, foliage, path, lighting, painterly texture, viewpoint, aspect ratio and composition. No UI, text or people. Must unmistakably look shut at thumbnail scale.
 
 The original open variant remains authoritative when window object 243 has OPENBIT. Presentation badge now says “Window · not open”; original narration and engine rules are unchanged.
+
+## living-room-case-open-v1.png
+
+2026-09-09, built-in image generation; edit reference `public/art/living-room.png`. Output copied unchanged; original retained. Edit brief: open only the upper glazed double doors of the trophy cabinet; preserve the empty shelves, cabinet geometry, all other room furniture, camera, lighting and painterly texture. Do not add treasures, labels or UI. Original OPENBIT selects the variant. Reviewed decoded in the browser with the lamp, sword and rug layers.
+
+Two container-atlas generations were rejected for missing real alpha and are not shipped. No checkerboard-background extraction or manual raster cleanup was used.

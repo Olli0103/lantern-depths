@@ -59,3 +59,18 @@ html{scroll-padding-bottom:105px}#selection{scroll-margin-bottom:110px}
 
 #saves-title{font:26px Georgia;letter-spacing:0;margin:12px 0 18px}#saves-close{float:right;margin-left:15px}#saves-dialog>p{font:16px/1.6 Georgia;color:var(--muted)}#saves-dialog button{font:13px system-ui}.save-slot label{font:15px Georgia}.save-slot button{padding-inline:10px}#saves-notice{color:var(--gold)}
 @media(max-width:480px){#saves-dialog{padding:18px}.save-slot label{grid-column:1}.save-slot small{grid-column:2;grid-row:1}.save-slot input{grid-column:1/-1}.save-slot button{min-width:0}#saves-close{float:none;margin:0 0 12px}}
+
+/* The same action controls can move beside their scene target. */
+#scene-actions{position:fixed;inset:auto;margin:0;padding:16px;background:#101d18f5;color:var(--ink);border:1px solid #7e805d;border-radius:4px;box-shadow:0 10px 38px #0008;overflow:auto;z-index:60}
+#scene-actions::backdrop{display:none}
+#scene-actions #selection{border:0;margin:0;padding:0}
+#scene-actions #selected-name{padding-right:30px;margin-bottom:14px;font:20px Georgia}
+#scene-actions-close{float:right;width:32px;height:32px;min-height:32px;padding:0;margin:-5px -5px 4px 8px;font:22px Georgia;border-color:transparent}
+#scene-actions #verbs,#scene-actions #relations{display:flex;flex-wrap:wrap;gap:6px}
+#scene-actions #verbs button,#scene-actions #relations button{min-height:44px;font:13px system-ui;padding:8px 12px}
+#contents{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}#contents:empty{display:none}#contents p{width:100%;margin:0 0 3px;color:var(--muted);font:12px system-ui}#contents button{min-height:40px;font:12px system-ui}
+.scene-object[data-placement='floor-paper']{transform:translate(-50%,-50%) rotate(-12deg) scaleY(.68)}
+.scene-object[data-placement='floor'][data-object-id='227']{transform:translate(-50%,-50%) rotate(-65deg)}
+.scene-object[data-placement='floor'][data-object-id='92']{transform:translate(-50%,-50%) rotate(8deg) scaleY(.62)}
+.scene-object[data-placement='shelf']{filter:drop-shadow(0 2px 2px #0009)}
+.scene-object[data-placement='contents']{z-index:4}

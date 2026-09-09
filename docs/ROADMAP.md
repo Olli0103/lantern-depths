@@ -18,9 +18,9 @@ House → Cellar → Troll → Chasm → Gallery/Studio, including return routes
 
 - [ ] Audit scenery, prop positions, scale and source semantics room by room.
 - [ ] All puzzle-relevant states visible and consistent with the VM, including closed/open, taken/dropped, concealed/revealed, combat and light.
-- [ ] Direct image interaction plus accessible keyboard/touch actions; sidebar remains a fallback. Do not suggest puzzle solutions.
+- [x] Direct image interaction plus accessible keyboard/touch actions; sidebar remains a fallback. Do not suggest puzzle solutions.
 - [ ] Evaluate an existing lightweight visual placement tool before making a small local coordinate editor. Do not build a general-purpose editor.
-- [ ] One compact art-direction contract for existing and future materials.
+- [x] One compact art-direction contract for existing and future materials. See `REGION-STAGING.md`.
 
 Acceptance: the connected region feels deliberately staged; every known unsupported state is recorded, not silently treated as complete. Inspect decoded artwork at rest, on hover/selection and on mobile.
 
@@ -38,3 +38,5 @@ Do not start a universal Z-machine platform, PWA/service-worker caching, AI runt
 - 2026-09-09: goal accepted. Existing source build, whole-world illustrations and full-game tests are foundations, not proof of a fully authored cinematic adaptation. Starting the comfort/delivery increment.
 
 - v0.5 implementation: bounded Undo, command history, three save slots plus legacy quick slot, import/export and WebP derivatives. Source-build migration remains a separate gated task. Next production focus: connected-region staging, not more bulk illustrations.
+
+- v0.5.1: direct scene actions, local container contents, eleven-room placement rules and open trophy-case artwork. The region is not declared complete: unsupported container sprites and crowded placement states are recorded in `REGION-STAGING.md`.

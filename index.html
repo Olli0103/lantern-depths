@@ -72,14 +72,14 @@
           <div id="vertical"></div>
         </section>
 
-        <section class="panel reach-panel">
+        <section id="selection-home" class="panel reach-panel">
           <div class="panel-heading"><svg class="ui-icon" aria-hidden="true"><use href="/ui/icons.svg#icon-look"></use></svg><h2>NEARBY</h2></div>
           <p class="panel-kicker">Select an object to act.</p>
           <div id="objects"></div>
           <div id="selection" hidden>
             <h3 id="selected-name"></h3>
             <div id="verbs"></div>
-            <div id="relations"></div>
+            <div id="relations"></div><div id="contents"></div>
           </div>
         </section>
 
@@ -115,6 +115,7 @@
     <p id="notice" role="status"></p>
   </main>
 
+  <div id="scene-actions" popover="manual" role="region" aria-label="Object actions"><button id="scene-actions-close" aria-label="Close object actions">×</button></div>
   <dialog id="saves-dialog" aria-labelledby="saves-title">
     <button id="saves-close">Close saves ×</button><h2 id="saves-title">Saved adventures</h2>
     <p>Three separate places to return to. Quick Save and Load in the header keep their own slot.</p>
