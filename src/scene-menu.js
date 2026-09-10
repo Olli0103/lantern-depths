@@ -27,10 +27,14 @@ export class SceneMenu {
     this.panel.style.maxHeight=Math.max(100,small?Math.min(innerHeight*.42,limit-12):limit-12)+'px';
     this.panel.style.width=(small?Math.min(480,innerWidth-24):300)+'px';
     const {width,height}=this.panel.getBoundingClientRect();
-    let x=r.right+12;if(x+width>innerWidth-12)x=r.left-width-12;
+    // Desktop: sit below and beside the marker rather than over the object it
+    // marks, so a state change (an opened mailbox) stays visible while its
+    // actions are shown. Fall back to the other side, then above, when clipped.
+    let x=r.right+28;if(x+width>innerWidth-12)x=r.left-width-28;
     if(small)x=(innerWidth-width)/2;
+    let y=r.bottom+14;if(y+height>limit)y=r.top-height-14;if(y<12)y=Math.min(r.top,limit-height);
     this.panel.style.left=Math.max(12,Math.min(x,innerWidth-width-12))+'px';
-    this.panel.style.top=Math.max(12,(small?limit-height:Math.min(r.top,limit-height)))+'px';
+    this.panel.style.top=Math.max(12,(small?limit-height:y))+'px';
   }
   close(focus=false){
     if(this.anchorId===null)return;

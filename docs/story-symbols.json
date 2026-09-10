@@ -263,7 +263,10 @@
     "18": "CONTBIT",
     "19": "ONBIT",
     "22": "DOORBIT",
-    "31": "LIGHTBIT"
+    "31": "LIGHTBIT",
+"25": "FLAMEBIT",
+"28": "TOOLBIT",
+"29": "WEAPONBIT"
   },
   "properties": {
     "7": "STRENGTH",

@@ -10,7 +10,7 @@ import { MusicCue } from './music.js';
 import { Discovery, observation, renderDiscovery } from './discovery.js';
 import { Engine } from './engine.js';
 import { scenes, nouns, sceneObjects, undergroundRooms, ambienceFor } from './scenes.js';
-import { actionsFor, relations, noun, visualState, changedSounds } from './interactions.js';
+import { actionsFor, relations, relationsFor, noun, visualState, changedSounds } from './interactions.js';
 import { spriteIndex, spriteStyle, renderLayers, hasItemArt, itemArt } from './layers.js';
 import { Soundscape } from './audio.js';
 import { sceneVariant } from './world-state.js';
@@ -21,7 +21,7 @@ const undoHistory=new UndoHistory(),commandHistory=new CommandHistory();
 let storyHash='';
 const storyCatalog={};
 const checkpoint=()=>capture(engine,history,discovery,storyHash);
-let engine, story, selected = null, history = [], targeting = null;
+let engine, story, selected = null, history = [], targeting = null, lastArrival = '';
 const sound = new Soundscape();
 let discovery=new Discovery();
 
@@ -54,6 +54,17 @@ function renderLog() {
   // taller than the viewport. Earlier history remains scrollable.
   const latest=log.lastElementChild;
   log.scrollTop=latest?latest.offsetTop-parseFloat(getComputedStyle(log).paddingTop):0;
+  renderPeek();
+}
+// Mobile keeps the journal folded behind the painting; surface the newest
+// response (original text, trimmed, never paraphrased) so a click has a visible
+// reply without leaving the scene. Desktop shows the journal itself.
+function renderPeek(){
+  const peek=$('journal-peek'),entry=history.at(-1);let text=entry?.text??'';
+  // The opening entry begins with the publisher banner; the location follows the first blank line.
+  if(entry&&!entry.command){const i=text.indexOf('\n\n');if(i>0)text=text.slice(i+2);}
+  const short=text.length>180?text.slice(0,180).replace(/\s+\S*$/,'')+'…':text;
+  peek.textContent=short;peek.hidden=!short||!$('journal-body').hidden||!mobileLayout.matches;
 }
 function select(id,anchor=null) {
   if(targeting) {
@@ -91,7 +102,7 @@ function renderSelection() {
     for(const child of children)button(engine.name(child),()=>select(child),$('contents')).setAttribute('aria-label',`Select contents: ${engine.name(child)}`);
   }
   if(engine.parent(id)===44) {
-    for(const [relation, spec] of Object.entries(relations)) button(spec.label,()=>{
+    for(const [relation, spec] of relationsFor(engine,id)) button(spec.label,()=>{
       targeting={id,relation};document.body.classList.add('targeting');
       $('instruction').textContent=`${engine.name(id)} → ${spec.label.toLowerCase()} Choose a target · Esc to cancel`;
       sceneMenu.close();
@@ -125,6 +136,8 @@ function render() {
   sound.setScene(ambienceFor(engine));
   $('unpainted').hidden=hasArt||!lit;
   $('hotspots').replaceChildren();
+  // Markers introduce themselves once per newly lit room, never on every command.
+  const arrivalKey=lit?String(state.room):'';$('hotspots').dataset.arrived=String(!!arrivalKey&&arrivalKey!==lastArrival);lastArrival=arrivalKey;
   const visible=scene?.ending?[]:sceneObjects(engine);
   for(const h of (hasArt?scene?.hotspots??[]:[])) {
     if(h.ids){
@@ -316,6 +329,7 @@ function setJournal(expanded){
   $('journal-body').hidden=!expanded;
   for(const el of document.querySelectorAll('.world,.sidebar,footer'))el.inert=expanded&&mobileLayout.matches;
   if(expanded)$('journal-toggle').removeAttribute('data-unread');
+  if(engine)renderPeek();
   if(expanded){requestAnimationFrame(()=>{const log=$('transcript'),latest=log.lastElementChild;log.scrollTop=latest?latest.offsetTop-parseFloat(getComputedStyle(log).paddingTop):0;});}
 }
 function responsiveLayout(){
@@ -324,6 +338,7 @@ function responsiveLayout(){
   $('preferences').open=false;
 }
 $('journal-toggle').addEventListener('click',()=>{journalPreference=$('journal-body').hidden;setJournal(journalPreference);});
+$('journal-peek').addEventListener('click',()=>{journalPreference=true;setJournal(true);$('transcript').focus({preventScroll:true});});
 $('journal-close').addEventListener('click',()=>{journalPreference=false;setJournal(false);$('journal-toggle').focus();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileLayout.matches&&!$('journal-body').hidden){journalPreference=false;setJournal(false);$('journal-toggle').focus();}if(e.key==='Escape')$('preferences').open=false;});
 mobileLayout.addEventListener('change',responsiveLayout);responsiveLayout();

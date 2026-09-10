@@ -12,7 +12,7 @@ export const scenes = {
   175:{art:'passage-atlas',cell:1,caption:'A fork in the silence.',objects:[],hotspots:[]},
   106:{art:'passage-atlas',cell:2,caption:'The path follows the edge.',objects:[],hotspots:[]},
   69:{art:'caves-atlas',cell:2,caption:'Old marks cover the cave walls.',objects:[],hotspots:supportingHotspots[69]},
-  64: { art: 'west-house', caption: 'A house at the edge of the unknown.', objects: [230,76], hotspots: [{id:230,x:23,y:67},{id:121,x:63,y:45}] },
+  64: { art: 'west-house', caption: 'A house at the edge of the unknown.', objects: [230,76], hotspots: [{id:230,x:21,y:56},{id:121,x:63,y:45}] },
   137: { art: 'north-house', caption: 'The woods keep their own counsel.', objects: [] },
   85: { art: 'behind-house-ajar-v2', caption: 'There is more than one way into a story.', objects: [243], hotspots: [{id:243,x:43,y:42}] },
   27: { art: 'kitchen', caption: 'Someone was here before you.', objects: [243,43,99,138], hotspots: localHotspots[27] },

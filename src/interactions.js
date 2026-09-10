@@ -19,18 +19,23 @@ export function actionsFor(engine, id) {
   return actions;
 }
 
+// `requires` is the flag the original grammar itself demands of the held item
+// (gsyntax.zil FIND FLAMEBIT / TOOLBIT / WEAPONBIT). It is a parser capability
+// read live from the VM, not a hint: a lit match gains FLAMEBIT, a leaflet
+// never gains WEAPONBIT. Relations without a bit are offered for every item.
 export const relations = {
-  light:{label:'Light with…',command:(item,target)=>`light ${target} with ${item}`},
+  light:{label:'Light with…',requires:25,command:(item,target)=>`light ${target} with ${item}`},
   tie:{label:'Tie to…',command:(item,target)=>`tie ${item} to ${target}`},
-  inflate:{label:'Inflate with…',command:(item,target)=>`inflate ${target} with ${item}`},
-  dig:{label:'Dig with…',command:(item,target)=>`dig ${target} with ${item}`},
-  turn: { label: 'Turn with…', command: (item,target)=>`turn ${target} with ${item}` },
+  inflate:{label:'Inflate with…',requires:28,command:(item,target)=>`inflate ${target} with ${item}`},
+  dig:{label:'Dig with…',requires:28,command:(item,target)=>`dig ${target} with ${item}`},
+  turn: { label: 'Turn with…',requires:28, command: (item,target)=>`turn ${target} with ${item}` },
   in: { label: 'Put in…', command: (item, target) => `put ${item} in ${target}` },
   on: { label: 'Put on…', command: (item, target) => `put ${item} on ${target}` },
   give: { label: 'Give to…', command: (item, target) => `give ${item} to ${target}` },
-  unlock: { label: 'Unlock with…', command: (item, target) => `unlock ${target} with ${item}` },
-  attack: { label: 'Attack with…', command: (item, target) => `attack ${target} with ${item}` },
+  unlock: { label: 'Unlock with…',requires:28, command: (item, target) => `unlock ${target} with ${item}` },
+  attack: { label: 'Attack with…',requires:29, command: (item, target) => `attack ${target} with ${item}` },
 };
+export const relationsFor=(engine,id)=>Object.entries(relations).filter(([,spec])=>!spec.requires||engine.flag(id,spec.requires));
 
 export function visualState(engine) {
   return {

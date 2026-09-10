@@ -94,3 +94,12 @@ system Chromium 141 binary because the Playwright browser download was not
 reachable; `npm run build:source` and `npm run verify:source` reproduced the
 shipped source hash. WebKit was not run in this environment and remains
 `needs_evidence` for this change until CI runs it.
+
+### Grammar-gated relations, popover clearance, mobile peek — 2026-09-10
+
+FLAMEBIT (25), TOOLBIT (28) and WEAPONBIT (29) were bound by matching each
+source flag's object set against every retail bit; each had exactly one match
+(`tests/relations.test.js` re-checks identity for all 250 objects). 49 node
+tests, 31 Chromium browser tests (adds `first-session.spec.js`) and the
+production build passed locally on Chromium 141. WebKit remains `needs_evidence`
+for these changes until CI runs it.
