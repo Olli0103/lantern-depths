@@ -54,3 +54,29 @@ test('quick Load and slot Load are reversible with Undo, keeping journal and inv
   await page.locator('#undo').click();await expect(page.locator('#inventory')).not.toContainText('leaflet');await expect(page.locator('#objects')).toContainText('leaflet');
   // A file import still starts a fresh session with no Undo history.
 });
+
+test('desktop journal fills spare height, resizes without scroll feedback, and keeps the mobile view',async({page})=>{
+  await page.goto('./');await expect(page.locator('#location')).toHaveText('West of House');
+  for(const [width,height] of [[980,1400],[1100,1300],[1100,1600]]){
+    await page.setViewportSize({width,height});
+    await expect.poll(async()=>page.evaluate(()=>{
+      const dock=document.querySelector('#command-form').getBoundingClientRect();
+      const footer=document.querySelector('body>footer').getBoundingClientRect();
+      return Math.round(dock.top-footer.bottom);
+    })).toBeGreaterThanOrEqual(8);
+    await expect.poll(async()=>page.evaluate(()=>document.querySelector('#command-form').getBoundingClientRect().top-document.querySelector('body>footer').getBoundingClientRect().bottom)).toBeLessThan(10);
+    expect((await box(page,'#transcript')).height).toBeGreaterThan(350);
+    await command(page,'look');await page.locator('#save').click();
+    const heightBefore=await page.evaluate(()=>document.documentElement.scrollHeight);
+    await page.evaluate(()=>window.scrollTo(0,document.documentElement.scrollHeight));
+    await page.waitForTimeout(100);
+    expect(await page.evaluate(()=>document.documentElement.scrollHeight)).toBe(heightBefore);
+    await page.evaluate(()=>window.scrollTo(0,0));
+  }
+  await page.setViewportSize({width:390,height:844});
+  await expect(page.locator('#mobile-utilities #save')).toHaveCount(1);
+  if(await page.locator('#journal-body').isHidden())await page.locator('#journal-toggle').click();
+  await expect(page.locator('#transcript')).toBeVisible();
+  const log=await box(page,'#transcript'),dock=await box(page,'#command-form');
+  expect(log.y+log.height).toBeLessThanOrEqual(dock.y);
+});

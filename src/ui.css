@@ -96,3 +96,9 @@ main{max-width:calc(var(--scene-max-height)*1.5 + 24px + var(--rail) + 2*var(--g
 /* Introduce markers only after their room has decoded, once per arrival. */
 #scene[data-painting="ready"] #hotspots[data-arrived="true"] .hotspot{animation:marker-arrival .9s ease-out both}
 @keyframes marker-arrival{0%{opacity:.3;filter:drop-shadow(0 0 7px #e2be6c)}100%{opacity:1;filter:drop-shadow(0 0 0 transparent)}}
+
+/* Measured from the actual rendered scene, not its maximum height. */
+@media(min-width:761px){
+ #transcript{height:var(--journal-height,160px)}
+ body>footer{padding-block:8px}
+}

@@ -63,3 +63,13 @@ Local release gate: 47 engine/integrity tests, 27 Chromium browser tests and 9
 focused WebKit tests passed. After the final focus/popover refinements, the
 7 affected Chromium checks and all 9 WebKit checks passed again; production
 build succeeded. These are browser-engine checks, not physical-device claims.
+
+
+### Desktop journal sizing (v1.1.1)
+
+The desktop transcript now uses actual document geometry rather than subtracting
+an assumed maximum painting height. ResizeObserver tracks the scene, header,
+status, credits and command dock; a coalesced resize update fills spare height,
+reserving only status/credits and 8px clearance. Document coordinates prevent
+page scrolling from repeatedly enlarging the journal. Short windows retain a
+120px transcript minimum and can scroll. Mobile keeps its existing journal view.

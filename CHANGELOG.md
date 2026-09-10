@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1 — Responsive desktop journal (2026-09-10)
+
+- Desktop journal fills spare vertical space using actual scene, status and command-dock geometry; resizes with the window.
+- Keeps a readable minimum on short windows and leaves mobile journal behavior unchanged.
+- Regression coverage includes tall/narrow windows, resizing, scroll stability and returning to mobile.
+
 ## 1.1.0 — First-session polish (2026-09-10)
 
 - Desktop and tablet paintings now scale to the window height (3:2 kept, nothing cropped) so the scene footer, Look control, the journal and the newest response are visible above the parser dock on 768–1080px-tall windows. Previously the opening prose and the first response were below the fold at 1280×720, 1440×900, 1600×900 and 1920×1080. The rail keeps to roughly 30% of the painting width; 720px-tall windows keep a 380px painting and scroll.

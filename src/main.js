@@ -360,4 +360,25 @@ $('parser-inventory').addEventListener('click',()=>engine&&run('inventory'));
 $('parser-help').addEventListener('click',()=>$('help-dialog').showModal());
 $('menu-help').addEventListener('click',()=>{$('preferences').open=false;$('help-dialog').showModal();});
 $('help-close').addEventListener('click',()=>$('help-dialog').close());
+// Fill spare desktop space without changing the mobile journal or creating a
+// scroll/resize feedback loop: measure the journal in document coordinates.
+let journalFrame;
+function sizeDesktopJournal(){
+  cancelAnimationFrame(journalFrame);
+  journalFrame=requestAnimationFrame(()=>{
+    if(mobileLayout.matches||$('journal-body').hidden)return;
+    const log=$('transcript'),footer=document.querySelector('body>footer');
+    const rect=log.getBoundingClientRect(),status=$('notice');
+    const margins=getComputedStyle(status);
+    const reserve=footer.getBoundingClientRect().height+status.getBoundingClientRect().height
+      +parseFloat(margins.marginTop)+parseFloat(margins.marginBottom)+8;
+    const height=Math.max(120,Math.floor($('command-form').getBoundingClientRect().top-(rect.top+scrollY)-reserve));
+    const value=height+'px';
+    if(log.style.getPropertyValue('--journal-height')!==value)log.style.setProperty('--journal-height',value);
+  });
+}
+const journalSizer=new ResizeObserver(sizeDesktopJournal);
+for(const el of [$('scene'),$('command-form'),$('notice'),document.querySelector('.masthead'),document.querySelector('.section-head'),document.querySelector('body>footer')])journalSizer.observe(el);
+new MutationObserver(sizeDesktopJournal).observe($('journal-body'),{attributes:true,attributeFilter:['hidden']});
+window.addEventListener('resize',sizeDesktopJournal);
 start();
