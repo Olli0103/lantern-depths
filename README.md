@@ -11,10 +11,9 @@
 [![Verification](https://github.com/Olli0103/lantern-depths/actions/workflows/ci.yml/badge.svg)](https://github.com/Olli0103/lantern-depths/actions)
 [![License: MIT](https://img.shields.io/badge/code-MIT-a89a61)](LICENSE)
 
-<img width="1479" height="1476" alt="image" src="https://github.com/user-attachments/assets/fcab2ccc-b497-4660-9eb4-5963fc3d1a06" />
-
-
 **Free to play in your browser. No account, installation or API key.**
+
+<img width="1479" height="1476" alt="image" src="https://github.com/user-attachments/assets/fcab2ccc-b497-4660-9eb4-5963fc3d1a06" />
 
 </div>
 
