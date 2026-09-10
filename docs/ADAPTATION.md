@@ -30,7 +30,7 @@ The whole original world remains accessible by parser. That is not evidence that
 
 ## Living-house milestone (v0.2)
 
-`interactions.js` derives ordinary verbs from object flags and translates item-to-target choices into existing parser syntax. It does not suggest special solutions. Item-to-target relations that the grammar restricts by flag (`gsyntax.zil` FIND FLAMEBIT / TOOLBIT / WEAPONBIT) are offered only when the held item currently has that flag in the VM; this mirrors the parser's own constraint and is not a hint. Selection and cancellation are UI-only. Sounds are triggered by confirmed before/after VM changes, not by the command string, so a refused attempt does not play a success effect.
+`interactions.js` derives ordinary verbs from object flags and translates item-to-target choices into existing parser syntax. It does not suggest special solutions. Common item-to-target buttons are filtered using live FLAMEBIT / TOOLBIT / WEAPONBIT flags. Zork's `FIND` flags guide inference of omitted objects, rather than rejecting explicitly named objects. This is a UI suggestion filter, not a promise that an action will succeed; unusual combinations remain available through the unrestricted parser. Selection and cancellation are UI-only. Sounds are triggered by confirmed before/after VM changes, not by the command string, so a refused attempt does not play a success effect.
 
 `layers.js` renders cells from one unchanged generated transparent sprite atlas. CSS positioning/perspective integrates the objects with the paintings; hidden objects are not present in the DOM. Reduced-motion preferences disable movement and dust effects. Darkness removes object layers entirely.
 

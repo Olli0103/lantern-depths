@@ -48,7 +48,10 @@ function renderLog() {
   $('journal-toggle').toggleAttribute('data-unread',$('journal-body').hidden);
   for(const entry of history) {
     if(entry.command) { const p=document.createElement('p'); p.className='command'; p.textContent='› '+entry.command; log.append(p); }
-    const p=document.createElement('p');p.textContent=entry.text;log.append(p);
+    // Keep the opening attribution in scrollback while initially showing the room.
+    const parts=!entry.command&&entry.text.includes('\n\n')
+      ? [entry.text.slice(0,entry.text.indexOf('\n\n')),entry.text.slice(entry.text.indexOf('\n\n')+2)] : [entry.text];
+    for(const text of parts){const p=document.createElement('p');p.textContent=text;log.append(p);}
   }
   // Keep the beginning of the newest response readable, even when it is
   // taller than the viewport. Earlier history remains scrollable.

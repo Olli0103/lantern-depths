@@ -11,6 +11,9 @@ test('desktop paintings scale to the window: Look, the journal and the newest re
     expect(scene.height).toBeGreaterThanOrEqual(380);
     expect(look.y+look.height).toBeLessThanOrEqual(dock.y);
     expect(transcript.y+transcript.height).toBeLessThanOrEqual(dock.y+1);
+    const opening=await page.locator('#transcript p').last().boundingBox();
+    await expect(page.locator('#transcript p').last()).toContainText('You are standing in an open field');
+    expect(opening.y).toBeGreaterThanOrEqual(transcript.y);
     await command(page,'open mailbox');
     const latest=await page.locator('#transcript p').last().boundingBox();
     expect(latest.y).toBeGreaterThanOrEqual(transcript.y);expect(latest.y+latest.height).toBeLessThanOrEqual(dock.y);

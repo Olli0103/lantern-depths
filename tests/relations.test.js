@@ -5,7 +5,7 @@ const builds=[readFileSync('vendor/zork1/COMPILED/zork1.z3'),readFileSync('publi
 const labels=(engine,id)=>relationsFor(engine,id).map(([key])=>key);
 const byName=(engine,name)=>{for(let id=1;id<=250;id++)if(engine.name(id)===name)return id;throw Error(name);};
 
-test('grammar-required flags gate item relations identically on both builds, without solving anything',()=>{
+test('live grammar inference flags filter common UI relations identically on both builds',()=>{
  for(const bytes of builds){
   const e=new Engine(VM,bytes);
   const leaflet=byName(e,'leaflet'),sword=byName(e,'sword'),candles=byName(e,'pair of candles'),wrench=byName(e,'wrench'),key=byName(e,'skeleton key'),match=byName(e,'matchbook');
@@ -24,4 +24,20 @@ test('grammar flag sets are identical across builds for every object',()=>{
  const [a,b]=builds.map(x=>new Engine(VM,x));
  for(const bit of [25,28,29])for(let id=1;id<=250;id++)assert.equal(b.flag(id,bit),a.flag(id,bit),`${id}/${bit}`);
  assert.equal([...Array(251).keys()].filter(id=>id&&a.flag(id,29)).length,6,'six weapons in release 119');
+});
+
+// Exercise real commands: UI filtering must not become an interpreter rule.
+test('explicit parser combinations remain unrestricted and match suggestions track lighting and restore',()=>{
+ const route=JSON.parse(readFileSync('tests/fixtures/winning-route.json'));
+ for(const bytes of builds){
+  const e=new Engine(VM,bytes);e.vm.xorshift_seed=route.seed;
+  e.command('open mailbox');e.command('take leaflet');
+  assert.match(e.command('attack mailbox with leaflet'),/fighting a small mailbox/);
+  const fresh=new Engine(VM,bytes);fresh.vm.xorshift_seed=route.seed;
+  for(const c of route.commands){fresh.command(c);if(fresh.inventory().some(o=>o.name==='matchbook'))break;}
+  const match=byName(fresh,'matchbook');assert.equal(fresh.parent(match),44);
+  const before=fresh.snapshot();assert.ok(!labels(fresh,match).includes('light'));
+  assert.match(fresh.command('light match'),/starts to burn/);assert.ok(labels(fresh,match).includes('light'));
+  fresh.restore(before);assert.ok(!labels(fresh,match).includes('light'));
+ }
 });

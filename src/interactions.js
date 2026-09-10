@@ -19,23 +19,22 @@ export function actionsFor(engine, id) {
   return actions;
 }
 
-// `requires` is the flag the original grammar itself demands of the held item
-// (gsyntax.zil FIND FLAMEBIT / TOOLBIT / WEAPONBIT). It is a parser capability
-// read live from the VM, not a hint: a lit match gains FLAMEBIT, a leaflet
-// never gains WEAPONBIT. Relations without a bit are offered for every item.
+// FIND flags guide the original parser's inference of omitted objects; they
+// are not hard constraints on explicitly named items. Use those live flags to
+// keep common UI actions concise. The unrestricted parser remains available.
 export const relations = {
-  light:{label:'Light with…',requires:25,command:(item,target)=>`light ${target} with ${item}`},
+  light:{label:'Light with…',suggestedBy:25,command:(item,target)=>`light ${target} with ${item}`},
   tie:{label:'Tie to…',command:(item,target)=>`tie ${item} to ${target}`},
-  inflate:{label:'Inflate with…',requires:28,command:(item,target)=>`inflate ${target} with ${item}`},
-  dig:{label:'Dig with…',requires:28,command:(item,target)=>`dig ${target} with ${item}`},
-  turn: { label: 'Turn with…',requires:28, command: (item,target)=>`turn ${target} with ${item}` },
+  inflate:{label:'Inflate with…',suggestedBy:28,command:(item,target)=>`inflate ${target} with ${item}`},
+  dig:{label:'Dig with…',suggestedBy:28,command:(item,target)=>`dig ${target} with ${item}`},
+  turn: { label: 'Turn with…',suggestedBy:28, command: (item,target)=>`turn ${target} with ${item}` },
   in: { label: 'Put in…', command: (item, target) => `put ${item} in ${target}` },
   on: { label: 'Put on…', command: (item, target) => `put ${item} on ${target}` },
   give: { label: 'Give to…', command: (item, target) => `give ${item} to ${target}` },
-  unlock: { label: 'Unlock with…',requires:28, command: (item, target) => `unlock ${target} with ${item}` },
-  attack: { label: 'Attack with…',requires:29, command: (item, target) => `attack ${target} with ${item}` },
+  unlock: { label: 'Unlock with…',suggestedBy:28, command: (item, target) => `unlock ${target} with ${item}` },
+  attack: { label: 'Attack with…',suggestedBy:29, command: (item, target) => `attack ${target} with ${item}` },
 };
-export const relationsFor=(engine,id)=>Object.entries(relations).filter(([,spec])=>!spec.requires||engine.flag(id,spec.requires));
+export const relationsFor=(engine,id)=>Object.entries(relations).filter(([,spec])=>!spec.suggestedBy||engine.flag(id,spec.suggestedBy));
 
 export function visualState(engine) {
   return {

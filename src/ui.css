@@ -92,3 +92,7 @@ main{max-width:calc(var(--scene-max-height)*1.5 + 24px + var(--rail) + 2*var(--g
 .section-head h2 span{display:inline;font:inherit;color:inherit;font-style:normal}
 #journal-toggle[data-unread]::after{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block}
 #scene-actions #relations:empty{display:none}
+
+/* Introduce markers only after their room has decoded, once per arrival. */
+#scene[data-painting="ready"] #hotspots[data-arrived="true"] .hotspot{animation:marker-arrival .9s ease-out both}
+@keyframes marker-arrival{0%{opacity:.3;filter:drop-shadow(0 0 7px #e2be6c)}100%{opacity:1;filter:drop-shadow(0 0 0 transparent)}}

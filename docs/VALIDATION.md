@@ -103,3 +103,32 @@ source flag's object set against every retail bit; each had exactly one match
 tests, 31 Chromium browser tests (adds `first-session.spec.js`) and the
 production build passed locally on Chromium 141. WebKit remains `needs_evidence`
 for these changes until CI runs it.
+
+
+### Fable bundle review and v1.1.0 — 2026-09-10
+
+Reviewed bundle tip `07c4a3f` (two commits based on `1f26901`). Original
+contributor commits are preserved. Review corrections:
+
+- The marker-arrival dataset had no animation rule. Added a short animation
+  gated on decoded room artwork; Chromium and WebKit assert the animation
+  exists and that reduced-motion disables it.
+- Height fitting alone left the initial room prose below the publisher banner.
+  Render the opening banner separately in scrollback, without changing saved
+  journal text; assert the initial room paragraph is visible in the journal.
+- `FIND` flags are preferences for inferring omitted parser objects, not hard
+  restrictions on explicit commands. Corrected implementation comments and
+  documentation. Common-action filtering stays UI-only; a real-command test
+  verifies an explicit non-weapon combination reaches the original response.
+- Added a real-route test for match lighting and restoring its live flag on both
+  story builds. Synced package and lockfile version/Node metadata.
+
+Local final evidence: 50 Node tests, 31 Chromium browser tests and 13 WebKit
+browser tests passed against the unchanged production preview. Coverage
+includes the 350-point route, 108 reachable-room checkpoints, quick/slot Load
+recovery, existing save/import checks, darkness, long journal responses and
+slow image transitions. Production build and source rebuild/adapter verification
+passed; story checksum remains
+`e21b4e04a078349e9bbcc8d6a324c5d01ffc3f16db1e8c9c0f32294c01794b58`.
+Desktop and mobile opening/selected-mailbox screenshots were visually inspected.
+Physical iPhone keyboard/browser chrome remains unverified.

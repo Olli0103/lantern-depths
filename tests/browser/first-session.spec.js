@@ -6,6 +6,10 @@ test('relations follow grammar flags, the popover clears the object it acts on, 
   await expect(page.locator('#scene')).toHaveAttribute('data-painting','ready');
   await expect(page.locator('#hotspots')).toHaveAttribute('data-arrived','true');
   const marker=page.getByRole('button',{name:'Inspect small mailbox',exact:true});
+  await expect(marker).toHaveCSS('animation-name','marker-arrival');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await expect(marker).toHaveCSS('animation-name','none');
+  await page.emulateMedia({reducedMotion:'no-preference'});
   await marker.click();
   const panel=page.locator('#scene-actions');await expect(panel).toBeVisible();
   const m=await marker.boundingBox(),r=await panel.boundingBox();
