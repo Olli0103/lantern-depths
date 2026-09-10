@@ -10,9 +10,13 @@ object, inventory, selection, transcript and parser IDs remain intact.
 - Tablet (761–1100px): narrower rail and reduced spacing; no duplicated controls.
 - Mobile (up to 760px): compact single-row header, full-width scene, Nearby rows,
   compact movement and satchel, and an independently scrollable journal view.
-- Artwork and object layers keep their exact shared 3:2 geometry. The desktop
-  document can scroll on short windows; images are never cropped to force the
-  whole scene and transcript into one screen.
+- Artwork and object layers keep their exact shared 3:2 geometry. Nothing is
+  cropped: on desktop and tablet the painting scales to the window height
+  (`--scene-max-height`, 380px floor, 440px reserved for chrome and the first
+  journal lines) so the Look control, journal and newest response sit above
+  the fixed parser dock from 768px-tall windows upward. Before this, the
+  opening prose was below the fold on every common laptop size. The sidebar
+  rail follows the painting width (about 30%); 720px-tall windows scroll.
 
 Mobile moves the existing Sound, Map, Save and Load buttons into Menu, keeping
 IDs and listeners. Journal defaults closed on mobile, open on desktop, with an
@@ -38,7 +42,9 @@ preference and the existing in-game setting.
   compact sheets and 44px sheet actions.
 - Existing tests now open the mobile Menu or Journal before using relocated
   controls. Their original behavioral and visual assertions were not removed.
-- `npm run test:webkit` runs the focused 9-test UI/interaction regression set in
+- `recovery.spec.js` checks the viewport fit at five desktop sizes and that quick
+  and slot Load are reversible with Undo.
+- `npm run test:webkit` runs the focused UI/interaction regression set in
   WebKit. CI installs and runs WebKit as well as the full Chromium suite.
 - Visually inspected West of House, mailbox selection, Living Room, inventory,
   dark Cellar, lit Cellar and Troll Room; mobile scene, sheet and journal also

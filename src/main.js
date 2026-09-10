@@ -221,12 +221,17 @@ for(const [label,command] of [['NW','northwest'],['N','north'],['NE','northeast'
 for(const direction of ['up','down','in','out'])button(direction,()=>run(direction),$('vertical'));
 $('command-form').addEventListener('submit',e=>{e.preventDefault();if(!engine)return;run($('command').value);$('command').value='';});
 $('look').addEventListener('click',()=>engine&&run('look'));
-function applyCheckpoint(raw,{undo=false}={}) {
+// A Load is a reversible step, not a point of no return: the session being
+// replaced is pushed onto the Undo history first, so a misclick on Load (which
+// sits next to Save) costs nothing. Only an imported file clears the history.
+function applyCheckpoint(raw,{undo=false,recoverable=false}={}) {
   const restored=decodeSave(raw,window.ZVM,story,storyHash,undo?engine.entropy.snapshot():undefined,storyCatalog);
+  const previous=recoverable?checkpoint():null;
   engine=restored.engine;history=restored.history;discovery=restored.discovery;
   sceneMenu.close();selected=null;cancelTarget();$('selection').hidden=true;
   for(const id of ['detail','map-dialog'])if($(id).open)$(id).close();
-  if(!undo){undoHistory.clear();commandHistory.reset();}
+  if(previous)undoHistory.push(previous);
+  else if(!undo){undoHistory.clear();commandHistory.reset();}
   render();
 }
 $('undo').addEventListener('click',()=>{
@@ -242,7 +247,7 @@ $('command').addEventListener('keydown',e=>{
 $('save').addEventListener('click',()=>{if(!engine)return;try{localStorage.setItem(key,JSON.stringify(checkpoint()));notice('Your place in the story is saved in this browser.');}catch(e){notice('Save failed: '+e.message);}});
 $('load').addEventListener('click',()=>{
   if(!story)return;
-  try {const raw=localStorage.getItem(key);if(!raw)throw new Error('No saved adventure in this browser yet.');applyCheckpoint(raw);notice('Welcome back. Your adventure has been restored.');}
+  try {const raw=localStorage.getItem(key);if(!raw)throw new Error('No saved adventure in this browser yet.');applyCheckpoint(raw,{recoverable:true});notice('Welcome back. Your adventure has been restored. Undo returns to where you just were.');}
   catch(e){notice('Load failed: '+e.message);}
 });
 function downloadFile(name,content,type){
@@ -257,7 +262,7 @@ function renderSlots(){
     const name=document.createElement('input');name.id=label.htmlFor;name.maxLength=60;name.value=meta?.label??'';name.placeholder='Name this adventure';row.append(name);
     const date=document.createElement('small');date.textContent=meta?(meta.savedAt?new Date(meta.savedAt).toLocaleString():'Earlier save'):'Empty slot';row.append(date);
     button('Save here',()=>{try{if(raw&&!window.confirm('Replace this saved adventure?'))return;saveSlot(localStorage,id,name.value,checkpoint());renderSlots();$('saves-notice').textContent='Adventure saved.';}catch(e){$('saves-notice').textContent='Save failed: '+e.message;}},row);
-    const load=button('Load adventure',()=>{try{const saved=readSlot(localStorage,id);if(!saved)throw Error('Empty slot.');applyCheckpoint(saved);$('saves-dialog').close();notice('Saved adventure restored.');}catch(e){$('saves-notice').textContent='Load failed: '+e.message;}},row);load.disabled=!raw;
+    const load=button('Load adventure',()=>{try{const saved=readSlot(localStorage,id);if(!saved)throw Error('Empty slot.');applyCheckpoint(saved,{recoverable:true});$('saves-dialog').close();notice('Saved adventure restored. Undo returns to where you just were.');}catch(e){$('saves-notice').textContent='Load failed: '+e.message;}},row);load.disabled=!raw;
   }
 }
 $('save-manager').addEventListener('click',()=>{if(!engine)return;try{renderSlots();$('saves-notice').textContent='';$('preferences').open=false;$('saves-dialog').showModal();}catch(e){notice('Saves unavailable: '+e.message);}});

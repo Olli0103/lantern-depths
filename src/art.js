@@ -5,7 +5,9 @@ export function setPaintingSource(source,id,atlas=false){
   if(!asset){source.removeAttribute('srcset');return;}
   source.srcset=asset.variants.map(v=>`./art/webp/${v.file} ${v.width}w`).join(', ');
   // A clipped atlas is twice the displayed room width: preserve its cell detail.
-  source.sizes=atlas?'(max-width: 760px) 200vw, 150vw':'(max-width: 760px) 100vw, 75vw';
+  // Desktop paintings are capped by viewport height (see ui.css --scene-max-height).
+  const desk='min(75vw, calc(max(380px, 100dvh - 440px) * 1.5))';
+  source.sizes=atlas?`(max-width: 760px) 200vw, calc(${desk} * 2)`:`(max-width: 760px) 100vw, ${desk}`;
 }
 export function propImage(id){
   const asset=manifest[id];const webp=asset?.variants.at(-1)?.file;

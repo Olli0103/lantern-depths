@@ -78,3 +78,19 @@ unchanged. Desktop keyboard selection, mobile menu/journal access, sheet bounds,
 44px action targets, old saves, darkness, slow image transitions and the complete
 350-point route remain checked. A physical-iPhone software-keyboard test is not
 claimed; WebKit emulation cannot establish that result.
+
+### Desktop fit and recoverable Load — 2026-09-10
+
+Manual play on the previous build (Chromium 141, 1440×900) showed the journal
+starting at y=904 and the first response "Opening the small mailbox reveals a
+leaflet." invisible without scrolling; at 1280×720 the fixed dock covered the
+bottom of the painting and the Look control was off-screen. The painting now
+scales to window height (see RESPONSIVE-UI.md). Quick Load previously cleared
+the Undo history without confirmation; it is now reversible.
+
+Evidence on this tree: 47 node tests, 29 Chromium browser tests (including
+the new `recovery.spec.js`) and the production build passed locally using a
+system Chromium 141 binary because the Playwright browser download was not
+reachable; `npm run build:source` and `npm run verify:source` reproduced the
+shipped source hash. WebKit was not run in this environment and remains
+`needs_evidence` for this change until CI runs it.
